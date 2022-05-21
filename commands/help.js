@@ -25,6 +25,8 @@ module.exports = {
         .setColor("RANDOM")
         .setDescription(send)
         .addField(`Usage`, 'Slash commands ( **/** ) work *|* The old prefix ( **+** ) DOES NOT work anymore!')
+        .setFooter({ text: 'Xero', iconURL: client.user.avatarURL() });
+        
         interaction.reply({embeds: [embed]})
     }
 }

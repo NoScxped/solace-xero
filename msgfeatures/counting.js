@@ -1,4 +1,4 @@
-if(data(`read`, `guild`, message.guild.id, `countingChannel`, ``) != null){
+if(data(`exists`, `guild`, message.guild.id, `countingChannel`, ``)){
 if(data(`read`, `guild`, message.guild.id, `countingChannel`, ``) === message.channel.id){
     var num = parseInt(data(`read`, `guild`, message.guild.id, `countingNumber`)) + 1
                 num = parseInt(num)
@@ -38,4 +38,7 @@ if(data(`read`, `guild`, message.guild.id, `countingChannel`, ``) === message.ch
                     }
                 }
             }
+} else {
+    data(`write`, `guild`, interaction.guild.id `pollChannel`, "0")
+    data(`write`, `guild`, interaction.guild.id `countingChannel`, "0")
 }

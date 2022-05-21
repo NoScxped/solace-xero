@@ -4,14 +4,14 @@ const { MessageActionRow, MessageButton, Message, Discord, MessageEmbed } = requ
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('rank')
-		.setDescription('Rank')
+		.setDescription('User statistics')
         .addUserOption(option =>
             option
                 .setName('user')
                 .setDescription('User')
                 .setRequired(false)
         ),
-	async execute(interaction, data) {
+	async execute(interaction, data, client) {
 
         if(interaction.options.getUser(`user`)){
 
@@ -28,12 +28,14 @@ module.exports = {
         if(data(`exists`, `user`, interaction.user.id)){
 
             var embed = new MessageEmbed()
-                .setTitle(`Info for ` + interaction.user.username)
+                .setAuthor({ name: interaction.user.username, iconURL: interaction.user.avatarURL(), url: interaction.user.avatarURL() })
                 .setColor(`RANDOM`)
-                .addField(`Credits`, data(`read`, `user`, interaction.user.id, `credits`))
-                .addField(`Level`, data(`read`, `user`, interaction.user.id, `level`))
-                .addField(`XP`, data(`read`, `user`, interaction.user.id, `xp`))
-                .addField(`XP needed for level up`, data(`read`, `user`, interaction.user.id, `pointsNeeded`))
+                .setThumbnail(interaction.user.avatarURL())
+                .addField(`Credits`, data(`read`, `user`, interaction.user.id, `credits`), true)
+                .addField(`Level`, data(`read`, `user`, interaction.user.id, `level`), true)
+                .addField(`XP`, data(`read`, `user`, interaction.user.id, `xp`), true)
+                .addField(`XP needed for level up`, data(`read`, `user`, interaction.user.id, `pointsNeeded`), true)
+                .setFooter({ text: 'Xero', iconURL: client.user.avatarURL() });
 
             interaction.reply({embeds: [embed]})
 

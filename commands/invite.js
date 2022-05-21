@@ -4,7 +4,7 @@ const { MessageActionRow, MessageButton, Message, Discord, MessageEmbed } = requ
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('invite')
-		.setDescription('Invite the bot to other servers!'),
+		.setDescription('Invite the bot to your server!'),
 	async execute(interaction, data) {
 
 		const row = new MessageActionRow()
