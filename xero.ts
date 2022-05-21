@@ -26,11 +26,11 @@ for (const file of commands){
 }
 //message features (leveling, counting, etc)
 const msgfeatures = fs.readdirSync(path.resolve('./msgfeatures')).filter(file => file.endsWith(`.js` || `.ts`))
+var features = new Set()
 for (const file of msgfeatures){
-    const feature = require(`./msgfeatures/` + file)
     try {
         console.log(file)
-    client.msgfeatures.set(feature.data.id, feature)
+    features.add(file)
 }
     catch(err) {
         console.error(err)
@@ -104,13 +104,9 @@ client.on('ready', () => {
 //message features (leveling, counting, etc)
 client.on('messageCreate', message => {
     if(!message.author.bot){
-        client.msgfeatures.forEach((feature) => {
-            try {
-                feature.execute(message, data, client, Discord)
-            } catch(err){
-                console.log(err)
-            }
-        })
+     features.forEach((msgfeature) => {
+         eval(fs.readFileSync(`./msgfeatures/${msgfeature}`, "utf-8"))
+     })  
     }
 })
 //slash commands

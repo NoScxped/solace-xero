@@ -1,8 +1,4 @@
-module.exports = {
-	data: 
-		id = 'leveling',
-		description: 'leveling system',
-	    execute(message, data, client, Discord) {
+
 
 		if(!data(`exists`, `guild`, message.guild.id, ``, ``)){
 
@@ -43,5 +39,4 @@ module.exports = {
                 }
             }
         }
-	}
-}
+	
