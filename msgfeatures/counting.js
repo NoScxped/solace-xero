@@ -39,6 +39,6 @@ if(data(`read`, `guild`, message.guild.id, `countingChannel`, ``) === message.ch
                 }
             }
 } else {
-    data(`write`, `guild`, interaction.guild.id `pollChannel`, "0")
-    data(`write`, `guild`, interaction.guild.id `countingChannel`, "0")
+    data(`write`, `guild`, message.guild.id, `pollChannel`, "0")
+    data(`write`, `guild`, message.guild.id, `countingChannel`, "0")
 }
