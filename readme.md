@@ -1,10 +1,8 @@
-Yo yo yo robot fr
+Xero
 
 To run the bot, run the followning in the terminal
     > npm install discord.js@v13.7.0
     > npm install @discordjs/rest discord-api-types
-
-Then run the "start.bat" file
 
 --- Config --- 
 here is how config.json should look
@@ -15,3 +13,5 @@ here is how config.json should look
     "status_message": "YOUR_STATUS_MESSAGE_HERE",
     "URL": "TWITCH_URL (Optional, will only show up if status tpye is STREAMING)"
 }
+
+Then run the "start.bat" file
