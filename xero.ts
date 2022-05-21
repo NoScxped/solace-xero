@@ -11,7 +11,9 @@ const fs = require('fs')
 const path = require('path')
 module.exports = client;
 client.commands = new Collection();
+client.msgfeatures = new Collection()
 
+//commands
 const commands = fs.readdirSync(path.resolve('./commands')).filter(file => file.endsWith(`.js` || `.ts`))
 for (const file of commands){
     const command = require(`./commands/` + file)
@@ -22,10 +24,29 @@ for (const file of commands){
         console.error(err)
     }
 }
-
+//message features (leveling, counting, etc)
+const msgfeatures = fs.readdirSync(path.resolve('./msgfeatures')).filter(file => file.endsWith(`.js` || `.ts`))
+for (const file of msgfeatures){
+    const feature = require(`./msgfeatures/` + file)
+    try {
+    client.msgfeatures.set(feature.data.id, feature)
+}
+    catch(err) {
+        console.error(err)
+    }
+}
 //data thing
 //fuck databases or wtv
 function data(func, type, id, string, val){
+    try {
+    //check if exists
+    if(func === 'exists'){
+        if(fs.existsSync(`./data/${type}/${id}.json`)){
+            return true
+        } else {
+            return false
+        }
+    }
     //reading a file
     if(func === "read"){
         if(fs.existsSync(`./data/${type}/${id}.json`)){
@@ -36,7 +57,7 @@ function data(func, type, id, string, val){
                     res = i
                 }
             }
-            return res
+            return obj[res].toString()
         }
     }
     //writing to a file
@@ -44,11 +65,9 @@ function data(func, type, id, string, val){
         if(fs.existsSync(`./data/${type}/${id}.json`)){
             var obj = JSON.parse(fs.readFileSync(`./data/${type}/${id}.json`, `utf-8`))
             var arr = new Set()
-            console.log(obj)
             Object.keys(obj).forEach((key) => {
                 if(key === string){
                     if(string in obj){
-                    console.log(obj[key])
                     obj[key] = val
                     }
                 }
@@ -57,8 +76,13 @@ function data(func, type, id, string, val){
                 obj[string] = val
             }
             fs.writeFileSync(`./data/${type}/${id}.json`, JSON.stringify(obj))
+        } else {
+            fs.writeFileSync(`./data/${type}/${id}.json`, `{"${string}": "${val}"}`)
         }
     }
+} catch(err) {
+    console.error(err)
+}
 }
 client.on('ready', () => {
     console.log(`Logged in`)
@@ -72,7 +96,19 @@ client.on('ready', () => {
         console.error()
     }
 })
-
+//message features (leveling, counting, etc)
+client.on('messageCreate', message => {
+    if(!message.author.bot){
+        client.msgfeatures.forEach((feature) => {
+            try {
+                feature.execute(message, data, client, Discord)
+            } catch(err){
+                console.log(err)
+            }
+        })
+    }
+})
+//slash commands
 client.on(`interactionCreate`, async interaction => {
     if(interaction.isCommand()){
         const command = client.commands.get(interaction.commandName)
