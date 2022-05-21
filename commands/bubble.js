@@ -4,7 +4,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('bubble')
 		.setDescription('Play with bubble wrap!'),
-	async execute(interaction, data) {
+	async execute(interaction, data, client) {
         var embed = new MessageEmbed()
         .setTitle('Bubble wrap!')
         .setColor("RANDOM")
