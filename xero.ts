@@ -29,6 +29,7 @@ const msgfeatures = fs.readdirSync(path.resolve('./msgfeatures')).filter(file =>
 for (const file of msgfeatures){
     const feature = require(`./msgfeatures/` + file)
     try {
+        console.log(file)
     client.msgfeatures.set(feature.data.id, feature)
 }
     catch(err) {
@@ -56,6 +57,10 @@ function data(func, type, id, string, val){
                 if (i = string){
                     res = i
                 }
+            }
+            if(res === ''){
+                console.log(false)
+                return false
             }
             return obj[res].toString()
         }
