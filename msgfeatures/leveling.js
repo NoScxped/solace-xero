@@ -1,6 +1,4 @@
-
-
-		if(!data(`exists`, `guild`, message.guild.id, ``, ``)){
+    if(!data(`exists`, `guild`, message.guild.id, ``, ``)){
 
             data(`write`, `guild`, message.guild.id, `levelChannel`, `0`)
 
@@ -39,4 +37,3 @@
                 }
             }
         }
-	

@@ -62,7 +62,7 @@ function data(func, type, id, string, val){
                 console.log(false)
                 return false
             }
-            return obj[res].toString()
+            return obj[res]
         }
     }
     //writing to a file
