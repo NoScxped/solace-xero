@@ -14,11 +14,11 @@ module.exports = {
         try {
         if(interaction.options.getChannel(`poll`)){
             data(`write`, `guild`, interaction.guild.id, `pollChannel`, interaction.options.getChannel(`poll`).id.toString())
-            client.channels.cache.get(interaction.options.getChannel(`counting`).id.toString()).send(`This channel is now polls channel!`)
+            client.channels.cache.get(interaction.options.getChannel(`poll`).id.toString()).send(`This channel is now polls channel!`)
         }
         if(interaction.options.getChannel(`level-up`)){
             data(`write`, `guild`, interaction.guild.id, `levelChannel`, interaction.options.getChannel(`level-up`).id.toString())
-            client.channels.cache.get(interaction.options.getChannel(`counting`).id.toString()).send(`This channel is now the level-up channel!`)
+            client.channels.cache.get(interaction.options.getChannel(`level-up`).id.toString()).send(`This channel is now the level-up channel!`)
         }
         if(interaction.options.getChannel(`counting`)){
 
