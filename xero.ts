@@ -15,7 +15,12 @@ client.commands = new Collection();
 const commands = fs.readdirSync(path.resolve('./commands')).filter(file => file.endsWith(`.js` || `.ts`))
 for (const file of commands){
     const command = require(`./commands/` + file)
+    try {
     client.commands.set(command.data.name, command)
+}
+    catch(err) {
+        console.error(err)
+    }
 }
 
 client.on('ready', () => {
@@ -25,14 +30,13 @@ client.on('ready', () => {
     } catch {
         console.error()
     }
-    
 })
 
 client.on(`interactionCreate`, async interaction => {
     if(interaction.isCommand()){
         const command = client.commands.get(interaction.commandName)
         try {
-            await command.execute(intercation, client, Discord)
+            await command.execute(interaction, client, Discord)
         } catch (error) {
             console.error(error)
             await interaction.reply({ content: 'There was an error executing this command!', ephemeral: true })
