@@ -5,7 +5,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('invite')
 		.setDescription('Invite the bot to other servers!'),
-	async execute(interaction) {
+	async execute(interaction, data) {
 
 		const row = new MessageActionRow()
 		.addComponents(

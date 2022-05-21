@@ -10,6 +10,8 @@ Then run the "start.bat" file
 here is how config.json should look
 {
     "token": "YOUR_TOKEN_GOES_HERE",
-    "status_type": "WATCHING, STREAMING, PLAYING, or LISTENING",
-    "status_message": "YOUR_STATUS_MESSAGE_HERE"
+    "client_id": "ROBOTS_USER_ID",
+    "status_type": "WATCHING, STREAMING, COMPETING, PLAYING, or LISTENING",
+    "status_message": "YOUR_STATUS_MESSAGE_HERE",
+    "URL": "TWITCH_URL (Optional, will only show up if status tpye is STREAMING)"
 }

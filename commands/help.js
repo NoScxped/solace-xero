@@ -8,7 +8,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('help')
 		.setDescription('Get help with all things Xero'),
-	async execute(interaction) {
+	async execute(interaction, data) {
         const fs = require('node:fs');
         const commands = [];
         const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
