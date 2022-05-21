@@ -6,6 +6,7 @@ const client = new Client({
         parse: ['users', 'roles']
     }
 })
+
 const config = require(`./config.json`)
 const fs = require('fs')
 const path = require('path')
@@ -24,18 +25,19 @@ for (const file of commands){
         console.error(err)
     }
 }
+
 //message features (leveling, counting, etc)
 const msgfeatures = fs.readdirSync(path.resolve('./msgfeatures')).filter(file => file.endsWith(`.js` || `.ts`))
 var features = new Set()
 for (const file of msgfeatures){
     try {
-        console.log(file)
     features.add(file)
 }
     catch(err) {
         console.error(err)
     }
 }
+
 //data thing
 //fuck databases or wtv
 function data(func, type, id, string, val){
@@ -89,6 +91,7 @@ function data(func, type, id, string, val){
     console.error(err)
 }
 }
+
 client.on('ready', () => {
     console.log(`Logged in`)
     try {
@@ -101,6 +104,7 @@ client.on('ready', () => {
         console.error()
     }
 })
+
 //message features (leveling, counting, etc)
 client.on('messageCreate', message => {
     if(!message.author.bot){
@@ -109,6 +113,7 @@ client.on('messageCreate', message => {
      })  
     }
 })
+
 //slash commands
 client.on(`interactionCreate`, async interaction => {
     if(interaction.isCommand()){
@@ -121,4 +126,5 @@ client.on(`interactionCreate`, async interaction => {
         }
     }
 })
+
 client.login(config.token)
