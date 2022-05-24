@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageActionRow, MessageButton, Message, Discord, MessageEmbed } = require('discord.js');
-
+const { Permissions } = require('discord.js');
 module.exports = {
 	data: new SlashCommandBuilder()
     .setName('poll')
@@ -10,7 +10,7 @@ module.exports = {
     .toJSON(),
 
     async execute(interaction, data, client) {
-
+        if(interaction.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR]) || interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])){
         var embed = new MessageEmbed()
         .setTitle(interaction.options.getString('title'))
         .setColor("RANDOM")
@@ -33,5 +33,7 @@ module.exports = {
             interaction.reply({content: `Please set a polls channel in settings!`, ephemeral: true})
             
         }
-    }
+    } else {
+        interaction.reply({content: `You do not have either of the following permissions: Admin, Manage Channels`, ephemeral: true})
+    } }
 }

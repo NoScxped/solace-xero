@@ -34,7 +34,7 @@
                         try {
                         client.channels.cache.get(channel).send(`Congrats **${message.author.username}**, you leveled up to level **${newlvl}**`)
                         } catch(err){
-                            console.error(err)
+
                         }
 
                     }

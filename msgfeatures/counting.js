@@ -14,8 +14,9 @@ if(data(`read`, `guild`, message.guild.id, `countingChannel`, ``) === message.ch
 
                         message.content = parseInt(message.content)
                         if(message.content != parseInt(data(`read`, `guild`, message.guild.id, `countingNumber`)) + 1){
+                            if(data(`read`, `user`, message.author.id, `save`) === `0` || data(`read`, `user`, message.author.id, `save`) === undefined){ 
 
-                            message.react('❌')
+                                message.react('❌')
                             data(`write`, `guild`, message.guild.id, `countingNumber`, "0")
                             data(`write`, `guild`, message.guild.id, `lastCountingId`, "0")
 
@@ -26,6 +27,22 @@ if(data(`read`, `guild`, message.guild.id, `countingChannel`, ``) === message.ch
                             .setDescription(`***${message.author.username}*** broke the spree!`)
                             .addField(`Next Number:`, '**1**')
                             message.reply({embeds: [embed]})
+                            } else {
+
+                                message.react(`😨`)
+                                var {MessageEmbed} = require(`discord.js`)
+                                var add = parseInt(data(`read`, `guild`, message.guild.id, `countingNumber`)) + 1
+                            var sub = parseInt(data(`read`, `user`, message.author.id, `save`)) - 1
+                            var embed = new MessageEmbed()
+                            .setTitle("Spree Saved!")
+                            .setColor("RANDOM")
+                            .setDescription(`***${message.author.username}*** messed up, but they had a save!`)
+                            .addField(`Next Number:`, add.toString())
+                            data(`write`, `user`, message.author.id, `save`, sub.toString())
+                            data(`write`, `guild`, message.guild.id, `lastCountingId`, message.author.id.toString())
+                            message.reply({embeds: [embed]})
+
+                            }
 
                         } else {
 

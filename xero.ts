@@ -61,7 +61,6 @@ function data(func, type, id, string, val){
                 }
             }
             if(res === ''){
-                console.log(false)
                 return false
             }
             return obj[res]
@@ -92,7 +91,8 @@ function data(func, type, id, string, val){
 }
 }
 
-client.on('ready', () => {
+console.log(data(`read`, `user`, `579483193665781770`, `saves`, ``))
+client.on('ready', () => {  
     console.log(`Logged in`)
     try {
         var link = null
