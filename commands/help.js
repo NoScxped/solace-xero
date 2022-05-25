@@ -8,7 +8,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('help')
 		.setDescription('Get help with all things Xero'),
-	async execute(interaction, data, client) {
+	async execute(interaction, data, client, Discord, splashtext) {
         const fs = require('node:fs');
         const commands = [];
         const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -25,7 +25,7 @@ module.exports = {
         .setColor("RANDOM")
         .setDescription(send)
         .addField(`Usage`, 'Slash commands ( **/** ) work *|* The old prefix ( **+** ) DOES NOT work anymore!')
-        .setFooter({ text: 'Xero', iconURL: client.user.avatarURL() });
+        .setFooter({ text: splashtext.toString(), iconURL: client.user.avatarURL() });
         
         interaction.reply({embeds: [embed]})
     }

@@ -14,7 +14,6 @@ if(data(`read`, `guild`, message.guild.id, `countingChannel`, ``) === message.ch
                         try {
                             var math = require(`mathjs`)
                             message.content = math.evaluate(message.content)
-                            console.log(message.content)
                         } catch (err){
                             message.react(`⚠️`)
                         message.reply(`Unable to process this equation (Number has not changed)`)

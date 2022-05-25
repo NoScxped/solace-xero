@@ -1,3 +1,6 @@
+const { MessageEmbed } = require("discord.js")
+const { e } = require("mathjs")
+
     if(!data(`exists`, `guild`, message.guild.id, ``, ``)){
 
             data(`write`, `guild`, message.guild.id, `levelChannel`, `0`)
@@ -32,7 +35,21 @@
                         data(`write`, `user`, message.author.id, `xp`, `1`)
                         var channel = data(`read`, `guild`, message.guild.id, `levelChannel`, ``)
                         try {
-                        client.channels.cache.get(channel).send(`Congrats **${message.author.username}**, you leveled up to level **${newlvl}**`)
+                        var embed = new MessageEmbed()
+                        .setTitle(`*Level Up!*`)
+                        .setAuthor({ name: message.author.username, iconURL: message.author.avatarURL(), url: message.author.avatarURL() })
+                        .setColor(`RANDOM`)
+                        .setThumbnail(message.author.avatarURL())
+                        .addField(`***${message.author.username}*** has leveled up!`, `**Level ${newlvl}**`)
+                        if(Math.floor((Math.random()*9)) === 9){
+                            embed = new MessageEmbed()
+                            .setTitle(`😱😱***__Level Up!__***😍😍`)
+                            .setAuthor({ name: message.author.username, iconURL: message.author.avatarURL(), url: message.author.avatarURL() })
+                            .setColor(`RANDOM`)
+                            .setThumbnail(message.author.avatarURL())
+                            .addField(`Good job my little  ***__${message.author.username}__***  pog champ 🥺, you've ⬆️ ***__LEVEL UPED⬆️__***`, `**Keep on going and get to level ${newlvl + 1}**😊`)
+                        }
+                        client.channels.cache.get(channel).send({embeds: [embed]})
                         } catch(err){
 
                         }

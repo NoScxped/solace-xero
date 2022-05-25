@@ -8,7 +8,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('shop')
 		.setDescription('View the Xero Shop'),
-	async execute(interaction, data, client) {
+	async execute(interaction, data, client, Discord, splashtext) {
         const fs = require('node:fs');
         var send = ''
         var obj = JSON.parse(fs.readFileSync(`./data/global/items.json`, `utf-8`))
@@ -19,7 +19,7 @@ module.exports = {
         .setTitle("Shop")
         .setColor("RANDOM")
         .setDescription(send)
-        .setFooter({ text: 'Xero', iconURL: client.user.avatarURL() });
+        .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
         
         interaction.reply({embeds: [embed]})
     }

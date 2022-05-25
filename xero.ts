@@ -7,8 +7,11 @@ const client = new Client({
     }
 })
 
+
 const config = require(`./config.json`)
 const fs = require('fs')
+var splash = fs.readFileSync(`./data/global/splash_text.xero`, "utf-8")
+splash = splash.split(`,`)
 const path = require('path')
 module.exports = client;
 client.commands = new Collection();
@@ -90,8 +93,6 @@ function data(func, type, id, string, val){
     console.error(err)
 }
 }
-
-console.log(data(`read`, `user`, `579483193665781770`, `saves`, ``))
 client.on('ready', () => {  
     console.log(`Logged in`)
     try {
@@ -119,7 +120,8 @@ client.on(`interactionCreate`, async interaction => {
     if(interaction.isCommand()){
         const command = client.commands.get(interaction.commandName)
         try {
-            await command.execute(interaction, data, client, Discord)
+            var splashtext = splash[Math.floor((Math.random()*splash.length))]
+            await command.execute(interaction, data, client, Discord, splashtext)
         } catch (error) {
             console.error(error)
             await interaction.reply({ content: 'There was an error executing this command!', ephemeral: true })

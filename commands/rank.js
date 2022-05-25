@@ -11,7 +11,7 @@ module.exports = {
                 .setDescription('User')
                 .setRequired(false)
         ),
-	async execute(interaction, data, client) {
+	async execute(interaction, data, client, Discord, splashtext) {
 
         if(interaction.options.getUser(`user`)){
 
@@ -35,7 +35,7 @@ module.exports = {
                 .addField(`Level`, data(`read`, `user`, interaction.user.id, `level`), true)
                 .addField(`XP`, data(`read`, `user`, interaction.user.id, `xp`), true)
                 .addField(`XP needed for level up`, data(`read`, `user`, interaction.user.id, `pointsNeeded`), true)
-                .setFooter({ text: 'Xero', iconURL: client.user.avatarURL() });
+                .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
 
             interaction.reply({embeds: [embed]})
 

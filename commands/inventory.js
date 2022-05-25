@@ -8,7 +8,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('inventory')
 		.setDescription('View what items you have'),
-	async execute(interaction, data, client) {
+	async execute(interaction, data, client, Discord, splashtext) {
         if(data(`read`, `user`, interaction.user.id, `save`) != undefined){
             var saves = "None"
             if(parseInt(data(`read`, `user`, interaction.user.id, `save`)) != 0){
@@ -19,7 +19,7 @@ module.exports = {
         .setAuthor({ name: interaction.user.username, iconURL: interaction.user.avatarURL(), url: interaction.user.avatarURL() })
         .setColor("RANDOM")
         .addField(`Saves`, saves.toString())
-        .setFooter({ text: 'Xero', iconURL: client.user.avatarURL() });
+        .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
         
         interaction.reply({embeds: [embed]})
         }
