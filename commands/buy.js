@@ -34,7 +34,7 @@ module.exports = {
 
                     } else {
 
-                        interaction.reply(`You do not have enough money to buy this item!`)
+                        interaction.reply(`You do not have enough credits ⌬ to buy this item!`)
 
                     }
 

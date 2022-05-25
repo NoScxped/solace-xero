@@ -18,9 +18,9 @@ module.exports = {
             output = "*⚠️Unable to process this equation⚠️*"
         }
         var embed = new MessageEmbed()
-        .setTitle("Math")
+        .setTitle("『 Math 』")
         .setColor("RANDOM")
-        .addField(interaction.options.getString(`equation`), output.toString())
+        .addField("» " + interaction.options.getString(`equation`), output.toString())
         .setFooter({ text: splashtext.toString(), iconURL: client.user.avatarURL() });
         
         interaction.reply({embeds: [embed]})

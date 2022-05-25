@@ -18,10 +18,10 @@ module.exports = {
         }
         var send = ''
         commands.forEach(command => {
-            send = send + `**${capitalizeFirstLetter(command.name)}** - *${command.description}*\n`
+            send = send + `**» ${capitalizeFirstLetter(command.name)}** - *${command.description}*\n`
         })
         var embed = new MessageEmbed()
-        .setTitle("Help")
+        .setTitle("『 Help 』")
         .setColor("RANDOM")
         .setDescription(send)
         .addField(`Usage`, 'Slash commands ( **/** ) work *|* The old prefix ( **+** ) DOES NOT work anymore!')

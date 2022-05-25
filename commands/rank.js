@@ -28,13 +28,13 @@ module.exports = {
         if(data(`exists`, `user`, interaction.user.id)){
 
             var embed = new MessageEmbed()
-                .setAuthor({ name: interaction.user.username, iconURL: interaction.user.avatarURL(), url: interaction.user.avatarURL() })
+                .setAuthor({ name: `『 ` + interaction.user.username + " 』", iconURL: interaction.user.avatarURL(), url: interaction.user.avatarURL() })
                 .setColor(`RANDOM`)
                 .setThumbnail(interaction.user.avatarURL())
-                .addField(`Credits (**C**)`, data(`read`, `user`, interaction.user.id, `credits`), true)
-                .addField(`Level`, data(`read`, `user`, interaction.user.id, `level`), true)
-                .addField(`XP`, data(`read`, `user`, interaction.user.id, `xp`), true)
-                .addField(`XP needed for level up`, data(`read`, `user`, interaction.user.id, `pointsNeeded`), true)
+                .addField(`» Credits **⌬**`, "› " + data(`read`, `user`, interaction.user.id, `credits`), true)
+                .addField(`» Level`, "› " + data(`read`, `user`, interaction.user.id, `level`), true)
+                .addField(`» XP`, "› " + data(`read`, `user`,  interaction.user.id, `xp`), true)
+                .addField(`» XP needed for level up`,  "› " + data(`read`, `user`, interaction.user.id, `pointsNeeded`), true)
                 .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
 
             interaction.reply({embeds: [embed]})

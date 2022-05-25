@@ -12,9 +12,9 @@ module.exports = {
     async execute(interaction, data, client, Discord, splashtext) {
         if(interaction.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR]) || interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])){
         var embed = new MessageEmbed()
-        .setTitle(interaction.options.getString('title'))
+        .setTitle("『 " + interaction.options.getString('title') + " 』")
         .setColor("RANDOM")
-        .setDescription(interaction.options.getString('description'))
+        .setDescription("» " + interaction.options.getString('description'))
         .setAuthor({ name: interaction.user.username, iconURL: interaction.user.avatarURL(), url: interaction.user.avatarURL() })
         .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
 

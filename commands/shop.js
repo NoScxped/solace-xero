@@ -13,10 +13,10 @@ module.exports = {
         var send = ''
         var obj = JSON.parse(fs.readFileSync(`./data/global/items.json`, `utf-8`))
             Object.keys(obj).forEach((key) => {
-                send = send + `**C** *${capitalizeFirstLetter(obj[key].price)}* - **${capitalizeFirstLetter(obj[key].name)}** - *${obj[key].description}*\n/buy **${obj[key].id}\n**`
+                send = send + `» **⌬** *${capitalizeFirstLetter(obj[key].price)}* - **${capitalizeFirstLetter(obj[key].name)}** - *${obj[key].description}*\n/buy **${obj[key].id}\n**`
             })
         var embed = new MessageEmbed()
-        .setTitle("Shop")
+        .setTitle("『 Shop 』")
         .setColor("RANDOM")
         .setDescription(send)
         .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
