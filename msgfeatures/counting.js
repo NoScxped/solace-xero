@@ -9,11 +9,20 @@ if(data(`read`, `guild`, message.guild.id, `countingChannel`, ``) === message.ch
                     message.reply(`Bruh don't use yourself twice (Number has not changed)`)
                     }
                 } else if(message.channel.id === data(`read`, `guild`, message.guild.id, `countingChannel`)){
-
                     if(/^\d/.test(message.content)){
+                        var go = 1
+                        try {
+                            var math = require(`mathjs`)
+                            message.content = math.evaluate(message.content)
+                            console.log(message.content)
+                        } catch (err){
+                            message.react(`⚠️`)
+                        message.reply(`Unable to process this equation (Number has not changed)`)
+                        go = 0
+                        }
 
                         message.content = parseInt(message.content)
-                        if(message.content != parseInt(data(`read`, `guild`, message.guild.id, `countingNumber`)) + 1){
+                        if(message.content != parseInt(data(`read`, `guild`, message.guild.id, `countingNumber`)) + 1 && go === 1){
                             if(data(`read`, `user`, message.author.id, `save`) === `0` || data(`read`, `user`, message.author.id, `save`) === undefined){ 
 
                                 message.react('❌')
@@ -44,7 +53,7 @@ if(data(`read`, `guild`, message.guild.id, `countingChannel`, ``) === message.ch
 
                             }
 
-                        } else {
+                        } else if(go === 1) {
 
                             data(`write`, `guild`, message.guild.id, `countingNumber`, num.toString())
                             data(`write`, `guild`, message.guild.id, `lastCountingId`, message.author.id.toString())
