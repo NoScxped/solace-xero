@@ -22,8 +22,10 @@ module.exports = {
             client.channels.cache.get(interaction.options.getChannel(`level-up`).id.toString()).send(`This channel is now the level-up channel!`)
         }
         if(interaction.options.getChannel(`counting`)){
-
-            var counting = data(`read`, `guild`, interaction.guild.id, `countingChannel`).toString()
+            var counting = ""
+            if(data(`read`, `guild`, interaction.guild.id, `countingChannel`) != false){
+            counting = data(`read`, `guild`, interaction.guild.id, `countingChannel`).toString()
+            }
             data(`write`, `guild`, interaction.guild.id, `countingChannel`, interaction.options.getChannel(`counting`).id.toString())
             try {
             client.channels.cache.get(counting).send(`This channel is no longer the counting channel, the new one is <#${interaction.options.getChannel(`counting`).id}>`)

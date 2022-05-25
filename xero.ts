@@ -63,10 +63,11 @@ function data(func, type, id, string, val){
                     res = i
                 }
             }
-            if(res === ''){
+            if(obj[res] === undefined){
                 return false
-            }
+            } else {
             return obj[res]
+            }
         }
     }
     //writing to a file

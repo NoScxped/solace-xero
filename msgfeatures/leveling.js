@@ -1,5 +1,4 @@
 const { MessageEmbed } = require("discord.js")
-const { e } = require("mathjs")
 
     if(!data(`exists`, `guild`, message.guild.id, ``, ``)){
 
@@ -7,7 +6,7 @@ const { e } = require("mathjs")
 
         } else {
 
-            if(data(`read`, `guild`, message.guild.id, `levelChannel`, ``) != "0"){
+            if(data(`read`, `guild`, message.guild.id, `levelChannel`, ``) != false){
 
                 if(!data(`exists`, `user`, message.author.id, ``, ``)){
 

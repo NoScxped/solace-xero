@@ -1,8 +1,10 @@
-if(data(`exists`, `guild`, message.guild.id, `countingChannel`, ``)){
+if(data(`read`, `guild`, message.guild.id, `countingChannel`, ``) != false){
 if(data(`read`, `guild`, message.guild.id, `countingChannel`, ``) === message.channel.id){
     var num = parseInt(data(`read`, `guild`, message.guild.id, `countingNumber`)) + 1
                 num = parseInt(num)
-
+    if(data(`read`, `guild`, message.guild.id, `countingNumber`) === false){
+        data(`write`, `guild`, message.guild.id, `countingNumber`, `0`)
+    }
                 if(data(`read`, `guild`, message.guild.id, `lastCountingId`) === message.author.id){
                     if(/^\d/.test(message.content)){
                     message.react(`⚠️`)
@@ -22,7 +24,7 @@ if(data(`read`, `guild`, message.guild.id, `countingChannel`, ``) === message.ch
 
                         message.content = parseInt(message.content)
                         if(message.content != parseInt(data(`read`, `guild`, message.guild.id, `countingNumber`)) + 1 && go === 1){
-                            if(data(`read`, `user`, message.author.id, `save`) === `0` || data(`read`, `user`, message.author.id, `save`) === undefined){ 
+                            if(data(`read`, `user`, message.author.id, `save`) === `0` || data(`read`, `user`, message.author.id, `save`) === false){ 
 
                                 message.react('❌')
                             data(`write`, `guild`, message.guild.id, `countingNumber`, "0")
