@@ -24,7 +24,7 @@ if(data(`read`, `guild`, message.guild.id, `countingChannel`, ``) === message.ch
 
                         message.content = parseInt(message.content)
                         if(message.content != parseInt(data(`read`, `guild`, message.guild.id, `countingNumber`)) + 1 && go === 1){
-                            if(data(`read`, `user`, message.author.id, `save`) === `0` || data(`read`, `user`, message.author.id, `save`) === false){ 
+                            if(data(`read`, `user`, message.author.id, `save`) === `0` || data(`read`, `user`, message.author.id, `save`) === false || data(`read`, `user`, message.author.id, `save`) === `NaN`){ 
 
                                 message.react('❌')
                             data(`write`, `guild`, message.guild.id, `countingNumber`, "0")

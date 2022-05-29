@@ -17,7 +17,7 @@ module.exports = {
                 if(interaction.options.getString(`id`) === obj[key].id){
 
                     if(parseInt(data(`read`, `user`, interaction.user.id, `credits`)) >= parseInt(obj[key].price)){
-                        if(data(`read`, `user`, interaction.user.id, obj[key].id) != undefined){
+                        if(data(`read`, `user`, interaction.user.id, obj[key].id) != undefined && data(`read`, `user`, interaction.user.id, obj[key].id) != `NaN`){
 
                             var add = parseInt(data(`read`, `user`, interaction.user.id, obj[key].id)) + 1
                             var sub = parseInt(data(`read`, `user`, interaction.user.id, `credits`)) - parseInt(obj[key].price)
