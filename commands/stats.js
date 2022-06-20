@@ -3,7 +3,7 @@ const { MessageActionRow, MessageButton, Message, Discord, MessageEmbed } = requ
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('rank')
+		.setName('stats')
 		.setDescription('User statistics')
         .addUserOption(option =>
             option
@@ -25,7 +25,7 @@ module.exports = {
             }
         }
 
-        if(data(`exists`, `user`, interaction.user.id)){
+        if(data(`read`, `user`, interaction.user.id, `xp`) != false){
 
             var embed = new MessageEmbed()
                 .setAuthor({ name: `『 ` + interaction.user.username + " 』", iconURL: interaction.user.avatarURL(), url: interaction.user.avatarURL() })

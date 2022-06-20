@@ -6,9 +6,9 @@ const { MessageEmbed } = require("discord.js")
 
         } else {
 
-            if(data(`read`, `guild`, message.guild.id, `levelChannel`, ``) != false){
+            if(data(`read`, `guild`, message.guild.id, `levelChannel`, ``) != undefined){
 
-                if(!data(`exists`, `user`, message.author.id, ``, ``)){
+                if(data(`read`, `user`, message.author.id, `xp`, ``) === false){
 
                     data(`write`, `user`, message.author.id, `xp`, `0`)
                     data(`write`, `user`, message.author.id, `pointsNeeded`, `35`)
@@ -35,12 +35,12 @@ const { MessageEmbed } = require("discord.js")
                         var channel = data(`read`, `guild`, message.guild.id, `levelChannel`, ``)
                         try {
                         var embed = new MessageEmbed()
-                        .setTitle(`*Level Up!*`)
+                        .setTitle(`『 *Level up!* 』`)
                         .setAuthor({ name: message.author.username, iconURL: message.author.avatarURL(), url: message.author.avatarURL() })
                         .setColor(`RANDOM`)
                         .setThumbnail(message.author.avatarURL())
-                        .addField(`***${message.author.username}*** has leveled up!`, `**Level ${newlvl}**`)
-                        if(Math.floor((Math.random()*9)) === 9){
+                        .addField(`» ***${message.author.username}*** has leveled up!`, `› **You are now level __${newlvl}__!**`)
+                        if(Math.floor((Math.random()*9)) === 8){
                             embed = new MessageEmbed()
                             .setTitle(`😱😱***__Level Up!__***😍😍`)
                             .setAuthor({ name: message.author.username, iconURL: message.author.avatarURL(), url: message.author.avatarURL() })

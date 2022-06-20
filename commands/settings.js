@@ -23,10 +23,11 @@ module.exports = {
         }
         if(interaction.options.getChannel(`counting`)){
             var counting = ""
-            if(data(`read`, `guild`, interaction.guild.id, `countingChannel`) != false){
+            if(data(`read`, `guild`, interaction.guild.id, `countingChannel`) != false && data(`read`, `guild`, interaction.guild.id, `countingChannel`) != `NaN`){
             counting = data(`read`, `guild`, interaction.guild.id, `countingChannel`).toString()
             }
             data(`write`, `guild`, interaction.guild.id, `countingChannel`, interaction.options.getChannel(`counting`).id.toString())
+            data(`write`, `guild`, interaction.guild.id, `countingNumber`, '0')
             try {
             client.channels.cache.get(counting).send(`This channel is no longer the counting channel, the new one is <#${interaction.options.getChannel(`counting`).id}>`)
             } catch{

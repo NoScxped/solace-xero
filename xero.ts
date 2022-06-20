@@ -7,7 +7,7 @@ const client = new Client({
     }
 })
 
-
+var worked = new Set()
 const config = require(`./config.json`)
 const fs = require('fs')
 var splash = fs.readFileSync(`./data/global/splash_text.xero`, "utf-8")
@@ -18,16 +18,21 @@ client.commands = new Collection();
 client.msgfeatures = new Collection()
 
 //commands
+//this is only put in a function for the /reload command
+function loadCommands(){
 const commands = fs.readdirSync(path.resolve('./commands')).filter(file => file.endsWith(`.js` || `.ts`))
 for (const file of commands){
     const command = require(`./commands/` + file)
     try {
     client.commands.set(command.data.name, command)
+    console.log(`Loaded » ` + command.data.name + " › " + command.data.description)
 }
     catch(err) {
         console.error(err)
     }
 }
+}
+loadCommands()
 
 //message features (leveling, counting, etc)
 const msgfeatures = fs.readdirSync(path.resolve('./msgfeatures')).filter(file => file.endsWith(`.js` || `.ts`))
@@ -122,7 +127,7 @@ client.on(`interactionCreate`, async interaction => {
         const command = client.commands.get(interaction.commandName)
         try {
             var splashtext = splash[Math.floor((Math.random()*splash.length))]
-            await command.execute(interaction, data, client, Discord, splashtext)
+            await command.execute(interaction, data, client, Discord, splashtext, loadCommands, worked)
         } catch (error) {
             console.error(error)
             await interaction.reply({ content: 'There was an error executing this command!', ephemeral: true })

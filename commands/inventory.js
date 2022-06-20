@@ -9,11 +9,12 @@ module.exports = {
 		.setName('inventory')
 		.setDescription('View what items you have'),
 	async execute(interaction, data, client, Discord, splashtext) {
-        if(data(`read`, `user`, interaction.user.id, `save`) != undefined){
-            var saves = "None"
+        var saves = "None"
+        if(data(`read`, `user`, interaction.user.id, `save`) != false || data(`read`, `user`, interaction.user.id, `save`) != "NaN"){
             if(parseInt(data(`read`, `user`, interaction.user.id, `save`)) != 0){
                 var saves = data(`read`, `user`, interaction.user.id, `save`)
             }
+        }
             var embed = new MessageEmbed()
         .setTitle("Inventory")
         .setAuthor({ name: interaction.user.username, iconURL: interaction.user.avatarURL(), url: interaction.user.avatarURL() })
@@ -22,7 +23,7 @@ module.exports = {
         .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
         
         interaction.reply({embeds: [embed]})
-        }
+        
         
     }
 }
