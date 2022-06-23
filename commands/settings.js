@@ -7,7 +7,6 @@ module.exports = {
 	.setDescription('settings')
     .addChannelOption(option => option.setName('poll').setDescription('Polls channel (Requires Admin)'))
 	.addChannelOption(option => option.setName('counting').setDescription('Counting channel (Requires Admin)'))
-    .addChannelOption(option => option.setName('level-up').setDescription('Level-Up channel (Requires Admin)'))
     .toJSON(),
 
     async execute(interaction, data, client) {
@@ -16,10 +15,6 @@ module.exports = {
         if(interaction.options.getChannel(`poll`)){
             data(`write`, `guild`, interaction.guild.id, `pollChannel`, interaction.options.getChannel(`poll`).id.toString())
             client.channels.cache.get(interaction.options.getChannel(`poll`).id.toString()).send(`This channel is now polls channel!`)
-        }
-        if(interaction.options.getChannel(`level-up`)){
-            data(`write`, `guild`, interaction.guild.id, `levelChannel`, interaction.options.getChannel(`level-up`).id.toString())
-            client.channels.cache.get(interaction.options.getChannel(`level-up`).id.toString()).send(`This channel is now the level-up channel!`)
         }
         if(interaction.options.getChannel(`counting`)){
             var counting = ""

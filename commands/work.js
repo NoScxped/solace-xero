@@ -14,13 +14,16 @@ module.exports = {
             const fs = require(`fs`)
             var jobs = JSON.parse(fs.readFileSync(`./data/global/jobs.json`))
             var job = jobs[data(`read`, `user`, interaction.user.id, `job`)]
-            var credits = parseInt(data(`read`, `user`, interaction.user.id, `credits`))
             var min = parseInt(job.pay_min)
             var max = parseInt(job.pay_max)
+            var pay = Math.floor(Math.random() * (max - min + 1) + min)
+            var credits = pay
+            if(data(`read`, `user`, interaction.user.id, `credits`) != false){
+                credits = parseInt(data(`read`, `user`, interaction.user.id, `credits`))
+                credits = credits + pay
+            }
             var workAgain = parseInt(job.cooldown) / 1000
             workAgain = workAgain / 60
-            var pay = Math.floor(Math.random() * (max - min + 1) + min)
-            credits = credits + pay
             var embed = new MessageEmbed()
             .setTitle(`『 ${job.name} 』`)
             .setDescription(`**» You did your job!**`)

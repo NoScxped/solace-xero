@@ -6,16 +6,7 @@ const { MessageEmbed } = require("discord.js")
 
         } else {
 
-            if(data(`read`, `guild`, message.guild.id, `levelChannel`, ``) != undefined){
-
-                if(data(`read`, `user`, message.author.id, `xp`, ``) === false){
-
-                    data(`write`, `user`, message.author.id, `xp`, `0`)
-                    data(`write`, `user`, message.author.id, `pointsNeeded`, `35`)
-                    data(`write`, `user`, message.author.id, `level`, `0`)
-                    data(`write`, `user`, message.author.id, `credits`, `0`)
-
-                } else {
+                if(data("read", "user", message.author.id, "xp") != false){
 
                     var points = parseInt(data(`read`, `user`, message.author.id, `xp`, ``)) + 1
                     points = points.toString()
@@ -27,12 +18,11 @@ const { MessageEmbed } = require("discord.js")
                     if(points === data(`read`, `user`, message.author.id, `pointsNeeded`, ``)){
 
                         var newlvl = parseInt(data(`read`, `user`, message.author.id, `level`, ``)) + 1
-                        var pointsNeed = parseInt(data(`read`, `user`, message.author.id, `pointsNeeded`, ``)) * 1.4
+                        var pointsNeed = parseInt(data(`read`, `user`, message.author.id, `pointsNeeded`, ``)) * 1.2
                         pointsNeed = parseInt(pointsNeed)
                         data(`write`, `user`, message.author.id, `level`, newlvl.toString())
                         data(`write`, `user`, message.author.id, `pointsNeeded`, pointsNeed.toString())
                         data(`write`, `user`, message.author.id, `xp`, `1`)
-                        var channel = data(`read`, `guild`, message.guild.id, `levelChannel`, ``)
                         try {
                         var embed = new MessageEmbed()
                         .setTitle(`『 *Level up!* 』`)
@@ -48,7 +38,7 @@ const { MessageEmbed } = require("discord.js")
                             .setThumbnail(message.author.avatarURL())
                             .addField(`Good job my little  ***__${message.author.username}__***  pog champ 🥺, you've ⬆️ ***__LEVEL UPED⬆️__***`, `**Keep on going and get to level ${newlvl + 1}**😊`)
                         }
-                        client.channels.cache.get(channel).send({embeds: [embed]})
+                        message.channel.send({embeds: [embed]})
                         } catch(err){
 
                         }
@@ -56,4 +46,3 @@ const { MessageEmbed } = require("discord.js")
                     }
                 }
             }
-        }

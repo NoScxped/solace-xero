@@ -115,6 +115,13 @@ client.on('ready', () => {
 //message features (leveling, counting, etc)
 client.on('messageCreate', message => {
     if(!message.author.bot){
+        if(data(`read`, `user`, message.author.id, `xp`) === false){
+
+            data(`write`, `user`, message.author.id, `xp`, `0`)
+            data(`write`, `user`, message.author.id, `pointsNeeded`, `35`)
+            data(`write`, `user`, message.author.id, `level`, `0`)
+            data(`write`, `user`, message.author.id, `credits`, `100`)
+        }
      features.forEach((msgfeature) => {
          eval(fs.readFileSync(`./msgfeatures/${msgfeature}`, "utf-8"))
      })  

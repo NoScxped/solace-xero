@@ -44,6 +44,8 @@ module.exports = {
 
                         embed = new MessageEmbed()
                         .setTitle(`『 Job Accepted! 』`)
+                        .setDescription("» Use ***/work*** to work!")
+                        .setColor("RANDOM")
                         .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
                         msg.edit({content: "You have a new job!", embeds: [embed], components: []})
                         data(`write`, `user`, interaction.user.id, `job`, `${jid}`)
