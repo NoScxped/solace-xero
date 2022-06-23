@@ -1,2 +1,2 @@
 @echo off
-node index.ts
+node index.js
