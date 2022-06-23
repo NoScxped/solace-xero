@@ -49,16 +49,16 @@ module.exports = {
                     }
                 })
                 collector.on(`collect`, async e => {
+                    if(e.user.id === interaction.user.id){
                     if(e.customId === `deny`){
                         res = false
                         collector.stop()
                     }
                     if(e.customId === `accept`){
+                        //I SWEAR TO YOU IT IS 5050
+                        var win = Math.random() < 0.5;
 
-                        var integer = 0
-                        var win = Math.round(Math.random() * 3)
-
-                        if(win === integer){
+                        if(win){
 
                             credits = credits + amount
                             var win = new MessageEmbed()
@@ -91,7 +91,7 @@ module.exports = {
                          collector.stop()
                     }
 
-
+                }
                     })}
 
                     
