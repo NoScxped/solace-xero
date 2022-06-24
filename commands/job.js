@@ -3,7 +3,7 @@ const { MessageActionRow, MessageButton, Message, Discord, MessageEmbed } = requ
 module.exports = {
 	data: new SlashCommandBuilder()
     .setName('job')
-	.setDescription('Select a job!')
+	.setDescription('(DEPRECATED) Select a job!')
 	.addStringOption(option => option.setName('id').setDescription('Job ID:').setRequired(true))
     .toJSON(),
 
@@ -12,9 +12,10 @@ module.exports = {
         const jobs = JSON.parse(fs.readFileSync('./data/global/jobs.json', 'utf-8'))
         const msg = await interaction.reply({ content: 'Searching...', fetchReply: true })
         var found = false
+        var givenid = interaction.options.getString('id').toLowerCase()
         var jid = ''
         for(var i in jobs){
-            if(jobs[i].id === interaction.options.getString(`id`)){
+            if(jobs[i].id === givenid){
                 jid = jobs[i].id
                 var cooldown = parseInt(jobs[i].cooldown) / 1000
                 cooldown = cooldown / 60
@@ -33,7 +34,7 @@ module.exports = {
                     .setLabel(`Yes`)
                     .setStyle(`SUCCESS`)
                 )
-
+                interaction.channel.send('⚠️ **/job is now deprecated! Use /jobs for a better experience :)** ⚠️')
                 msg.edit({content: "Here you go!", embeds: [embed], components: [row]})
                 var filter = i => i.customId === "accept" && i.user.id === interaction.user.id
                 const collector = interaction.channel.createMessageComponentCollector({filter, time: 15000})

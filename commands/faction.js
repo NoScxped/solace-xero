@@ -22,6 +22,5 @@ module.exports = {
     .toJSON(),
 
     async execute(interaction, data, client, Discord, splashtext) {
-        
     }
 }

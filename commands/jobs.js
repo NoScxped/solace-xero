@@ -2,8 +2,8 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageActionRow, MessageButton, Message, Discord, MessageEmbed } = require('discord.js');
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('jobs')
-		.setDescription('Job list'),
+		.setName('joblist')
+		.setDescription('(DEPRECATED) Job List'),
 	async execute(interaction, data, client, Discord, splashtext) {
         const fs = require('fs');
         const jobs = JSON.parse(fs.readFileSync('./data/global/jobs.json', 'utf-8'))
@@ -16,7 +16,7 @@ module.exports = {
         .setColor("RANDOM")
         .setDescription(send)
         .setFooter({ text: `/job id`, iconURL: client.user.avatarURL() });
-        
+        interaction.channel.send('⚠️ **/joblist is now deprecated! Use /jobs for a better experience :)** ⚠️')
         interaction.reply({embeds: [embed]})
     }
 }
