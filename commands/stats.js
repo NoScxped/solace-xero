@@ -25,7 +25,7 @@ module.exports = {
             }
         }
 
-        if(data(`read`, `user`, interaction.user.id, `xp`) != false){
+        if(data('exists', 'user', interaction.user.id) != false){
 
             var embed = new MessageEmbed()
                 .setAuthor({ name: `『 ` + interaction.user.username + " 』", iconURL: interaction.user.avatarURL(), url: interaction.user.avatarURL() })
@@ -40,9 +40,8 @@ module.exports = {
             interaction.reply({embeds: [embed]})
 
         }  else {
-
-            interaction.reply(`There is no information for this user!`)
-
+            interaction.reply('There is no information for this user!')
         }
+        
     }
 } 

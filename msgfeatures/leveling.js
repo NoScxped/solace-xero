@@ -6,7 +6,7 @@ const { MessageEmbed } = require("discord.js")
 
         } else {
 
-                if(data("read", "user", message.author.id, "xp") != false){
+                if(data("read", "user", message.author.id, "level") != false){
 
                     var points = parseInt(data(`read`, `user`, message.author.id, `xp`, ``)) + 1
                     points = points.toString()

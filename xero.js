@@ -115,7 +115,7 @@ client.on('ready', () => {
 //message features (leveling, counting, etc)
 client.on('messageCreate', message => {
     if(!message.author.bot){
-        if(data(`read`, `user`, message.author.id, `xp`) === false){
+        if(data(`read`, `user`, message.author.id, `xp`) === false || data(`read`, `user`, message.author.id, `xp`) === "NaN" || data(`read`, `user`, message.author.id, `xp`) === NaN){
 
             data(`write`, `user`, message.author.id, `xp`, `0`)
             data(`write`, `user`, message.author.id, `pointsNeeded`, `35`)
@@ -132,6 +132,13 @@ client.on('messageCreate', message => {
 client.on(`interactionCreate`, async interaction => {
     if(interaction.isCommand()){
         const command = client.commands.get(interaction.commandName)
+        if(data(`read`, `user`, interaction.user.id, `xp`) === false || data(`read`, `user`, interaction.user.id, `xp`) === "NaN" || data(`read`, `user`, interaction.user.id, `xp`) === NaN){
+
+            data(`write`, `user`, interaction.user.id, `xp`, `0`)
+            data(`write`, `user`, interaction.user.id, `pointsNeeded`, `35`)
+            data(`write`, `user`, interaction.user.id, `level`, `0`)
+            data(`write`, `user`, interaction.user.id, `credits`, `100`)
+        }
         try {
             var splashtext = splash[Math.floor((Math.random()*splash.length))]
             await command.execute(interaction, data, client, Discord, splashtext, loadCommands, worked)
