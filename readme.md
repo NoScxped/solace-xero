@@ -1,9 +1,12 @@
 Xero
 
-To run the bot, run the followning in the terminal
-    > npm install discord.js@v13.7.0
-    > npm install @discordjs/rest discord-api-types
-    > npm install mathjs
+Node.JS Packages
+
+Discord.JS v13
+Discord.js/rest
+discord-api-types
+mathjs
+minecraft-server-ping
 
 --- Config --- 
 here is how config.json should look
