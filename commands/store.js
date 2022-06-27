@@ -67,14 +67,16 @@ module.exports = {
                                 data(`write`, `user`, interaction.user.id, ident, add.toString())
                                 data(`write`, `user`, interaction.user.id, `credits`, sub.toString())
                                 
+                                res = true
                                 await msg.edit({embeds: [embed], components: []})
                                 return collector.stop()
     
                             } else {
 
                                 data(`write`, `user`, interaction.user.id, ident, `1`)
+                                res = true
                                 await msg.edit({embeds: [embed], components: []})
-                                return
+                                return collector.stop()
 
                             }
     
@@ -84,8 +86,9 @@ module.exports = {
                                 .setDescription('You do not have enough money!')
                                 .setColor("RANDOM")
                                 .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
+                                res = true
                                 await msg.edit({embeds: [embed], components: []})
-                                return
+                                return collector.stop()
     
                         }
 
