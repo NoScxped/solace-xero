@@ -8,7 +8,7 @@ if(data(`read`, `guild`, message.guild.id, `countingChannel`, ``) === message.ch
                 if(data(`read`, `guild`, message.guild.id, `lastCountingId`) === message.author.id){
                     if(/^\d/.test(message.content)){
                     message.react(`⚠️`)
-                    message.reply(`Bruh don't use yourself twice (Number has not changed)`)
+                    message.reply(`⚠️ **You cannot count twice in a row! Another user must now count! (Number has not changed)** ⚠️`)
                     }
                 } else if(message.channel.id === data(`read`, `guild`, message.guild.id, `countingChannel`)){
                     if(/^\d/.test(message.content)){

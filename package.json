@@ -10,9 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "@discordjs/rest": "^0.4.1",
-    "discord-api-types": "^0.33.0",
-    "discord.js": "^13.7.0",
-    "mathjs": "^10.6.0",
+    "discord-api-types": "^0.33.5",
+    "discord.js": "^13.8.1",
+    "mathjs": "^10.6.3",
     "minecraft-server-ping": "^0.0.8"
   },
   "devDependencies": {

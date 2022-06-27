@@ -23,8 +23,6 @@ module.exports = {
 					.setPlaceholder('Select a job'));
         for(var i in jobs){
                 jid = jobs[i].id
-                var cooldown = parseInt(jobs[i].cooldown) / 1000
-                cooldown = cooldown / 60
 
                        row.components[0].addOptions([{
                             label: `${jobs[i].name}`,
@@ -35,10 +33,10 @@ module.exports = {
                             
             
             }
-            msg.edit({embeds: [embed], components: [row]})
+            msg.edit({content: '_ _', embeds: [embed], components: [row]})
             var filter = i => i.user.id === interaction.user.id
             const collector = interaction.channel.createMessageComponentCollector({filter, idle: 30000})
-
+                var cont = true
                 var res = false
 
             var str = ""
@@ -63,12 +61,15 @@ module.exports = {
                         
                     }
                     if(i.customId === 'deny'){
+                        cont  = false
                         collector.stop()
                     }
                 }
                 for(var i in jobs){
-
+                    if(cont === true){
                     if(jobs[i].id === str[0]){
+                        var cooldown = parseInt(jobs[i].cooldown) / 1000
+                        cooldown = cooldown / 60
                         
                         var embed = new MessageEmbed()
                         .setTitle(`『 ${jobs[i].name} 』`)
@@ -91,16 +92,18 @@ module.exports = {
                             .setEmoji('❌')
                             .setStyle(`DANGER`)
                         )
-
-                msg.edit({embeds: [embed], components: [row, acceptbar]})
-
+                
+                   msg.edit({embeds: [embed], components: [row, acceptbar]})
+                    
+                
+                }
                     }
                 }
         })
 
             collector.on(`end`, collected => {
                 if(res === false){
-                msg.edit({content: `❌ **Interaction cancelled. You can out of time!** ❌`, embeds: [], components: []})
+                return msg.edit({content: `❌ **This interaction was cancelled** ❌`, embeds: [], components: []})
                 }
             })
         }
