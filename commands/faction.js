@@ -20,7 +20,11 @@ module.exports = {
         subcommand
             .setName('invite')
             .setDescription('Invite a user to your faction')
-            .addUserOption(option => option.setName('user').setDescription('User')))
+            .addUserOption(option => option.setName('user').setDescription('User').setRequired(true)))
+    .addSubcommand(subcommand =>
+        subcommand
+            .setName('invites')
+            .setDescription('View your faction invites'))
     .addSubcommand(subcommand =>
         subcommand
             .setName('info')
@@ -139,6 +143,9 @@ module.exports = {
                 interaction.reply('❌ This user is not in a faction! ❌')
 
             }
+        }
+        if(interaction.options.getSubcommand() === 'info'){
+
         }
     }
 }
