@@ -1,12 +1,7 @@
 const { MessageEmbed } = require("discord.js")
 
-    if(!data(`exists`, `guild`, message.guild.id, ``, ``)){
+    
 
-            data(`write`, `guild`, message.guild.id, `levelChannel`, `0`)
-
-        } else {
-
-                if(data("read", "user", message.author.id, "level") != false){
 
                     var points = parseInt(data(`read`, `user`, message.author.id, `xp`, ``)) + 1
                     points = points.toString()
@@ -44,5 +39,5 @@ const { MessageEmbed } = require("discord.js")
                         }
 
                     }
-                }
-            }
+                
+            
