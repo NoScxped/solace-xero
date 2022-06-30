@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const {MessageActionRow, MessageButton, Message, Discord, MessageEmbed } = require('discord.js');
 const { Permissions } = require('discord.js');
 const fs = require('fs');
+const { e } = require('mathjs');
 const path = require('path')
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -144,8 +145,36 @@ module.exports = {
 
             }
         }
-        if(interaction.options.getSubcommand() === 'info'){
+        if(interaction.options.getSubcommand() === 'invite'){
 
+            var invites = data('read', 'user', interaction.options.getUser('user').id, 'invites').split(' ')
+
+            var check = data('read', 'user', interaction.options.getUser('user').id, 'invites')
+
+            var factionId = data('read', 'user', interaction.options.getUser('user').id, 'faction')
+
+            if(interaction.options.getUser('user').id === interaction.user.id){
+
+                return interaction.reply('❌ Your cannot invite yourself! ❌')
+
+            }
+            var embed = new MessageEmbed()
+            .setTitle('『 Invite successful 』')
+            .setDescription('» Invite successfully sent to ' + interaction.options.getUser('user').username)
+
+            if(check != false || check != '0'){
+
+            data('write', 'user', interaction.options.getUser('user').id, 'invites', `${invId}`)
+            interaction.reply({embed: [embed]})
+
+            } else {
+
+                var invId = data('read', 'user', interaction.user.id, 'faction')
+                invites.push(invId)
+                data('write', 'user', interaction.options.getUser('user').id, 'invites', invites)
+                interaction.reply({embed: [embed]})
+
+            }
         }
     }
 }
