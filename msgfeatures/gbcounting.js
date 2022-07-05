@@ -20,7 +20,7 @@ if(arr.includes(message.channel.id.toString())){
             message.delete()
 
         } else {
-            if(data('read', 'global', 'gbcounting', 'lastUser') != message.author.id){
+            if(data('read', 'global', 'gbcounting', 'lastGuild') != message.guild.id){
             message.react('✔️')
             num = num + 1
             data('write', 'global', 'gbcounting', 'number', num.toString())
@@ -30,15 +30,15 @@ if(arr.includes(message.channel.id.toString())){
                 .setColor('RANDOM')
                 .setFooter({ text: message.guild.name, iconURL: message.guild.iconURL() });
 
-            data('write', 'global', 'gbcounting', 'lastUser', message.author.id.toString())
+            data('write', 'global', 'gbcounting', 'lastGuild', message.guild.id.toString())
                 for(var i in arr){
 
                     if(message.channel.id.toString() != arr[i]){
 
                         try {
                             client.channels.cache.get(arr[i].toString()).send({embeds: [embed]})
-                        } catch(err){
-                            console.log('GBCounting » Unknown Channel')
+                        } catch{
+                            
                         }
                         
 
@@ -46,7 +46,7 @@ if(arr.includes(message.channel.id.toString())){
                 }
             } else {
                 message.delete()
-                message.author.send(`You cannot count twice in a row in Xero's ***Global* Counting!**`)
+                message.author.send(`Your server cannot twice in a row in Xero's ***Global* Counting!** Please wait for another server to count!`)
             }
         }
     

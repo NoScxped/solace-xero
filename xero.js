@@ -26,7 +26,6 @@ for (const file of commands){
     const command = require(`./commands/` + file)
     try {
     client.commands.set(command.data.name, command)
-    console.log(`Loaded » ` + command.data.name + " › " + command.data.description)
 }
     catch(err) {
         console.error(err)

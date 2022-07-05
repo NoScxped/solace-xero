@@ -15,7 +15,6 @@ for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	if(command.data.description.toString() != '(Ignore)'){
         commands.push(command.data);	
-		console.log(`Registering » ` + command.data.name + " › " + command.data.description)
         }
 }
 

@@ -22,10 +22,18 @@ module.exports = {
         }
         if(interaction.options.getChannel(`gbcounting`)){
             var arr = data(`read`, `global`, "gbcounting", `channels`).split(',')
+            if(arr.includes(interaction.channel.id)){
+                return interaction.reply('This channel is already set!')
+            }
             arr.push(interaction.options.getChannel(`gbcounting`).id.toString())
 
             data(`write`, `global`, "gbcounting", `channels`, arr.toString())
-            client.channels.cache.get(interaction.options.getChannel(`gbcounting`).id.toString()).send(`This channel is now the ***Global* Counting Channel**!`)
+            try {
+                client.channels.cache.get(interaction.options.getChannel(`gbcounting`).id.toString()).send(`This channel is now the ***Global* Counting Channel**!`)
+            } catch {
+                console.log(`Error in trying to send setting update message`)
+            }
+            
 
         }
 
