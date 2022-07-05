@@ -35,7 +35,12 @@ if(arr.includes(message.channel.id.toString())){
 
                     if(message.channel.id.toString() != arr[i]){
 
-                        client.channels.cache.get(arr[i].toString()).send({embeds: [embed]})
+                        try {
+                            client.channels.cache.get(arr[i].toString()).send({embeds: [embed]})
+                        } catch{
+                            //do nothing dw ab it
+                        }
+                        
 
                     }
                 }
