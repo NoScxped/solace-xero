@@ -37,8 +37,8 @@ if(arr.includes(message.channel.id.toString())){
 
                         try {
                             client.channels.cache.get(arr[i].toString()).send({embeds: [embed]})
-                        } catch{
-                            //do nothing dw ab it
+                        } catch(err){
+                            console.log('GBCounting » Unknown Channel')
                         }
                         
 
