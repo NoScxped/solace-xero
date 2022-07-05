@@ -23,6 +23,7 @@ module.exports = {
 
         return fileArray
         }
+        var arr = data('read', 'global', 'gbcounting', 'channels').split(',')
 
         var embed = new MessageEmbed()
         .setTitle('『 Xero Stats 』')
@@ -31,6 +32,7 @@ module.exports = {
         .addField('Users in Storage', getAllFiles('./data/user/').length.toString())
         .addField('Servers in Storage', getAllFiles('./data/guild/').length.toString())
         .addField('Factions in Storage', getAllFiles('./data/faction/').length.toString())
+        .addField('Guilds in GlobalCount', arr.length.toString())
         .setColor("RANDOM")
         .setFooter({ text: splashtext.toString(), iconURL: client.user.avatarURL() });
         await interaction.reply({embeds: [embed]})
