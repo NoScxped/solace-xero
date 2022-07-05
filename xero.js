@@ -21,6 +21,7 @@ client.msgfeatures = new Collection()
 //this is only put in a function for the /reload command
 function loadCommands(){
 const commands = fs.readdirSync(path.resolve('./commands')).filter(file => file.endsWith(`.js` || `.ts`))
+console.log('Starting Xero...')
 for (const file of commands){
     const command = require(`./commands/` + file)
     try {

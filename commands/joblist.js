@@ -3,7 +3,7 @@ const { MessageActionRow, MessageSelectMenu, MessageButton, Message, Discord, Me
 module.exports = {
 	data: new SlashCommandBuilder()
     .setName('jobs')
-	.setDescription('(NEW) Select a job!')
+	.setDescription('Select a job!')
     .toJSON(),
 
     async execute(interaction, data, client, Discord, splashtext) {

@@ -9,10 +9,13 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 // Place your client and guild ids here
 const clientId = config.client_id
 
+console.log('Registering Slash Commands...');
+
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	if(command.data.description.toString() != '(Ignore)'){
         commands.push(command.data);	
+		console.log(`Registering » ` + command.data.name + " › " + command.data.description)
         }
 }
 
@@ -20,14 +23,13 @@ const rest = new REST({ version: '9' }).setToken(config.token);
 
 (async () => {
 	try {
-		console.log('Started refreshing application (/) commands.');
 
 		await rest.put(
 			Routes.applicationCommands(clientId),
 			{ body: commands },
 		);
 
-		console.log('Successfully reloaded application (/) commands.');
+		console.log('All Slash Commands Registered.');
 	} catch (error) {
 		console.error(error);
 	}
