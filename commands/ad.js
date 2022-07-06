@@ -8,8 +8,8 @@ module.exports = {
 
     async execute(interaction, data, client, Discord, splashtext) {
        var embed = new MessageEmbed()
-        .setTitle(`『 Xero Discord Bot 』`)
-        .setDescription(`***FEATURES***`)
+        .setAuthor({name: "『 Xero Discord Bot 』"})
+        .setDescription(`[*Join the Discord Server*](https://discord.gg/2hFhuTq9M2)`)
         .addField(`» Economy`, `› Jobs, Gambling, and more!`, true)
         .addField(`» Level-Up`, `› Earn XP to level up!`, true)
         .addField(`» Counting`, `› Count globally with other servers!`, true)

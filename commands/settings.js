@@ -67,7 +67,7 @@ module.exports = {
             var val = parseInt(data(`read`, `guild`, interaction.guild.id, `countingNumber`)) + 1
 
             client.channels.cache.get(interaction.options.getChannel(`counting`).id.toString()).send(`This channel is now the ***Server* Counting Channel**! the next number is: **` + val + `**`)
-
+            interaction.channel.send('❗Be aware that the old version of counting will soon be removed in favor of GLobal Counting❗')
         } } else {
 
             return interaction.reply(`You do not have admin!`)
