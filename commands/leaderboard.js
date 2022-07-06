@@ -14,7 +14,11 @@ module.exports = {
     .addSubcommand(subcommand =>
         subcommand
           .setName('counting')
-          .setDescription('View the counting leaderboard')),
+          .setDescription('View the counting leaderboard'))
+    .addSubcommand(subcommand =>
+        subcommand
+          .setName('leveling')
+          .setDescription('View the leveling leaderboard')),
 
 	async execute(interaction, data, client, Discord, splashtext) {
 
@@ -41,6 +45,18 @@ module.exports = {
           ico = '#'
           for(const i of files){
             var credits = parseInt(data('read', 'user', i.slice(0, -5), 'counted'))
+            var id = i.slice(0, -5)
+            if(!Number.isNaN(credits) && credits != false){
+                str.push({"credits": credits, "id": id})
+            }
+            
+        }
+        }
+        if(interaction.options.getSubcommand() === 'leveling'){
+
+          ico = `LvL`
+          for(const i of files){
+            var credits = parseInt(data('read', 'user', i.slice(0, -5), 'level'))
             var id = i.slice(0, -5)
             if(!Number.isNaN(credits) && credits != false){
                 str.push({"credits": credits, "id": id})
