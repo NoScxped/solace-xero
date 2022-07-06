@@ -36,8 +36,8 @@ module.exports = {
                 .addField(`» XP`, "› " + data(`read`, `user`,  interaction.user.id, `xp`), true)
                 .addField(`» XP needed for level up`,  "› " + data(`read`, `user`, interaction.user.id, `pointsNeeded`), true)
                 .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
-
-            interaction.reply({embeds: [embed]})
+            interaction.reply({content: `/stats is old and will be removed soon! Use /profile instead!`, ephemeral: true})
+            interaction.channel.send({embeds: [embed]})
 
         }  else {
             interaction.reply('There is no information for this user!')

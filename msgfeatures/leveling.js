@@ -33,7 +33,10 @@ const { MessageEmbed } = require("discord.js")
                             .setThumbnail(message.author.avatarURL())
                             .addField(`Good job my little  ***__${message.author.username}__***  pog champ 🥺, you've ⬆️ ***__LEVEL UPED⬆️__***`, `**Keep on going and get to level ${newlvl + 1}**😊`)
                         }
-                        message.channel.send({embeds: [embed]})
+                        if(data('read', 'guild', message.guild.id, 'levelMessages') === 'true' || data('read', 'guild', message.guild.id, 'levelMessages') === false) {
+                           message.channel.send({embeds: [embed]}) 
+                        }
+                        
                         } catch(err){
 
                         }

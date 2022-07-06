@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageActionRow, MessageButton, Message, Discord, MessageEmbed } = require('discord.js');
 const fs = require('fs');
+const info = JSON.parse(fs.readFileSync(`./package-lock.json`))
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('info')
@@ -34,7 +35,7 @@ module.exports = {
         .addField('Factions in Storage', getAllFiles('./data/faction/').length.toString())
         .addField('Guilds in GlobalCount', arr.length.toString())
         .setColor("RANDOM")
-        .setFooter({ text: splashtext.toString(), iconURL: client.user.avatarURL() });
+        .setFooter({ text: `Xero v` + info.version, iconURL: client.user.avatarURL() });
         await interaction.reply({embeds: [embed]})
         
         

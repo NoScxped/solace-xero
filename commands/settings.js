@@ -6,6 +6,7 @@ module.exports = {
     .setName('settings')
 	.setDescription('settings')
     .addChannelOption(option => option.setName('poll').setDescription('Polls channel (Requires Admin)'))
+    .addBooleanOption(option => option.setName('levelup').setDescription('Set level up messages (Requires Admin)'))
 	.addChannelOption(option => option.setName('counting').setDescription('Counting channel (Requires Admin)'))
     .addChannelOption(option => option.setName('gbcounting').setDescription('Global Counting channel (Requires Admin)'))
     .toJSON(),
@@ -36,6 +37,12 @@ module.exports = {
             
 
         }
+            if(interaction.options.getBoolean(`levelup`) === true){
+                data('write', 'guild', interaction.guild.id, 'levelMessages', 'true')
+            }
+            if(interaction.options.getBoolean(`levelup`) === false){
+                data('write', 'guild', interaction.guild.id, 'levelMessages', 'false')
+            }
 
         if(interaction.options.getChannel(`counting`)){
 
@@ -63,7 +70,7 @@ module.exports = {
 
         } } else {
 
-            interaction.reply(`You do not have admin!`)
+            return interaction.reply(`You do not have admin!`)
 
         }
 
