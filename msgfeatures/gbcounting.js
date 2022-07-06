@@ -31,6 +31,13 @@ if(arr.includes(message.channel.id.toString())){
             message.delete()
             data('write', 'global', 'gbcounting', 'lastGuild', message.guild.id.toString())
             data('write', 'global', 'gbcounting', 'lastUser', message.author.id.toString())
+            if(data('read', 'user', message.author.id, 'counted') === false){
+                data('write', 'user', message.author.id, 'counted', `1`)
+            } else {
+                var num = parseInt(data('read', 'user', message.author.id, 'counted'))
+                num = num + 1
+                data('write', 'user', message.author.id, 'counted', num.toString())
+            }
                 for(var i in arr){
 
                     
