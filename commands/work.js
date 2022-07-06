@@ -25,13 +25,17 @@ module.exports = {
             var workAgain = parseInt(job.cooldown) / 1000
             workAgain = workAgain / 60
             var embed = new MessageEmbed()
-            .setTitle(`『 ${job.name} 』`)
-            .setDescription(`**» You did your job!**`)
+            .setAuthor({name: 'You worked as a ' + job.name + '!'})
+            .setTitle(`『 ${interaction.user.username} 』`)
             .addField(`» Pay`, "› " + pay.toString() + " ⌬")
             .addField(`» You can work again in`, `› ${workAgain} min`)
             .setColor("RANDOM")
             .setThumbnail(interaction.user.avatarURL())
             .setFooter({ text: splashtext.toString(), iconURL: client.user.avatarURL() });
+            if(data('read', 'user', interaction.user.id, 'bio') != false && data('read', 'user', interaction.user.id, 'bio') != '0'){
+                embed.setDescription("» " + data('read', 'user', interaction.user.id, 'bio').toString())
+            }
+
             function cool(){
                 worked.delete(interaction.user.id)
             }
