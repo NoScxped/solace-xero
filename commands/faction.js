@@ -58,7 +58,7 @@ module.exports = {
 
                         if(scanName === factionName.toLowerCase()){
 
-                            return interaction.reply('That name is taken!')
+                            return interaction.reply('<:xmark:994105062353817682> *That name is taken!* <:xmark:994105062353817682>')
 
                         }
                         
@@ -124,7 +124,7 @@ module.exports = {
     
                 if(interaction.user.bot){
     
-                    interaction.reply(`You cannot get information on a bot!`)
+                    interaction.reply(`<:xmark:994105062353817682> *You cannot get information on a bot!* <:xmark:994105062353817682>`)
                     return
                     
                 }
