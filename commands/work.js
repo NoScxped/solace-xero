@@ -28,7 +28,7 @@ module.exports = {
             .setAuthor({name: 'You worked as a ' + job.name + '!'})
             .setTitle(`『 ${interaction.user.username} 』`)
             .addField(`» Pay`, "› " + pay.toString() + " ⌬")
-            .addField(`» You can work again in`, `› ${workAgain} min`)
+            .addField(`» Cooldown`, `› ${workAgain} minutes`)
             .setColor("RANDOM")
             .setThumbnail(interaction.user.avatarURL())
             .setFooter({ text: splashtext.toString(), iconURL: client.user.avatarURL() });
