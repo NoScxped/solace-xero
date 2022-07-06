@@ -12,27 +12,31 @@ module.exports = {
         for(const i of files){
             var credits = parseInt(data('read', 'user', i.slice(0, -5), 'credits'))
             var id = i.slice(0, -5)
-            str.push({"credits": credits, "id": id})
+            if(!Number.isNaN(credits)){
+                str.push({"credits": credits, "id": id})
+            }
+            
         }
-        function sortThingy(){  
-            return function(a,b){  
-               if(a['credits'] > b['credits']){
-                return 1;}    
-               else if(a['credits'] < b['credits']){
-                return -1; }
-                return 0;  
-            }  
-         }
-        str.sort(sortThingy()).reverse()
+        str.sort((a, b) => {
+            if (a.credits < b.credits) {
+              return -1;
+            }
+            if (a.credits > b.credits) {
+              return 1;
+            }
+            return 0;
+          }).reverse()
         var msg = ''
         var num = 0
         for(var i in str){
             var name = ''
-            try{
-                name = client.users.cache.get(str[i].id).username
-            } catch {
-                name = "Unknown User"
+            try {
+                name = client.users.cache.get(str[i].id).tag
             }
+            catch {
+                name = `<@!${str[i].id}>`
+            }
+
             if(num <= 9){
               num = num + 1
               msg = msg + `${num}. » *${name}* › ${str[i].credits} ⌬\n\n`
