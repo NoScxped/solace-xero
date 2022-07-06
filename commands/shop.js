@@ -59,7 +59,7 @@ module.exports = {
                                     .setDescription(`You can only have *${max}* of this item!`)
                                     .setColor("RANDOM")
                                     .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
-                                    msg.edit({embeds: [embed], components: []})r
+                                    msg.edit({embeds: [embed], components: []})
                                     res = true
                                     return collector.stop()
                                     
