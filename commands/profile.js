@@ -44,7 +44,7 @@ module.exports = {
                     .addField(`» Credits **⌬**`, "› " + data(`read`, `user`, interaction.user.id, `credits`), true)
                     .addField(`» Level`, "› " + data(`read`, `user`, interaction.user.id, `level`), true)
                     .addField(`» XP`, "› " + data(`read`, `user`,  interaction.user.id, `xp`), true)
-                    .addField(`» XP needed for level up`,  "› " + data(`read`, `user`, interaction.user.id, `pointsNeeded`), true)
+                    .addField(`» XP to Level Up`,  "› " + data(`read`, `user`, interaction.user.id, `pointsNeeded`), true)
                     .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
                     if(data('read', 'user', interaction.user.id, 'bio') != false && data('read', 'user', interaction.user.id, 'bio') != '0'){
                         embed.setDescription("» " + data('read', 'user', interaction.user.id, 'bio').toString())

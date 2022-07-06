@@ -12,6 +12,7 @@ module.exports = {
         const msg = await interaction.reply({ content: 'Loading...', fetchReply: true, embeds: [], components: []})
         var prc = 0
         var ident = ""
+        var max = 0
         var embed = new MessageEmbed()
                 .setTitle(`『 Xero Store 』`)
                 .setDescription(`» Select an item`)
@@ -52,6 +53,17 @@ module.exports = {
                         if(parseInt(data(`read`, `user`, interaction.user.id, `credits`)) >= parseInt(prc)){
 
                             if(data(`read`, `user`, interaction.user.id, ident) != false && data(`read`, `user`, interaction.user.id, ident) != `NaN`){
+                                if(parseInt(data(`read`, `user`, interaction.user.id, ident)) >= parseInt(max)){
+                                    embed = new MessageEmbed()
+                                    .setTitle(`『 ❌ Purchase Failed! ❌ 』`)
+                                    .setDescription(`You can only have *${max}* of this item!`)
+                                    .setColor("RANDOM")
+                                    .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
+                                    msg.edit({embeds: [embed], components: []})r
+                                    res = true
+                                    return collector.stop()
+                                    
+                                }
     
                                 res = true
 
@@ -74,6 +86,11 @@ module.exports = {
                             } else {
 
                                 data(`write`, `user`, interaction.user.id, ident, `1`)
+                                embed = new MessageEmbed()
+                                .setTitle(`『 Purchase Successful! 』`)
+                                .setDescription('You have successfully purchased this item!')
+                                .setColor("RANDOM")
+                                .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
                                 res = true
                                 await msg.edit({embeds: [embed], components: []})
                                 return collector.stop()
@@ -104,6 +121,7 @@ module.exports = {
                     if(cont === true){
 
                     if(items[i].id === str[0]){
+                        max = parseInt(items[i].max)
                         prc = items[i].price
                         ident = items[i].id.toString()
                         var embed = new MessageEmbed()
