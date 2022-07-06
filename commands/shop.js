@@ -9,7 +9,7 @@ module.exports = {
     async execute(interaction, data, client, Discord, splashtext) {
         const fs = require('fs');
         const items = JSON.parse(fs.readFileSync('./data/global/items.json', 'utf-8'))
-        const msg = await interaction.reply({ content: 'Loading...', fetchReply: true, embeds: [], components: []})
+        const msg = await interaction.reply({ content: '<a:typing:994063591340773466> *Xero is thinking* <a:typing:994063591340773466>', fetchReply: true, embeds: [], components: []})
         var prc = 0
         var ident = ""
         var max = 0

@@ -18,7 +18,7 @@ module.exports = {
 
 	async execute(interaction, data, client, Discord, splashtext) {
 
-      const message = await interaction.reply({content: 'Xero is thinking...', fetchReply: true})
+      const message = await interaction.reply({content: '<a:typing:994063591340773466> *Xero is thinking* <a:typing:994063591340773466>', fetchReply: true})
         var ico = ''
         var str = []
         var files = fs.readdirSync(path.resolve('./data/user'))

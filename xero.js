@@ -59,11 +59,37 @@ function data(func, type, id, string, val){
             return false
         }
     }
+    if(func === 'delete'){
+        if(fs.existsSync(`./data/${type}/${id}.json`)){
+            var obj = JSON.parse(fs.readFileSync(`./data/${type}/${id}.json`, `utf-8`))
+            var res = ''
+            for(var i in obj){
+                if (i = string){
+                    res = i
+                }
+            }
+            if(obj[res] === undefined){
+                return false
+            } else {
+            delete obj[res]
+            fs.writeFileSync(`./data/${type}/${id}.json`, JSON.stringify(obj))
+            }
+        }
+    }
     //reading a file
     if(func === "read"){
         if(fs.existsSync(`./data/${type}/${id}.json`)){
             var obj = JSON.parse(fs.readFileSync(`./data/${type}/${id}.json`, `utf-8`))
             var res = ''
+            if(!string){
+                var text = fs.readFileSync(`./data/${type}/${id}.json`, `utf-8`)
+                if(text === undefined){
+                    return false
+                } else {
+                    return text
+                }
+                
+            }
             for(var i in obj){
                 if (i = string){
                     res = i
@@ -112,7 +138,7 @@ client.on('ready', () => {
         console.error()
     }
 })
-
+data('delete', 'global', 'test', 'sussy')
 //message features (leveling, counting, etc)
 client.on('messageCreate', message => {
     if(!message.author.bot){

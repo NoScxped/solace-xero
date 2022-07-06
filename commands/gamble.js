@@ -17,10 +17,10 @@ module.exports = {
 
             } else {
 
-                const msg = await interaction.reply({ content: 'Loading...', fetchReply: true })
+                const msg = await interaction.reply({ content: '<a:typing:994063591340773466> *Xero is thinking* <a:typing:994063591340773466>', fetchReply: true })
 
                 var embed = new MessageEmbed()
-                .setTitle(`『 🎲 Gambling 🎲 』`)
+                .setTitle(`『 <:gamble_chips:993964578390151229> Gambling <:gamble_chips:993964578390151229> 』`)
                 .setDescription(`» Would you like to gamble this amount?`)
                 .addField(`» Amount to Gamble`, `› ${amount}`, true)
                 .addField(`» Current Credits`, `› ${credits}`, true)
@@ -31,11 +31,11 @@ module.exports = {
                 .addComponents(
                     new MessageButton()
                     .setCustomId(`accept`)
-                    .setLabel(`Yes`)
+                    .setEmoji('<:checkmark:994105025292943390>')
                     .setStyle(`SUCCESS`),
                     new MessageButton()
                     .setCustomId('deny')
-                    .setLabel('No')
+                    .setEmoji('<:xmark:994105062353817682>')
                     .setStyle('DANGER')
                 )
 
@@ -62,8 +62,8 @@ module.exports = {
 
                             credits = credits + amount
                             var win = new MessageEmbed()
-                            .setTitle(`『 🎲 Gambling 🎲 』`)
-                            .setDescription("✔️ You Won! ✔️")
+                            .setTitle(`『 <:gamble_chips:993964578390151229> Gambling <:gamble_chips:993964578390151229> 』`)
+                            .setDescription("<:checkmark:994105025292943390>  You Won! <:checkmark:994105025292943390> ")
                             .addField('» Amount Gained', "› " + amount.toString())
                             .addField('» Credits ⌬', "› " + credits.toString())
                             .setColor("RANDOM")
@@ -76,8 +76,8 @@ module.exports = {
                             credits = credits - amount
 
                             var lose = new MessageEmbed()
-                            .setTitle("『 🎲 Gambling 🎲 』")
-                            .setDescription("❌ You Lost! ❌")
+                            .setTitle("『 <:gamble_chips:993964578390151229> Gambling <:gamble_chips:993964578390151229> 』")
+                            .setDescription("<:xmark:994105062353817682> You Lost! <:xmark:994105062353817682>")
                             .addField('» Amount Lost', "› " + amount.toString())
                             .addField('» Credits ⌬', "› " + credits.toString())
                             .setColor("RANDOM")

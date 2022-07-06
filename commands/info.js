@@ -4,7 +4,7 @@ const fs = require('fs');
 const info = JSON.parse(fs.readFileSync(`./package-lock.json`))
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('info')
+		.setName('stats')
 		.setDescription('View Xero Statistics'),
 	async execute(interaction, data, client, Discord, splashtext) {
         const path = require("path")
@@ -32,8 +32,8 @@ module.exports = {
         .setThumbnail(client.user.avatarURL())
         .addField('Users in Storage', getAllFiles('./data/user/').length.toString())
         .addField('Servers in Storage', getAllFiles('./data/guild/').length.toString())
+        .addField('Servers in GBCount', arr.length.toString())
         .addField('Factions in Storage', getAllFiles('./data/faction/').length.toString())
-        .addField('Guilds in GlobalCount', arr.length.toString())
         .setColor("RANDOM")
         .setFooter({ text: `Xero v` + info.version, iconURL: client.user.avatarURL() });
         await interaction.reply({embeds: [embed]})

@@ -38,13 +38,12 @@ module.exports = {
             if(data('exists', 'user', interaction.user.id) != false){
 
                 var embed = new MessageEmbed()
-                    .setAuthor({ name: `『 ` + interaction.user.username + " 』", iconURL: interaction.user.avatarURL(), url: interaction.user.avatarURL() })
+                    .setAuthor({ name: `『 ` + interaction.user.username + " 』", iconURL: interaction.user.avatarURL() })
                     .setColor(`RANDOM`)
                     .setThumbnail(interaction.user.avatarURL())
                     .addField(`» Credits **⌬**`, "› " + data(`read`, `user`, interaction.user.id, `credits`), true)
                     .addField(`» Level`, "› " + data(`read`, `user`, interaction.user.id, `level`), true)
-                    .addField(`» XP`, "› " + data(`read`, `user`,  interaction.user.id, `xp`), true)
-                    .addField(`» XP to Level Up`,  "› " + data(`read`, `user`, interaction.user.id, `pointsNeeded`), true)
+                    .addField(`» XP`, "› " + data(`read`, `user`,  interaction.user.id, `xp`) + '/' + data(`read`, `user`, interaction.user.id, `pointsNeeded`), true)
                     .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
                     if(data('read', 'user', interaction.user.id, 'bio') != false && data('read', 'user', interaction.user.id, 'bio') != '0'){
                         embed.setDescription("» " + data('read', 'user', interaction.user.id, 'bio').toString())

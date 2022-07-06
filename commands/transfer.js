@@ -40,13 +40,11 @@ module.exports = {
                     .addComponents(
                     new MessageButton()
                     .setCustomId(`accept`)
-                    .setLabel(`Yes`)
-                    .setEmoji("✔️")
+                    .setEmoji("<:checkmark:994105025292943390>")
                     .setStyle(`SUCCESS`),
                     new MessageButton()
                     .setCustomId('deny')
-                    .setLabel('No')
-                    .setEmoji('❌')
+                    .setEmoji('<:xmark:994105062353817682>')
                     .setStyle('DANGER')
                 )
 
