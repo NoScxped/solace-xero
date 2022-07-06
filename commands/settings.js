@@ -29,7 +29,7 @@ module.exports = {
 
             data(`write`, `global`, "gbcounting", `channels`, arr.toString())
             try {
-                client.channels.cache.get(interaction.options.getChannel(`gbcounting`).id.toString()).send(`This channel is now the ***Global* Counting Channel**!`)
+                client.channels.cache.get(interaction.options.getChannel(`counting`).id.toString()).send(`This channel is now the ***Global* Counting Channel**!`)
             } catch {
                 console.log(`Error in trying to send setting update message`)
             }
