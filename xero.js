@@ -31,6 +31,7 @@ for (const file of commands){
         console.error(err)
     }
 }
+console.log(`Loaded commands.`)
 }
 loadCommands()
 
