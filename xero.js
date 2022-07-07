@@ -100,6 +100,9 @@ function data(func, type, id, string, val){
             } else {
             return obj[res]
             }
+        } else 
+        {
+            return false
         }
     }
     //writing to a file

@@ -192,7 +192,7 @@ module.exports = {
 
             var invId = data('read', 'user', interaction.user.id, 'faction')
 
-            if(invites === false){
+            if(data('read', 'user', interaction.options.getUser('user').id, 'invites') === false){
 
             data('write', 'user', interaction.options.getUser('user').id, 'invites', invId.toString( ))
 
@@ -200,16 +200,16 @@ module.exports = {
             return interaction.reply({embeds: [embed]})
 
             } else {
-                if(data('exists', 'user', interaction.options.getUser('user').id)){
-                if(invites.split(',').length > 24){
-                    return interaction.reply(`<:xmark:994105062353817682> *This user has the maximum **25** pending invites!* <:xmark:994105062353817682>`)
-                }
+                    if(invites.split(',').length > 24){
+                        return interaction.reply(`<:xmark:994105062353817682> *This user has the maximum **25** pending invites!* <:xmark:994105062353817682>`)
+                    }
+                
                 invites = invites.split(',')
                 invites.push(invId.toString())
                 invites = invites.toString()
                 data('write', 'user', interaction.options.getUser('user').id, 'invites', invites)
                 return interaction.reply({embeds: [embed]})
-            }
+                
 
             }
         }
