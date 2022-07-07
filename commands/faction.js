@@ -161,7 +161,7 @@ module.exports = {
 
             var factionId = data('read', 'user', interaction.user.id, 'faction')
 
-            if(data('read', 'user', interaction.user.id, 'faction') = false){
+            if(data('read', 'user', interaction.user.id, 'faction') === false){
                 return interaction.reply('<:xmark:994105062353817682> *You are not in a Faction* <:xmark:994105062353817682>')
             }
 
@@ -174,11 +174,15 @@ module.exports = {
             if(data('read', 'faction', factionId, 'owner') != interaction.user.id.toString()){
                 return interaction.reply('You do not own a Faction!')
             }
+
+            if(data('exists', 'user', interaction.options.getUser('user').id)){
+
             if(invites != false){
-                if(invites.includes(factionId.toString())){
+                if(invites.toString().includes(factionId.toString())){
                 return interaction.reply({content: "<:xmark:994105062353817682> *You have already invited this user!* <:xmark:994105062353817682>"})
             }
             }
+        }
             
             var embed = new MessageEmbed()
             .setAuthor({name: 'You invited a user to the Faction!'})
@@ -196,7 +200,7 @@ module.exports = {
             return interaction.reply({embeds: [embed]})
 
             } else {
-
+                if(data('exists', 'user', interaction.options.getUser('user').id)){
                 if(invites.split(',').length > 24){
                     return interaction.reply(`<:xmark:994105062353817682> *This user has the maximum **25** pending invites!* <:xmark:994105062353817682>`)
                 }
@@ -205,6 +209,7 @@ module.exports = {
                 invites = invites.toString()
                 data('write', 'user', interaction.options.getUser('user').id, 'invites', invites)
                 return interaction.reply({embeds: [embed]})
+            }
 
             }
         }

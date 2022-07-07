@@ -142,7 +142,7 @@ data('delete', 'global', 'test', 'sussy')
 //message features (leveling, counting, etc)
 client.on('messageCreate', message => {
     if(!message.author.bot){
-        if(data(`exists`, `user`, message.author.id) === false){
+        if(data(`read`, `user`, message.author.id, 'xp') === false){
 
             data(`write`, `user`, message.author.id, `xp`, `0`)
             data(`write`, `user`, message.author.id, `pointsNeeded`, `35`)
@@ -159,7 +159,7 @@ client.on('messageCreate', message => {
 client.on(`interactionCreate`, async interaction => {
     if(interaction.isCommand()){
         const command = client.commands.get(interaction.commandName)
-        if(data(`exists`, `user`, interaction.user.id) === false){
+        if(data(`read`, `user`, interaction.user.id, 'xp') === false){
 
             data(`write`, `user`, interaction.user.id, `xp`, `0`)
             data(`write`, `user`, interaction.user.id, `pointsNeeded`, `35`)
