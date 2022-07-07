@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const {MessageActionRow, MessageButton, Message, Discord, MessageEmbed, MessageSelectMenu } = require('discord.js');
+const {MessageActionRow, MessageButton, Message, Discord, MessageEmbed, MessageSelectMenu, UserFlags } = require('discord.js');
 const { Permissions } = require('discord.js');
 const fs = require('fs');
 const path = require('path')
@@ -161,6 +161,10 @@ module.exports = {
 
             var factionId = data('read', 'user', interaction.user.id, 'faction')
 
+            if(data('read', 'user', interaction.user.id, 'faction') = false){
+                return interaction.reply('<:xmark:994105062353817682> *You are not in a Faction* <:xmark:994105062353817682>')
+            }
+
             if(interaction.options.getUser('user').id === interaction.user.id){
 
                 return interaction.reply('<:xmark:994105062353817682> *Your cannot invite yourself!* <:xmark:994105062353817682>')
@@ -170,10 +174,12 @@ module.exports = {
             if(data('read', 'faction', factionId, 'owner') != interaction.user.id.toString()){
                 return interaction.reply('You do not own a Faction!')
             }
-
-            if(invites.toString().includes(factionId.toString())){
+            if(invites != false){
+                if(invites.includes(factionId.toString())){
                 return interaction.reply({content: "<:xmark:994105062353817682> *You have already invited this user!* <:xmark:994105062353817682>"})
             }
+            }
+            
             var embed = new MessageEmbed()
             .setAuthor({name: 'You invited a user to the Faction!'})
             .setTitle(`『 ${data('read', 'faction', factionId, 'name')} 』`)
@@ -261,7 +267,7 @@ module.exports = {
 
                 if(i.customId === 'accept'){
 
-                    if(data('read', 'user', interaction.user.id, 'faction')){
+                    if(data('read', 'user', interaction.user.id, 'faction') != false){
                         //faction join attempt, already in faction
                         await msg.edit({content: "<:xmark:994105062353817682> *You are already in a Faction!* <:xmark:994105062353817682>", embeds: [], components: []})
                         res = true
