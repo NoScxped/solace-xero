@@ -7,9 +7,8 @@ module.exports = {
     .toJSON(),
 
     async execute(interaction, data, client, Discord, splashtext) {
-        const fs = require('fs');
-        const jobs = JSON.parse(fs.readFileSync('./data/global/jobs.json', 'utf-8'))
-        const msg = await interaction.reply({ content: 'Loading...', fetchReply: true, embeds: [], components: []})
+        const jobs = JSON.parse(data.read('./data/global/jobs.json'))
+        const msg = await interaction.reply({ content: '<a:typing:994063591340773466> *Xero is thinking* <a:typing:994063591340773466>', fetchReply: true, embeds: [], components: []})
         var embed = new MessageEmbed()
                 .setTitle(`『 Job List 』`)
                 .setDescription(`» Select a job`)
@@ -55,7 +54,7 @@ module.exports = {
                         .setDescription("» Use ***/work*** to work!")
                         .setColor("RANDOM")
                         .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
-                        data(`write`, `user`, interaction.user.id, `job`, `${str[0]}`)
+                        data.write(`./data/user/${interaction.user.id}.json`, 'job', `${str[0]}`)
                         return msg.edit({embeds: [embed], components: []})
 
                         
@@ -72,6 +71,7 @@ module.exports = {
                         cooldown = cooldown / 60
                         
                         var embed = new MessageEmbed()
+                        .setAuthor({name: "You got a new job!"})
                         .setTitle(`『 ${jobs[i].name} 』`)
                         .setDescription(`» ${jobs[i].description}`)
                         .addField(`» Pay`, `› ${jobs[i].pay_min} - ${jobs[i].pay_max} ⌬`)
@@ -83,13 +83,11 @@ module.exports = {
                          .addComponents(
                          new MessageButton()
                             .setCustomId(`accept`)
-                            .setLabel(`Yes`)
-                            .setEmoji('✔️')
+                            .setEmoji('<:checkmark:994105025292943390>')
                             .setStyle(`SUCCESS`),
                         new MessageButton()
                             .setCustomId(`deny`)
-                            .setLabel(`Close`)
-                            .setEmoji('❌')
+                            .setEmoji('<:xmark:994105062353817682>')
                             .setStyle(`DANGER`)
                         )
                 

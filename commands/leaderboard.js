@@ -13,6 +13,10 @@ module.exports = {
         .setDescription('View the Credits leaderboard'))
     .addSubcommand(subcommand =>
         subcommand
+          .setName('faction')
+          .setDescription('View the Faction Leaderboard'))
+    .addSubcommand(subcommand =>
+        subcommand
           .setName('counting')
           .setDescription('View the counting leaderboard'))
     .addSubcommand(subcommand =>
@@ -31,9 +35,9 @@ module.exports = {
 
           ico = ''
           for(const i of files){
-            var credits = parseInt(data('read', 'user', i.slice(0, -5), 'credits'))
+            var credits = parseInt(data.read(`./data/user/` +  i, 'credits'))
             var id = i.slice(0, -5)
-            if(!Number.isNaN(credits) && credits != false){
+            if(!Number.isNaN(credits) && credits){
                 str.push({"credits": credits, "id": id})
             }
             
@@ -44,9 +48,22 @@ module.exports = {
 
           ico = '#'
           for(const i of files){
-            var credits = parseInt(data('read', 'user', i.slice(0, -5), 'counted'))
+            var credits = parseInt(data.read(`./data/user/` +  i, 'counted'))
             var id = i.slice(0, -5)
-            if(!Number.isNaN(credits) && credits != false){
+            if(!Number.isNaN(credits) && credits){
+                str.push({"credits": credits, "id": id})
+            }
+            
+        }
+        }
+        if(interaction.options.getSubcommand() === 'faction'){
+
+          ico = 'Faction Members'
+          files = fs.readdirSync(path.resolve('./data/faction'))
+          for(const i of files){
+            var credits = parseInt(data.read(`./data/faction/` +  i, 'members').split(',').length)
+            var id = data.read(`./data/faction/` +  i, 'owner')
+            if(!Number.isNaN(credits) && credits){
                 str.push({"credits": credits, "id": id})
             }
             
@@ -56,9 +73,9 @@ module.exports = {
 
           ico = `LvL`
           for(const i of files){
-            var credits = parseInt(data('read', 'user', i.slice(0, -5), 'level'))
+            var credits = parseInt(data.read(`./data/user/` +  i, 'level'))
             var id = i.slice(0, -5)
-            if(!Number.isNaN(credits) && credits != false){
+            if(!Number.isNaN(credits) && credits){
                 str.push({"credits": credits, "id": id})
             }
             
@@ -104,7 +121,7 @@ module.exports = {
               }
 
               num = num + 1
-              msg = msg + `${num}. » *${name}* › ${str[i].credits} ${ico}\n\n`
+              msg = msg + `${num}. » *${name}* › ${str[i].credits} *${ico}*\n\n`
 
             }
             

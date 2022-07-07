@@ -1,4 +1,5 @@
 const {Discord, Client, Collection, MessageEmbed, Intents} = require('discord.js')
+const data = require('xerodata')
 const client = new Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_MESSAGES],
     allowedMentions: {
@@ -8,18 +9,15 @@ const client = new Client({
 })
 
 var worked = new Set()
-const config = require(`./config.json`)
+const config = JSON.parse(data.read(`config.json`))
 const fs = require('fs')
-var splash = fs.readFileSync(`./data/global/splash_text.xero`, "utf-8")
-splash = splash.split(`^`)
+var splash = data.read(`./data/global/splashes.xero`).split(`^`)
 const path = require('path')
 module.exports = client;
 client.commands = new Collection();
 client.msgfeatures = new Collection()
 
 //commands
-//this is only put in a function for the /reload command
-function loadCommands(){
 const commands = fs.readdirSync(path.resolve('./commands')).filter(file => file.endsWith(`.js` || `.ts`))
 console.log('Starting Xero...')
 for (const file of commands){
@@ -32,8 +30,6 @@ for (const file of commands){
     }
 }
 console.log(`Loaded commands.`)
-}
-loadCommands()
 
 //message features (leveling, counting, etc)
 const msgfeatures = fs.readdirSync(path.resolve('./msgfeatures')).filter(file => file.endsWith(`.js` || `.ts`))
@@ -47,88 +43,7 @@ for (const file of msgfeatures){
     }
 }
 
-//data thing
-//fuck databases or wtv
-function data(func, type, id, string, val){
-    try {
-    //check if exists
-    if(func === 'exists'){
-        if(fs.existsSync(`./data/${type}/${id}.json`)){
-            return true
-        } else {
-            return false
-        }
-    }
-    if(func === 'delete'){
-        if(fs.existsSync(`./data/${type}/${id}.json`)){
-            var obj = JSON.parse(fs.readFileSync(`./data/${type}/${id}.json`, `utf-8`))
-            var res = ''
-            for(var i in obj){
-                if (i = string){
-                    res = i
-                }
-            }
-            if(obj[res] === undefined){
-                return false
-            } else {
-            delete obj[res]
-            fs.writeFileSync(`./data/${type}/${id}.json`, JSON.stringify(obj))
-            }
-        }
-    }
-    //reading a file
-    if(func === "read"){
-        if(fs.existsSync(`./data/${type}/${id}.json`)){
-            var obj = JSON.parse(fs.readFileSync(`./data/${type}/${id}.json`, `utf-8`))
-            var res = ''
-            if(!string){
-                var text = fs.readFileSync(`./data/${type}/${id}.json`, `utf-8`)
-                if(text === undefined){
-                    return false
-                } else {
-                    return text
-                }
-                
-            }
-            for(var i in obj){
-                if (i = string){
-                    res = i
-                }
-            }
-            if(obj[res] === undefined){
-                return false
-            } else {
-            return obj[res]
-            }
-        } else 
-        {
-            return false
-        }
-    }
-    //writing to a file
-    if(func === "write"){
-        if(fs.existsSync(`./data/${type}/${id}.json`)){
-            var obj = JSON.parse(fs.readFileSync(`./data/${type}/${id}.json`, `utf-8`))
-            var arr = new Set()
-            Object.keys(obj).forEach((key) => {
-                if(key === string){
-                    if(string in obj){
-                    obj[key] = val
-                    }
-                }
-            })
-            if(string in obj === false){
-                obj[string] = val
-            }
-            fs.writeFileSync(`./data/${type}/${id}.json`, JSON.stringify(obj))
-        } else {
-            fs.writeFileSync(`./data/${type}/${id}.json`, `{"${string}": "${val}"}`)
-        }
-    }
-} catch(err) {
-    console.error(err)
-}
-}
+
 client.on('ready', () => {  
     console.log(`Logged in`)
     try {
@@ -141,16 +56,16 @@ client.on('ready', () => {
         console.error()
     }
 })
-data('delete', 'global', 'test', 'sussy')
+
 //message features (leveling, counting, etc)
 client.on('messageCreate', message => {
     if(!message.author.bot){
-        if(data(`read`, `user`, message.author.id, 'xp') === false){
+        if(!data.exists(`./data/user/${message.author.id}.json`)){
 
-            data(`write`, `user`, message.author.id, `xp`, `0`)
-            data(`write`, `user`, message.author.id, `pointsNeeded`, `35`)
-            data(`write`, `user`, message.author.id, `level`, `0`)
-            data(`write`, `user`, message.author.id, `credits`, `100`)
+            data.write(`./data/user/${message.author.id}.json`, `xp`, `0`)
+            data.write(`./data/user/${message.author.id}.json`, 'pointsNeeded', `35`)
+            data.write(`./data/user/${message.author.id}.json`, 'level', `0`)
+            data.write(`./data/user/${message.author.id}.json`, 'credits',`100`)
         }
      features.forEach((msgfeature) => {
          eval(fs.readFileSync(`./msgfeatures/${msgfeature}`, "utf-8"))
@@ -162,16 +77,16 @@ client.on('messageCreate', message => {
 client.on(`interactionCreate`, async interaction => {
     if(interaction.isCommand()){
         const command = client.commands.get(interaction.commandName)
-        if(data(`read`, `user`, interaction.user.id, 'xp') === false){
+        if(!data.exists(`./data/user/${interaction.user.id}.json`)){
 
-            data(`write`, `user`, interaction.user.id, `xp`, `0`)
-            data(`write`, `user`, interaction.user.id, `pointsNeeded`, `35`)
-            data(`write`, `user`, interaction.user.id, `level`, `0`)
-            data(`write`, `user`, interaction.user.id, `credits`, `100`)
+            data.write(`./data/user/${interaction.user.id}.json`, `xp`, `0`)
+            data.write(`./data/user/${interaction.user.id}.json`, 'pointsNeeded', `35`)
+            data.write(`./data/user/${interaction.user.id}.json`, 'level', `0`)
+            data.write(`./data/user/${interaction.user.id}.json`, 'credits', `100`)
         }
         try {
             var splashtext = splash[Math.floor((Math.random()*splash.length))]
-            await command.execute(interaction, data, client, Discord, splashtext, loadCommands, worked)
+            await command.execute(interaction, data, client, Discord, splashtext, worked)
         } catch (error) {
             console.error(error)
             await interaction.reply({ content: 'There was an error executing this command!', ephemeral: true })

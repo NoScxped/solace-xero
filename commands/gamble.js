@@ -7,9 +7,9 @@ module.exports = {
 		.setDescription('Satisfy your gambling addiction!')
         .addStringOption(option=> option.setName(`credits`).setDescription(`How many credits will you put on the line?`).setRequired(true)),
 	async execute(interaction, data, client, Discord, splashtext, loadCommands, worked) {
-        if(data(`read`,`user`, interaction.user.id, `credits`) != false){
+        if(data.read(`./data/user/${interaction.user.id}.json`, `credits`)){
             var amount = Math.abs(parseInt(interaction.options.getString('credits')))
-            var credits = parseInt(data(`read`,`user`, interaction.user.id, `credits`))
+            var credits = parseInt(data.read(`./data/user/${interaction.user.id}.json`, `credits`))
 
             if(amount > credits){
 
@@ -56,6 +56,7 @@ module.exports = {
                     }
                     if(e.customId === `accept`){
                         //I SWEAR TO YOU IT IS 5050
+                        //back for 3.3.1 optmization, i still can assure u its 5050
                         var win = Math.random() < 0.5;
 
                         if(win){
@@ -86,7 +87,7 @@ module.exports = {
                             msg.edit({content: "_ _", embeds: [lose], components: []})
 
                         }
-                        data(`write`,`user`, interaction.user.id, `credits`, credits.toString())
+                        data.write(`./data/user/${interaction.user.id}.json`, "credits", credits.toString())
                          res = true
                          collector.stop()
                     }

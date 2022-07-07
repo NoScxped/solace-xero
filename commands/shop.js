@@ -8,7 +8,7 @@ module.exports = {
 
     async execute(interaction, data, client, Discord, splashtext) {
         const fs = require('fs');
-        const items = JSON.parse(fs.readFileSync('./data/global/items.json', 'utf-8'))
+        const items = JSON.parse(data.read('./data/global/items.json'))
         const msg = await interaction.reply({ content: '<a:typing:994063591340773466> *Xero is thinking* <a:typing:994063591340773466>', fetchReply: true, embeds: [], components: []})
         var prc = 0
         var ident = ""
@@ -50,10 +50,10 @@ module.exports = {
                 }
                 if(i.customId){
                     if(i.customId === 'accept'){
-                        if(parseInt(data(`read`, `user`, interaction.user.id, `credits`)) >= parseInt(prc)){
+                        if(parseInt(data.read(`./data/user/${interaction.user.id}.json`, `credits`)) >= parseInt(prc)){
 
-                            if(data(`read`, `user`, interaction.user.id, ident) != false && data(`read`, `user`, interaction.user.id, ident) != `NaN`){
-                                if(parseInt(data(`read`, `user`, interaction.user.id, ident)) >= parseInt(max)){
+                            if(data.read(`./data/user/${interaction.user.id}.json`, ident) != false && data.read(`./data/user/${interaction.user.id}.json`, ident) != `NaN`){
+                                if(parseInt(data.read(`./data/user/${interaction.user.id}.json`, ident)) >= parseInt(max)){
                                     embed = new MessageEmbed()
                                     .setTitle(`『 ❌ Purchase Failed! ❌ 』`)
                                     .setDescription(`You can only have *${max}* of this item!`)
@@ -73,11 +73,11 @@ module.exports = {
                                 .setColor("RANDOM")
                                 .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
 
-                                var add = parseInt(data(`read`, `user`, interaction.user.id, ident)) + 1
-                                var sub = parseInt(data(`read`, `user`, interaction.user.id, `credits`)) - parseInt(prc)
+                                var add = parseInt(data.read(`./data/user/${interaction.user.id}.json`, ident)) + 1
+                                var sub = parseInt(data.read(`./data/user/${interaction.user.id}.json`, `credits`)) - parseInt(prc)
     
-                                data(`write`, `user`, interaction.user.id, ident, add.toString())
-                                data(`write`, `user`, interaction.user.id, `credits`, sub.toString())
+                                data.write(`./data/user/${interaction.user.id}.json`, ident, add.toString())
+                                data.write(`./data/user/${interaction.user.id}.json`, `credits`, sub.toString())
                                 
                                 res = true
                                 await msg.edit({embeds: [embed], components: []})
@@ -85,7 +85,7 @@ module.exports = {
     
                             } else {
 
-                                data(`write`, `user`, interaction.user.id, ident, `1`)
+                                data.write(`./data/user/${interaction.user.id}.json`, ident, `1`)
                                 embed = new MessageEmbed()
                                 .setTitle(`『 Purchase Successful! 』`)
                                 .setDescription('You have successfully purchased this item!')
@@ -135,13 +135,11 @@ module.exports = {
                          .addComponents(
                          new MessageButton()
                             .setCustomId(`accept`)
-                            .setLabel(`Buy`)
-                            .setEmoji('✔️')
+                            .setEmoji('<:checkmark:994105025292943390>')
                             .setStyle(`SUCCESS`),
                         new MessageButton()
                             .setCustomId(`deny`)
-                            .setLabel(`Close`)
-                            .setEmoji('❌')
+                            .setEmoji('<:xmark:994105062353817682>')
                             .setStyle(`DANGER`)
                         )
                 

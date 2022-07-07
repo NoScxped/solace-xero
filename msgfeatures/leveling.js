@@ -1,23 +1,20 @@
 const { MessageEmbed } = require("discord.js")
 
-    
-
-
-                    var points = parseInt(data(`read`, `user`, message.author.id, `xp`, ``)) + 1
+                    var points = parseInt(data.read(`./data/user/${message.author.id}.json`, `xp`)) + 1
                     points = points.toString()
-                    var credits = parseInt(data(`read`, `user`, message.author.id, `credits`, ``))
+                    var credits = parseInt(data.read(`./data/user/${message.author.id}.json`, `credits`))
                     credits = credits + Math.floor(Math.random() * 5) + 1
                     credits = credits.toString()
-                    data(`write`, `user`, message.author.id, `credits`, credits)
-                    data(`write`, `user`, message.author.id, `xp`, points)
-                    if(points === data(`read`, `user`, message.author.id, `pointsNeeded`, ``)){
+                    data.write(`./data/user/${message.author.id}.json`, `credits`, credits)
+                    data.write(`./data/user/${message.author.id}.json`, `xp`, points)
+                    if(points === data.read(`./data/user/${message.author.id}.json`, `pointsNeeded`, ``)){
 
-                        var newlvl = parseInt(data(`read`, `user`, message.author.id, `level`, ``)) + 1
-                        var pointsNeed = parseInt(data(`read`, `user`, message.author.id, `pointsNeeded`, ``)) * 1.2
+                        var newlvl = parseInt(data.read(`./data/user/${message.author.id}.json`, `level`, ``)) + 1
+                        var pointsNeed = parseInt(data.read(`./data/user/${message.author.id}.json`, `pointsNeeded`, ``)) * 1.2
                         pointsNeed = parseInt(pointsNeed)
-                        data(`write`, `user`, message.author.id, `level`, newlvl.toString())
-                        data(`write`, `user`, message.author.id, `pointsNeeded`, pointsNeed.toString())
-                        data(`write`, `user`, message.author.id, `xp`, `1`)
+                        data.write(`./data/user/${message.author.id}.json`, `level`, newlvl.toString())
+                        data.write(`./data/user/${message.author.id}.json`, `pointsNeeded`, pointsNeed.toString())
+                        data.write(`./data/user/${message.author.id}.json`, `xp`, `1`)
                         try {
                         var embed = new MessageEmbed()
                         .setTitle(`『 *Level up!* 』`)
@@ -33,7 +30,7 @@ const { MessageEmbed } = require("discord.js")
                             .setThumbnail(message.author.avatarURL())
                             .addField(`Good job my little  ***__${message.author.username}__***  pog champ 🥺, you've ⬆️ ***__LEVEL UPED⬆️__***`, `**Keep on going and get to level ${newlvl + 1}**😊`)
                         }
-                        if(data('read', 'guild', message.guild.id, 'levelMessages') === 'true' || data('read', 'guild', message.guild.id, 'levelMessages') === false) {
+                        if(data.read(`./data/guild/${message.guild.id}.json`, 'levelMessages') === 'true' || !data.read(`./data/guild/${message.guild.id}.json`, 'levelMessages')) {
                            message.channel.send({embeds: [embed]}) 
                         }
                         

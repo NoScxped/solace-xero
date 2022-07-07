@@ -13,7 +13,8 @@
     "discord-api-types": "^0.33.5",
     "discord.js": "^13.8.1",
     "mathjs": "^10.6.3",
-    "minecraft-server-ping": "^0.0.8"
+    "minecraft-server-ping": "^0.0.8",
+    "xerodata": "^1.0.5"
   },
   "devDependencies": {
     "@types/node": "^17.0.35",

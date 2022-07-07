@@ -6,7 +6,7 @@ module.exports = {
 		.setName('ping')
 		.setDescription('Basic ping command'),
 	async execute(interaction, data, client, Discord) {
-		const sent = await interaction.reply({ content: 'Pinging...', fetchReply: true });
+		const sent = await interaction.reply({ content: '<a:typing:994063591340773466> *Xero is thinking* <a:typing:994063591340773466>', fetchReply: true});
 		sent.edit(`**Ping: *${sent.createdTimestamp - interaction.createdTimestamp}ms***`);
 	}
 }

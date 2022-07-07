@@ -24,7 +24,7 @@ module.exports = {
 
         return fileArray
         }
-        var arr = data('read', 'global', 'gbcounting', 'channels').split(',')
+        var arr = data.read(`./data/global/gbcounting.json`, 'channels').split(',')
 
         var embed = new MessageEmbed()
         .setTitle('『 Xero Stats 』')

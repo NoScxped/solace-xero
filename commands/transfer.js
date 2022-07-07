@@ -14,12 +14,12 @@ module.exports = {
         if(interaction.options.getUser('user').id === interaction.user.id){
             return interaction.reply('❌ **You cannot donate to yourself!** ❌')
         }
-        if(data(`read`,`user`, interaction.user.id, `credits`)){
-            if(data(`read`, `user`, interaction.options.getUser('user').id, "credits")){
-                var creditsfrom = parseInt(data(`read`,`user`, interaction.user.id, `credits`))
+        if(data.read(`./data/user/${interaction.user.id}.json`, `credits`)){
+            if(data.read(`./data/user/${interaction.options.getUser('user').id}.json`, "credits")){
+                var creditsfrom = parseInt(data.read(`./data/user/${interaction.user.id}.json`, `credits`))
                 var transferfrom = Math.abs(parseInt(interaction.options.getString('credits')))
-                var creditsto = parseInt(data(`read`,`user`, interaction.options.getUser('user').id, `credits`))
-                var transferto = parseInt(data(`read`,`user`, interaction.options.getUser('user').id, `credits`))
+                var creditsto = parseInt(data.read(`./data/user/${interaction.options.getUser('user').id}.json`, `credits`))
+                var transferto = parseInt(data.read(`./data/user/${interaction.options.getUser('user').id}.json`, `credits`))
                 if(creditsfrom > parseInt(interaction.options.getString('credits'))){
 
                     transferto = transferfrom + transferto
@@ -65,8 +65,8 @@ module.exports = {
                             collector.stop()
                         }
                         if(e.customId === `accept`){
-                            data("write", "user", interaction.user.id, "credits", creditsfrom.toString())
-                            data("write", "user", interaction.options.getUser(`user`).id, "credits", transferto.toString())
+                            data.write(`./data/user/${interaction.user.id}.json`, "credits", creditsfrom.toString())
+                            data.write(`./data/user/${interaction.options.getUser('user').id}.json`, "credits", transferto.toString())
 
                             var embed = new MessageEmbed()
                             .setTitle(`『 ✔️ **Transaction Successful!** ✔️ 』`)
