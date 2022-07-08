@@ -84,6 +84,9 @@ client.on(`interactionCreate`, async interaction => {
             data.write(`./data/user/${interaction.user.id}.json`, 'level', `0`)
             data.write(`./data/user/${interaction.user.id}.json`, 'credits', `100`)
         }
+        if(data.exists(`./data/user/${interaction.user.id}.json`)){
+            if(data.read(`./data/user/${interaction.user.id}.json`, 'token')){interaction.user.username = "[ OG ] " + interaction.user.username}
+        }
         try {
             var splashtext = splash[Math.floor((Math.random()*splash.length))]
             await command.execute(interaction, data, client, Discord, splashtext, worked)

@@ -33,7 +33,7 @@ module.exports = {
 
         if(interaction.options.getSubcommand() === 'credits'){
 
-          ico = ''
+          ico = '⌬'
           for(const i of files){
             var credits = parseInt(data.read(`./data/user/` +  i, 'credits'))
             var id = i.slice(0, -5)
@@ -110,7 +110,9 @@ module.exports = {
 
               try {
 
+                
                 var user = await client.users.fetch(str[i].id.toString()).catch(console.error)
+                if(data.exists(`./data/user/${user.id}.json`)){if(data.read(`./data/user/${user.id}.json`, 'token')){user.username = "[ OG ] " + user.username}}
                   name = "**" + user.username + "**#" + user.discriminator
 
               }
@@ -121,7 +123,7 @@ module.exports = {
               }
 
               num = num + 1
-              msg = msg + `${num}. » *${name}* › ${str[i].credits} *${ico}*\n\n`
+              msg = msg + `${num}. » ${name} › *${str[i].credits}* **${ico}**\n\n`
 
             }
             

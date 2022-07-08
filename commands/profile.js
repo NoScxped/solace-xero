@@ -36,7 +36,7 @@ module.exports = {
                 }
             }
             if(data.exists(`./data/user/${interaction.user.id}.json`)){
-
+                
                 var embed = new MessageEmbed()
                     .setAuthor({ name: `『 ` + interaction.user.username + " 』", iconURL: interaction.user.avatarURL() })
                     .setColor(`RANDOM`)
