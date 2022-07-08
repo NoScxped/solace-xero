@@ -14,7 +14,13 @@ module.exports = {
         var prc = 0
         var ident = ""
         var max = 0
-
+        const backbar = new MessageActionRow()
+                                .addComponents(
+                                new MessageButton()
+                                   .setCustomId(`back`)
+                                   .setEmoji('<:refund:994966593568251914>')
+                                   .setLabel(`Back`)
+                                   .setStyle(`PRIMARY`))
         var embed = new MessageEmbed()
                 .setTitle(`『 Xero Store 』`)
                 .setDescription(`» Select an item`)
@@ -81,13 +87,7 @@ module.exports = {
 
                             if(data.read(`./data/user/${interaction.user.id}.json`, ident) && data.read(`./data/user/${interaction.user.id}.json`, ident) != NaN){
 
-                                const backbar = new MessageActionRow()
-                                .addComponents(
-                                new MessageButton()
-                                   .setCustomId(`back`)
-                                   .setEmoji('<:refund:994966593568251914>')
-                                   .setLabel(`Back`)
-                                   .setStyle(`PRIMARY`))
+                                
 
                                 if(parseInt(data.read(`./data/user/${interaction.user.id}.json`, ident)) >= parseInt(max)){
 
@@ -159,6 +159,7 @@ module.exports = {
                     if(i.customId === 'deny'){
 
                         cont  = false
+                        res = false
                         collector.stop()
 
                     }
