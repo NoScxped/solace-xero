@@ -50,7 +50,7 @@ module.exports = {
             embed.addField(`» Pay`, "› " + pay.toString() + " ⌬")
             embed.addField(`» Cooldown`, `› ${workAgain} minutes`)
 
-            if(data.read(`./data/user/${interaction.user.id}.json`, 'bio') != false && data.read(`./data/user/${interaction.user.id}.json`, 'bio') != '0'){
+            if(data.read(`./data/user/${interaction.user.id}.json`, 'bio')){
 
                 embed.setDescription("» " + data.read(`./data/user/${interaction.user.id}.json`, 'bio').toString())
 

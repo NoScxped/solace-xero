@@ -555,12 +555,16 @@ module.exports = {
         var factionId = data.read(`./data/user/${interaction.user.id}.json`, 'faction')
 
         var members = data.read(`./data/faction/${factionId}.json`, 'members').split(',')
-        var admins = data.read(`./data/faction/${factionId}.json`, 'admin').split(',')
+        var admins = data.read(`./data/faction/${factionId}.json`, 'admin')
         var owner = data.read(`./data/faction/${factionId}.json`, 'owner')
 
         var memberlist = '» Members\n\n'
         var adminlist = '» Admins\n\n'
-
+        if(!admins){
+            admins = '1'
+        } else {
+            admins = admins.split(',')
+        }
         if(members.length > 1){
         for(var i in members){
             if(!admins.includes(members[i]) && members[i] != owner){
@@ -572,6 +576,7 @@ module.exports = {
     }
         if(admins){
         for(var i in admins){
+
             adminlist = adminlist + `› <@!${admins[i]}>\n`
         }
     } else {
