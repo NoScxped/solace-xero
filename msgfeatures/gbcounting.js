@@ -10,7 +10,7 @@ if(arr.includes(message.channel.id.toString())){
         }
         var color = 0
         if(data.exists(data.exists(`./data/guild/${message.guild.id}.json`))){ color = data.read(`./data/guild/${message.guild.id}.json`, 'color') }
-        else if(!color || !data.exists(`./data/guild/${message.guild.id}.json`)){
+        else {
             var rng = Math.floor(Math.random() * 999999)
             data.write(`./data/guild/${message.guild.id}.json`, 'color', rng.toString())
             color = rng
@@ -31,7 +31,7 @@ if(arr.includes(message.channel.id.toString())){
             var embed = new MessageEmbed()
                 .setAuthor({name: message.author.username, iconURL: message.author.avatarURL()})
                 .setDescription("» " + num.toString())
-                .setColor(`#${rng}`)
+                .setColor(`#${color}`)
                 .setFooter({ text: message.guild.name, iconURL: message.guild.iconURL() });
             message.delete()
             data.write(`./data/global/gbcounting.json`, 'lastGuild', message.guild.id.toString())
