@@ -9,6 +9,8 @@ const client = new Client({
 })
 
 var worked = new Set()
+var fight = new Set()
+var fought = new Set()
 const config = JSON.parse(data.read(`config.json`))
 const fs = require('fs')
 var splash = data.read(`./data/global/splashes.xero`).split(`^`)
@@ -91,7 +93,7 @@ client.on(`interactionCreate`, async interaction => {
         }
         try {
             var splashtext = splash[Math.floor((Math.random()*splash.length))]
-            await command.execute(interaction, data, client, Discord, splashtext, worked)
+            await command.execute(interaction, data, client, Discord, splashtext, worked, fight, fought)
         } catch (error) {
             console.error(error)
             await interaction.reply({ content: 'There was an error executing this command!', ephemeral: true })

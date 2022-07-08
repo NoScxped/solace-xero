@@ -103,7 +103,8 @@ module.exports = {
         var num = 0
 
         for(var i in str){
-
+          
+          
             var name = ''
 
             if(num <= 9){
@@ -112,9 +113,9 @@ module.exports = {
 
                 
                 var user = await client.users.fetch(str[i].id.toString()).catch(console.error)
-                if(data.exists(`./data/user/${user.id}.json`)){if(data.read(`./data/user/${user.id}.json`, 'token')){user.username = "[ OG ] " + user.username}}
+                
                   name = "**" + user.username + "**#" + user.discriminator
-
+                if(data.exists(`./data/user/${user.id}.json`)){if(data.read(`./data/user/${user.id}.json`, 'token')){name = "*[ OG ]* " + name}}
               }
               catch {
 

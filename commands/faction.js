@@ -77,7 +77,7 @@ module.exports = {
                 var embed = new MessageEmbed()
                 .setAuthor({name: `${interaction.user.username} created a Faction!`})
                 .setTitle(`『 ${factionName} 』`)
-                .setDescription("» " + interaction.options.getString(`'description`))
+                .setDescription("» " + interaction.options.getString(`factiondescription`))
                 .addField("Owner", interaction.user.username, true)
                 .addField('Level', '1', true)
                 .setFooter({ text: 'ID: ' + factionId})
@@ -173,7 +173,7 @@ module.exports = {
         //invite a user
         if(interaction.options.getSubcommand() === 'add'){
 
-            if(data.exists(`./data/user/${interaction.options.getUser('user').id}.json`)){
+            if(!data.exists(`./data/user/${interaction.options.getUser('user').id}.json`)){
 
                 data.write(`./data/user/${interaction.options.getUser('user').id}.json`, `xp`, `0`)
                 data.write(`./data/user/${interaction.options.getUser('user').id}.json`, 'pointsNeeded', `35`)
