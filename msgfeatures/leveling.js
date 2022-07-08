@@ -3,9 +3,11 @@ const { MessageEmbed } = require("discord.js")
                     var points = parseInt(data.read(`./data/user/${message.author.id}.json`, `xp`)) + 1
                     points = points.toString()
                     var credits = parseInt(data.read(`./data/user/${message.author.id}.json`, `credits`))
-                    credits = credits + Math.floor(Math.random() * 5) + 1
-                    credits = credits.toString()
-                    data.write(`./data/user/${message.author.id}.json`, `credits`, credits)
+                    
+                    var rand = Math.floor(Math.random() * 5) + 1
+                    if(data.read(`./data/user/${message.author.id}.json`, 'booster')){credits = credits + Math.ceil(rand * 1.75)} else { credits = credits + Math.floor(Math.random() * 5) + 1 }
+
+                    data.write(`./data/user/${message.author.id}.json`, `credits`, credits.toString())
                     data.write(`./data/user/${message.author.id}.json`, `xp`, points)
                     if(points === data.read(`./data/user/${message.author.id}.json`, `pointsNeeded`, ``)){
 

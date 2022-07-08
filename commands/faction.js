@@ -521,28 +521,33 @@ module.exports = {
         if(data.read(`./data/faction/${factionId}.json`, 'owner') != interaction.user.id){ return interaction.reply('<:xmark:994105062353817682> *You do not own this Faction!* <:xmark:994105062353817682>')}
 
         if(factionId === adminFactionId){
-
         var arr = data.read(`./data/faction/${factionId}.json`, 'admin')
+        var members = data.read(`./data/faction/${factionId}.json`, 'members').split(',')
+        var adminLimit = Math.ceil(members.length * 0.15)
+
+        
 
         if(!arr){
 
             data.write(`./data/faction/${factionId}.json`, 'admin', interaction.options.getUser(`admin`).id.toString())
-            return interaction.reply({content: `<:checkmark:994105025292943390> *${interaction.options.getUser(`admin`).username} is now a Faction Admin!* <:checkmark:994105025292943390>`})
+            return interaction.reply({content: `<:checkmark:994105025292943390> *${interaction.options.getUser(`admin`).username} is now a Faction Admin!  You have ${adminLimit - 1} Admin Slots Left!* <:checkmark:994105025292943390>`})
 
         } else {
 
             arr = arr.split(',')
             if(arr.includes(interaction.options.getUser(`admin`).id)){
 
-                arr.filter(e => e !== interaction.options.getUser('admin').id)
-                data.write(`./data/faction/${factionId}.json`, 'admin', arr.toString())
+                arr = arr.filter(e => e !== interaction.options.getUser('admin').id.toString())
+                
+                if(arr.length === 0){ data.delete(`./data/faction/${factionId}.json`, 'admin')} else {data.write(`./data/faction/${factionId}.json`, 'admin', arr.toString())}
                 return interaction.reply({content: `<:checkmark:994105025292943390> *${interaction.options.getUser(`admin`).username} is no longer a Faction Admin!* <:checkmark:994105025292943390>`})
 
             } else {
                 
+                if(arr.length > adminLimit){return interaction.reply(`<:xmark:994105062353817682> *This Faction has reached its Admin Limit of ${adminLimit}. Invite more people!* <:xmark:994105062353817682>`)}
                 arr.push(interaction.options.getUser('admin').id)
                 data.write(`./data/faction/${factionId}.json`, 'admin', arr.toString())
-                return interaction.reply({content: `<:checkmark:994105025292943390> *${interaction.options.getUser(`admin`).username} is now a Faction Admin!* <:checkmark:994105025292943390>`})
+                return interaction.reply({content: `<:checkmark:994105025292943390> *${interaction.options.getUser(`admin`).username} is now a Faction Admin! You have ${adminLimit - admins.length} Admin Slots Left!* <:checkmark:994105025292943390>`})
 
             }
         }
@@ -553,19 +558,30 @@ module.exports = {
     //faction member list
     if(interaction.options.getSubcommand() === 'members'){
         var factionId = data.read(`./data/user/${interaction.user.id}.json`, 'faction')
-
+        var adminCnt = 0
         var members = data.read(`./data/faction/${factionId}.json`, 'members').split(',')
-        var admins = data.read(`./data/faction/${factionId}.json`, 'admin').split(',')
+        var admins = data.read(`./data/faction/${factionId}.json`, 'admin')
         var owner = data.read(`./data/faction/${factionId}.json`, 'owner')
 
-        var memberlist = '» Members\n\n'
-        var adminlist = '» Admins\n\n'
+        if(admins){
+        admins = admins.split(`,`)
+        var adminCnt = admins.length
+        }
+
+        var memberlist = `» Members › **${members.length}/30**\n\n`
+        var adminlist = `» Admins › **${adminCnt}/${Math.ceil(members.length * 0.15)}**\n\n`
 
         if(members.length > 1){
         for(var i in members){
+            if(admins){
             if(!admins.includes(members[i]) && members[i] != owner){
                 memberlist = memberlist + `› <@!${members[i]}>\n`
             }
+        } else {
+            if(members[i] != owner){
+            memberlist = memberlist + `› <@!${members[i]}>\n`
+            }
+        }
         }
     } else {
         memberlist = ''

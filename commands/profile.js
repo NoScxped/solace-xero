@@ -56,7 +56,7 @@ module.exports = {
             }
         }
         if(interaction.options.getSubcommand() === 'set-bio'){
-            data.read(`./data/user/${interaction.user.id}.json`, 'bio', interaction.options.getString('bio'))
+            data.write(`./data/user/${interaction.user.id}.json`, 'bio', interaction.options.getString('bio'))
             interaction.reply('<:checkmark:994105025292943390> *Bio Updated!* <:checkmark:994105025292943390>')
         }
         if(interaction.options.getSubcommand() === 'remove-bio'){
