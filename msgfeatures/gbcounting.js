@@ -9,7 +9,7 @@ if(arr.includes(message.channel.id.toString())){
             cont = false
         }
         var color = 0
-        if(data.exists(data.exists(`./data/guild/${message.guild.id}.json`))){ color = data.read(`./data/guild/${message.guild.id}.json`, 'color') }
+        if(data.exists(`./data/guild/${message.guild.id}.json`)){ color = data.read(`./data/guild/${message.guild.id}.json`, 'color') }
         else {
             var rng = Math.floor(Math.random() * 999999)
             data.write(`./data/guild/${message.guild.id}.json`, 'color', rng.toString())
