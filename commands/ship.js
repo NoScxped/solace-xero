@@ -15,7 +15,7 @@ module.exports = {
         if(interaction.options.getUser(`user2`)){
             interaction.user = interaction.options.getUser(`user2`)
         }
-        if(data.exists(`./data/user/${interaction.user.id}.json`)){if(data.read(`./data/user/${interaction.user.id}.json`, 'token')){ interaction.user.username = interaction.user.username.slice(7)}}
+        
         var perc = Math.floor(Math.random() * 100)
         if(interaction.user.id === '914006698853822464' || interaction.options.getUser(`user1`).id === '914006698853822464'){ perc = 12589710232387563278156}
         var heart = '💖'
