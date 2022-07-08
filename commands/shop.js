@@ -166,6 +166,7 @@ module.exports = {
                     if(i.customId === 'back'){
 
                         cont = true
+                        res = false
                         loadShop()
                         
                     }
