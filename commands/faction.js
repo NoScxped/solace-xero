@@ -588,6 +588,7 @@ module.exports = {
     }
         if(admins){
         for(var i in admins){
+
             adminlist = adminlist + `› <@!${admins[i]}>\n`
         }
     } else {

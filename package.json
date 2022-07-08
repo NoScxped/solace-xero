@@ -1,7 +1,7 @@
 {
   "name": "xero",
   "version": "3.3.2",
-  "description": "Xero Discord Bot",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
