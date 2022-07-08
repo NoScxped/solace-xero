@@ -66,6 +66,8 @@ client.on('messageCreate', message => {
             data.write(`./data/user/${message.author.id}.json`, 'pointsNeeded', `35`)
             data.write(`./data/user/${message.author.id}.json`, 'level', `0`)
             data.write(`./data/user/${message.author.id}.json`, 'credits',`100`)
+        } else {
+            if(data.read(`./data/user/${message.author.id}.json`, 'token')){message.author.username = "[ OG ] " + message.author.username}
         }
      features.forEach((msgfeature) => {
          eval(fs.readFileSync(`./msgfeatures/${msgfeature}`, "utf-8"))
