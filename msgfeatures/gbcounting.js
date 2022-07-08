@@ -31,7 +31,7 @@ if(arr.includes(message.channel.id.toString())){
             var embed = new MessageEmbed()
                 .setAuthor({name: message.author.username, iconURL: message.author.avatarURL()})
                 .setDescription("» " + num.toString())
-                .setColor(`#${color}`)
+                .setColor(`#` + color.toString())
                 .setFooter({ text: message.guild.name, iconURL: message.guild.iconURL() });
             message.delete()
             data.write(`./data/global/gbcounting.json`, 'lastGuild', message.guild.id.toString())
