@@ -8,6 +8,7 @@ const client = new Client({
     }
 })
 
+var challenges = JSON.parse(data.read(`./data/global/challenges.json`))
 var worked = new Set()
 var fight = new Set()
 var fought = new Set()
