@@ -31,6 +31,9 @@ module.exports = {
           ico = '⌬'
           for(const i of files){
             var credits = parseInt(data.read(`./data/user/` +  i, 'credits'))
+            if(data.read(`./data/user/${i}`, 'bank')){
+              credits = credits + parseInt(data.read(`./data/user/` +  i, 'bank'))
+            }
             var id = i.slice(0, -5)
             if(!Number.isNaN(credits) && credits){
                 str.push({"credits": credits, "id": id})
