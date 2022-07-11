@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageActionRow, MessageSelectMenu, MessageButton, Message, Discord, MessageEmbed } = require('discord.js');
+const { MessageActionRow, MessageSelectMenu, MessageButton, MessageEmbed } = require('discord.js');
 module.exports = {
 	data: new SlashCommandBuilder()
     .setName('shop')
@@ -18,7 +18,6 @@ module.exports = {
                                 .addComponents(
                                 new MessageButton()
                                    .setCustomId(`back`)
-                                   .setEmoji('<:refund:994966593568251914>')
                                    .setLabel(`Back`)
                                    .setStyle(`PRIMARY`))
         var embed = new MessageEmbed()
@@ -71,6 +70,8 @@ module.exports = {
 
             collector.on(`collect`, async i => {
 
+                i.deferUpdate()
+
                 if(i.values){
 
                   str = Array.from(i.values)
@@ -110,7 +111,7 @@ module.exports = {
 
                                 var add = parseInt(data.read(`./data/user/${interaction.user.id}.json`, ident)) + 1
                                 var sub = parseInt(data.read(`./data/user/${interaction.user.id}.json`, `credits`)) - parseInt(prc)
-    
+                                console.log(ident)
                                 data.write(`./data/user/${interaction.user.id}.json`, ident.toString(), add.toString())
                                 data.write(`./data/user/${interaction.user.id}.json`, `credits`, sub.toString())
                                 cont = false

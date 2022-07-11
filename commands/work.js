@@ -8,7 +8,7 @@ module.exports = {
 	async execute(interaction, data, client, Discord, splashtext, worked) {
         if(data.read(`./data/user/${interaction.user.id}.json`, `job`)){
             if(worked.has(interaction.user.id)){
-                return interaction.reply(`You cannot work right now!`)
+                return interaction.reply(`<:xmark:994105062353817682> *You cannot work right now!* <:xmark:994105062353817682>`)
             } else {
 
             const fs = require(`fs`)

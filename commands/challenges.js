@@ -3,7 +3,7 @@ const { MessageActionRow, MessageSelectMenu, MessageButton, Message, Discord, Me
 module.exports = {
 	data: new SlashCommandBuilder()
     .setName('challenges')
-	.setDescription('View Completed Challenges')
+	.setDescription('View Challenges')
     .toJSON(),
 
     async execute(interaction, data, client, Discord, splashtext) {
@@ -25,10 +25,6 @@ module.exports = {
         var num = 0
         for(var i in challenges){
 
-            if(data.read(`./data/user/${interaction.user.id}.json`, `challenges`)){
-
-                if(data.read(`./data/user/${interaction.user.id}.json`, `challenges`).includes(challenges[i].id)){
-
                 itm = challenges[i].id
                 num = num + 1
                        row.components[0].addOptions([{
@@ -37,9 +33,7 @@ module.exports = {
                             value: `${challenges[i].id}`,
                             }]); 
                         }
-                    }
-            
-            }
+                    
             var closebar = new MessageActionRow()
                          .addComponents(
                         new MessageButton()
@@ -84,14 +78,17 @@ module.exports = {
 
                     if(challenges[i].id === str[0]){
                         var embed = new MessageEmbed()
-                        .setAuthor({name: "You have completed this Challenge!"})
                         .setTitle(`『 ${challenges[i].name} 』`)
                         .setDescription(`» ${challenges[i].description}`)
                         .addField(`» Reward`, `› ${challenges[i].credits_reward}  ⌬`)
                         .setColor(`RANDOM`)
                         .setFooter({ text: `You have 30 seconds to reply!`, iconURL: client.user.avatarURL() });
 
-                        
+                        if(data.read(`./data/user/${interaction.user.id}.json`, 'challenges').includes(challenges[i].id)){
+                            embed.setAuthor({name: `You have completed this Challenge!`})
+                        } else {
+                            embed.setAuthor({name: `You have NOT completed this Challenge!`})
+                        }
                 
                         await msg.edit({embeds: [embed], components: [row, closebar]})
                     

@@ -28,9 +28,9 @@ module.exports = {
 
                 }
 
-                if(userCredits - bankCredits <= 0){
+                if(userCredits - bankCredits < 0){
 
-                    return interaction.reply(`<:xmark:994105062353817682> *That amoung would put you into the negatives!* <:xmark:994105062353817682>`)
+                    return interaction.reply(`<:xmark:994105062353817682> *That amount would put you into the negatives!* <:xmark:994105062353817682>`)
 
                 }
 

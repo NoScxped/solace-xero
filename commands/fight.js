@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const {MessageActionRow, MessageButton, Message, Discord, MessageEmbed, MessageSelectMenu, UserFlags } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 module.exports = {
 	data: new SlashCommandBuilder()
     .setName('fight')
@@ -29,15 +29,15 @@ module.exports = {
                     if(attackedGloves === 0){ data.delete(`./data/user/${interaction.options.getUser(`user`).id}.json`, 'gloves')} else {data.write(`./data/user/${interaction.user.id}.json`, 'gloves', userGloves.toString())}
 
                     var arr = [interaction.user.id, interaction.options.getUser(`user`).id]
-                    var rand = Math.floor(Math.random() * 10)
+                    var rand = Math.floor(Math.random() * 4)
 
-                    if(rand === 9){ rand = interaction.user.id } else { rand = interaction.options.getUser(`user`).id }
+                    if(rand === 3){ rand = interaction.user.id } else { rand = interaction.options.getUser(`user`).id }
 
                     var user = await client.users.fetch(interaction.options.getUser(`user`).id.toString()).catch(console.error)
 
                     if(rand === interaction.user.id){
 
-                        var loseCreds = Math.ceil(parseInt(data.read(`./data/user/${interaction.options.getUser(`user`).id}.json`, 'credits')) * 0.02)
+                        var loseCreds = Math.ceil(parseInt(data.read(`./data/user/${interaction.options.getUser(`user`).id}.json`, 'credits')) * 0.05)
                         var userCredits = parseInt(data.read(`./data/user/${interaction.user.id}.json`, 'credits')) + loseCreds
                         var loseTotal = parseInt(data.read(`./data/user/${interaction.options.getUser(`user`).id}.json`, 'credits'))
                         loseTotal = loseTotal - loseCreds

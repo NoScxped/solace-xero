@@ -15,7 +15,7 @@ module.exports = {
         try{
             output = math.evaluate(interaction.options.getString(`equation`))
         } catch {
-            output = "*⚠️Unable to process this equation⚠️*"
+            output = "<:xmark:994105062353817682> *Unable to process this equation!* <:xmark:994105062353817682>"
         }
         var embed = new MessageEmbed()
         .setTitle("『 Math 』")

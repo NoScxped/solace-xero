@@ -12,14 +12,14 @@ module.exports = {
     async execute(interaction, data, client, Discord, splashtext) {
         var url = interaction.options.getString('ip')
         var title = url
-        var description = "❌ This server is offline."
+        var description = "<:xmark:994105062353817682> *This server is offline.* <:xmark:994105062353817682>"
         var ping = "0"
         var onlinePlayers = "0/0"
         var output = ""
         try{
          output = await minecraftServerPing.ping(url);   
         } catch(err){
-            return interaction.reply('❌ This server could not be found!')
+            return interaction.reply('<:xmark:994105062353817682> *This server could not be found!*')
         }
         ping = output.ping
         description = output.description

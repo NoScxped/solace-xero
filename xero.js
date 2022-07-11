@@ -1,5 +1,6 @@
 const {Discord, Client, Collection, MessageEmbed, Intents} = require('discord.js')
-const data = require('xerodata')
+const data = require('apollo.data')
+const apollo = require("apollo.console")
 const client = new Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_MESSAGES],
     allowedMentions: {
@@ -8,6 +9,9 @@ const client = new Client({
     }
 })
 
+apollo.setPort(8000)
+apollo.setHostname(`localhost`)
+apollo.setName('Xero')
 var challenges = JSON.parse(data.read(`./data/global/challenges.json`))
 var worked = new Set()
 var fight = new Set()
@@ -22,17 +26,17 @@ client.msgfeatures = new Collection()
 
 //commands
 const commands = fs.readdirSync(path.resolve('./commands')).filter(file => file.endsWith(`.js` || `.ts`))
-console.log('Starting Xero...')
+apollo.log('Starting Xero...')
 for (const file of commands){
     const command = require(`./commands/` + file)
     try {
     client.commands.set(command.data.name, command)
 }
     catch(err) {
-        console.error(err)
+        apollo.log(err)
     }
 }
-console.log(`Loaded commands.`)
+apollo.log(`Loaded commands.`)
 
 //message features (leveling, counting, etc)
 const msgfeatures = fs.readdirSync(path.resolve('./msgfeatures')).filter(file => file.endsWith(`.js` || `.ts`))
@@ -42,21 +46,21 @@ for (const file of msgfeatures){
     features.add(file)
 }
     catch(err) {
-        console.error(err)
+        apollo.log(err)
     }
 }
 
 
 client.on('ready', () => {  
-    console.log(`Logged in`)
+    apollo.log(`Logged in`)
     try {
         var link = null
         if(config.url){
             link = config.url
         }
       client.user.setPresence({ activities: [{ name: config.status_message, type: config.status_type, url: link }] });  
-    } catch {
-        console.error()
+    } catch(err) {
+        apollo.log(err)
     }
 })
 
@@ -69,8 +73,6 @@ client.on('messageCreate', message => {
             data.write(`./data/user/${message.author.id}.json`, 'pointsNeeded', `35`)
             data.write(`./data/user/${message.author.id}.json`, 'level', `0`)
             data.write(`./data/user/${message.author.id}.json`, 'credits',`100`)
-        } else {
-            if(data.read(`./data/user/${message.author.id}.json`, 'token')){message.author.username = "[ OG ] " + message.author.username}
         }
      features.forEach((msgfeature) => {
          eval(fs.readFileSync(`./msgfeatures/${msgfeature}`, "utf-8"))
@@ -93,7 +95,7 @@ client.on(`interactionCreate`, async interaction => {
             var splashtext = splash[Math.floor((Math.random()*splash.length))]
             await command.execute(interaction, data, client, Discord, splashtext, worked, fight, fought)
         } catch (error) {
-            console.error(error)
+            apollo.log(error)
             await interaction.reply({ content: 'There was an error executing this command!', ephemeral: true })
         }
     }

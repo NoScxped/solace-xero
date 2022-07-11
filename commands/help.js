@@ -1,9 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageActionRow, MessageButton, Message, Discord, MessageEmbed } = require('discord.js');
-//idk why this is a function i wrote this at midnight i couldve just done command.name.charAt(0).toUpperCase() + command.name.slice(1) but itll be ok trust the process
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
+const { MessageEmbed } = require('discord.js');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('help')
@@ -18,7 +14,7 @@ module.exports = {
         }
         var send = ''
         commands.forEach(command => {
-            send = send + `**» ${capitalizeFirstLetter(command.name)}** - *${command.description}*\n`
+            send = send + `**» ${command.name.charAt(0).toUpperCase() + command.name.slice(1)}** - *${command.description}*\n`
         })
         var embed = new MessageEmbed()
         .setTitle("『 Help 』")
