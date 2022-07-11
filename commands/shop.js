@@ -111,7 +111,7 @@ module.exports = {
                                 var add = parseInt(data.read(`./data/user/${interaction.user.id}.json`, ident)) + 1
                                 var sub = parseInt(data.read(`./data/user/${interaction.user.id}.json`, `credits`)) - parseInt(prc)
     
-                                data.write(`./data/user/${interaction.user.id}.json`, ident, add.toString())
+                                data.write(`./data/user/${interaction.user.id}.json`, ident.toString(), add.toString())
                                 data.write(`./data/user/${interaction.user.id}.json`, `credits`, sub.toString())
                                 cont = false
                                 res = true
@@ -120,7 +120,6 @@ module.exports = {
                             } else {
 
                                 res = true
-                                cont = false
                                 var sub = parseInt(data.read(`./data/user/${interaction.user.id}.json`, `credits`)) - parseInt(prc)
 
                                 data.write(`./data/user/${interaction.user.id}.json`, `credits`, sub.toString())
@@ -131,7 +130,7 @@ module.exports = {
                                 .setDescription('You have successfully purchased this item!')
                                 .setColor("RANDOM")
                                 .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
-
+                                cont = false
                                 await msg.edit({embeds: [embed], components: [backbar]})
                                 
 

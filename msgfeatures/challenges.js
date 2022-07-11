@@ -32,9 +32,11 @@ for(var i in challenges){
         } else {
 
                 data.write(`./data/user/${message.author.id}.json`, `credits`, credits.toString())
+                if(data.exists(`./data/guild/${message.guild.id}.json`)){
                 if(data.read(`./data/guild/${message.guild.id}.json`, 'challengeMessages') === 'true' || !data.read(`./data/guild/${message.guild.id}.json`, 'challengeMessages')) {
                     message.reply({embeds: [embed]}) 
                  }
+                }
             data.write(`./data/user/${message.author.id}.json`, 'challenges', `${challenges[i].id}`)
 
         }

@@ -41,12 +41,15 @@ module.exports = {
                     .setAuthor({ name: `『 ` + interaction.user.username + " 』", iconURL: interaction.user.avatarURL() })
                     .setColor(`RANDOM`)
                     .setThumbnail(interaction.user.avatarURL())
-                    .addField(`» Credits **⌬**`, "› " + data.read(`./data/user/${interaction.user.id}.json`, `credits`), true)
+                    .addField(`» Credits`, "› " + data.read(`./data/user/${interaction.user.id}.json`, `credits`) + ' ⌬', true)
                     .addField(`» Level`, "› " + data.read(`./data/user/${interaction.user.id}.json`, `level`), true)
                     .addField(`» XP`, "› " + data.read(`./data/user/${interaction.user.id}.json`, `xp`) + '/' + data.read(`./data/user/${interaction.user.id}.json`, `pointsNeeded`), true)
                     .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
                     if(data.read(`./data/user/${interaction.user.id}.json`, 'bio')){
                         embed.setDescription("» " + data.read(`./data/user/${interaction.user.id}.json`, 'bio').toString())
+                    }
+                    if(data.read(`./data/user/${interaction.user.id}.json`, 'bank')){
+                        embed.addField("» Bank", `${data.read(`./data/user/${interaction.user.id}.json`, 'bank')} ⌬`, true)
                     }
     
                 interaction.reply({embeds: [embed]})

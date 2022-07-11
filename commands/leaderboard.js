@@ -7,22 +7,16 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('leaderboard')
 		.setDescription('View Leaderboards')
-    .addSubcommand(subcommand =>
-      subcommand
-        .setName('credits')
-        .setDescription('View the Credits leaderboard'))
-    .addSubcommand(subcommand =>
-        subcommand
-          .setName('faction')
-          .setDescription('View the Faction Leaderboard'))
-    .addSubcommand(subcommand =>
-        subcommand
-          .setName('counting')
-          .setDescription('View the counting leaderboard'))
-    .addSubcommand(subcommand =>
-        subcommand
-          .setName('leveling')
-          .setDescription('View the leveling leaderboard')),
+    .addStringOption(option=> 
+      option.setName(`leaderboard`)
+      .setDescription(`View the Leaderboard`)
+      .setRequired(true)
+      .addChoices(
+				{ name: 'Credits', value: 'credits' },
+				{ name: 'Counting', value: 'counting' },
+				{ name: 'Leveling', value: 'leveling' },
+        { name: 'Faction [ Members ]', value: 'factionmembers' },
+			)),
 
 	async execute(interaction, data, client, Discord, splashtext) {
 
@@ -30,8 +24,9 @@ module.exports = {
         var ico = ''
         var str = []
         var files = fs.readdirSync(path.resolve('./data/user'))
+        var leaderboardName = ''
 
-        if(interaction.options.getSubcommand() === 'credits'){
+        if(interaction.options.getString('leaderboard') === `credits`){
 
           ico = '⌬'
           for(const i of files){
@@ -40,11 +35,12 @@ module.exports = {
             if(!Number.isNaN(credits) && credits){
                 str.push({"credits": credits, "id": id})
             }
+            leaderboardName = 'Credits'
             
         }
         }
 
-        if(interaction.options.getSubcommand() === 'counting'){
+        if(interaction.options.getString('leaderboard') === 'counting'){
 
           ico = '#'
           for(const i of files){
@@ -53,10 +49,11 @@ module.exports = {
             if(!Number.isNaN(credits) && credits){
                 str.push({"credits": credits, "id": id})
             }
+            leaderboardName = 'Counting'
             
         }
         }
-        if(interaction.options.getSubcommand() === 'faction'){
+        if(interaction.options.getString('leaderboard') === 'factionmembers'){
 
           ico = 'Faction Members'
           files = fs.readdirSync(path.resolve('./data/faction'))
@@ -66,10 +63,11 @@ module.exports = {
             if(!Number.isNaN(credits) && credits){
                 str.push({"credits": credits, "id": id})
             }
+            leaderboardName = 'Faction [ Members ]'
             
         }
         }
-        if(interaction.options.getSubcommand() === 'leveling'){
+        if(interaction.options.getString('leaderboard') === 'leveling'){
 
           ico = `LvL`
           for(const i of files){
@@ -78,6 +76,7 @@ module.exports = {
             if(!Number.isNaN(credits) && credits){
                 str.push({"credits": credits, "id": id})
             }
+            leaderboardName = 'Leveling'
             
         }
         }
@@ -114,8 +113,7 @@ module.exports = {
                 
                 var user = await client.users.fetch(str[i].id.toString()).catch(console.error)
                 
-                  name = "**" + user.username + "**#" + user.discriminator
-                if(data.exists(`./data/user/${user.id}.json`)){if(data.read(`./data/user/${user.id}.json`, 'token')){name = "*[ OG ]* " + name}}
+                  name = "**" + user.username + "**"
               }
               catch {
 
@@ -131,7 +129,7 @@ module.exports = {
         }
 
         var embed = new MessageEmbed()
-        .setTitle(`『 ${interaction.options.getSubcommand().charAt(0).toUpperCase() + interaction.options.getSubcommand().slice(1)} Leaderboard 』`)
+        .setTitle(`『 ${leaderboardName} Leaderboard 』`)
         .setColor("RANDOM")
         .setDescription(msg)
         .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });

@@ -1,8 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const {MessageActionRow, MessageButton, Message, Discord, MessageEmbed, MessageSelectMenu, UserFlags } = require('discord.js');
-const { Permissions } = require('discord.js');
 const fs = require('fs');
-const { e } = require('mathjs');
 const path = require('path')
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -148,18 +146,27 @@ module.exports = {
 
                 var factionName = data.read(`./data/faction/${factionId}.json`, 'name')
                 var factionOwner = data.read(`./data/faction/${factionId}.json`, 'owner')
-                var factionMembers = data.read(`./data/faction/${factionId}.json`, 'members').split(',').length
+                var factionMembers = data.read(`./data/faction/${factionId}.json`, 'members').split(',')
                 var factionLevel = data.read(`./data/faction/${factionId}.json`, 'level')
                 var description = data.read(`./data/faction/${factionId}.json`, 'description')
                 var credits = data.read(`./data/faction/${factionId}.json`, 'credits')
+                var userCredits = 0
+
+                for(var i in factionMembers){
+
+                    var creds = parseInt(data.read(`./data/user/${factionMembers[i]}.json`, 'credits'))
+                    userCredits = userCredits + creds
+                    
+                }
 
                 var embed = new MessageEmbed()
                 .setAuthor({name: '『 ' + factionName.toString() + ' 』'})
                 .setDescription("» " + description)
-                .addField(`Members`, factionMembers.toString(), true)
+                .addField(`Members`, factionMembers.length.toString() + '/30', true)
                 .addField(`Owner`, `<@!` + factionOwner + ">", true)
                 .addField(`Level`, factionLevel, true)
-                .addField(`Credits **⌬**`, credits + ' ⌬', true)
+                .addField(`Faction Credits **⌬**`, credits + ' ⌬', true)
+                .addField(`Total User Credits **⌬**`, userCredits + ' ⌬', true)
                 .setColor('RANDOM')
                 .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
                 await interaction.reply({embeds: [embed]})
