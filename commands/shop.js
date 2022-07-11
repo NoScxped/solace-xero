@@ -71,8 +71,6 @@ module.exports = {
 
             collector.on(`collect`, async i => {
 
-                await i.deferUpdate()
-
                 if(i.values){
 
                   str = Array.from(i.values)

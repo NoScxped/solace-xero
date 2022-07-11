@@ -23,14 +23,18 @@ for(var i in challenges){
                 challenge.push(challenges[i].id)
                 data.write(`./data/user/${message.author.id}.json`, 'challenges', challenge.toString())
                 data.write(`./data/user/${message.author.id}.json`, `credits`, credits.toString())
-                message.reply({embeds: [embed]})
+                if(data.read(`./data/guild/${message.guild.id}.json`, 'challengeMessages') === 'true' || !data.read(`./data/guild/${message.guild.id}.json`, 'challengeMessages')) {
+                    message.reply({embeds: [embed]}) 
+                 }
                 
             }
             
         } else {
 
                 data.write(`./data/user/${message.author.id}.json`, `credits`, credits.toString())
-                message.reply({embeds: [embed]})
+                if(data.read(`./data/guild/${message.guild.id}.json`, 'challengeMessages') === 'true' || !data.read(`./data/guild/${message.guild.id}.json`, 'challengeMessages')) {
+                    message.reply({embeds: [embed]}) 
+                 }
             data.write(`./data/user/${message.author.id}.json`, 'challenges', `${challenges[i].id}`)
 
         }
