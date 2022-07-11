@@ -1,5 +1,4 @@
 const { MessageEmbed } = require("discord.js")
-const { data } = require("../commands/invite")
 var arr = data.read(`./data/global/gbcounting.json`, 'channels').split(',')
 if(arr.includes(message.channel.id.toString())){
 
