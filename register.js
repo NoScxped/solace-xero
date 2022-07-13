@@ -1,6 +1,6 @@
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-const config = require('./config.json');
+const config = require('./configuration.json');
 const fs = require('node:fs');
 const apollo = require(`apollo.console`)
 
