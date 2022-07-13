@@ -26,8 +26,12 @@ if(rand === 1){
         .setTitle(`『 ${msg.name} 』`)
         .setDescription(`» ${msg.description}`)
         .setColor("RANDOM")
-
+ try {
     message.reply({embeds: [embed]})
+ } catch {
+    //do nothing lmao
+ }
+    
 
         }
     }
