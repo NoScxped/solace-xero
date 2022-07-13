@@ -35,6 +35,6 @@ const rest = new REST({ version: '9' }).setToken(config.token);
 
 		apollo.log('All Slash Commands Registered.');
 	} catch (error) {
-		apollo.error(error);
+		apollo.log(error);
 	}
 })();
