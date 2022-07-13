@@ -1,6 +1,6 @@
 {
   "name": "xero",
-  "version": "3.4.1",
+  "version": "3.4.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,6 @@
     "apollo.data": "^1.0.1",
     "discord-api-types": "^0.33.5",
     "discord.js": "^13.8.1",
-    "mathjs": "^10.6.3",
     "minecraft-server-ping": "^0.0.8"
   },
   "devDependencies": {

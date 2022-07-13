@@ -15,6 +15,7 @@ module.exports = {
 				{ name: 'Counting', value: 'counting' },
 				{ name: 'Leveling', value: 'leveling' },
         { name: 'Faction [ Members ]', value: 'factionmembers' },
+        { name: 'Faction [ Credits ]', value: 'factioncredits' }
 			)),
 
 	async execute(interaction, data, client, Discord, splashtext) {
@@ -66,6 +67,20 @@ module.exports = {
                 str.push({"credits": credits, "id": id})
             }
             leaderboardName = 'Faction [ Members ]'
+            
+        }
+        }
+        if(interaction.options.getString('leaderboard') === 'factioncredits'){
+
+          ico = 'Faction ⌬'
+          files = fs.readdirSync(path.resolve('./data/faction'))
+          for(const i of files){
+            var credits = parseInt(data.read(`./data/faction/` +  i, 'credits'))
+            var id = data.read(`./data/faction/` +  i, 'owner')
+            if(!Number.isNaN(credits) && credits){
+                str.push({"credits": credits, "id": id})
+            }
+            leaderboardName = 'Faction [ Credits ]'
             
         }
         }

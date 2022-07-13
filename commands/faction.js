@@ -36,6 +36,21 @@ module.exports = {
             .addUserOption(option => option.setName('admin').setDescription('Select a user').setRequired(true)))
     .addSubcommand(subcommand =>
         subcommand
+            .setName('name')
+            .setDescription(`Rename You Faction`)
+            .addStringOption(option => option.setName('newname').setDescription('Choose a Name').setRequired(true)))
+    .addSubcommand(subcommand =>
+        subcommand
+            .setName('description')
+            .setDescription(`Choose a new Description for your Faction!`)
+            .addStringOption(option => option.setName('newdescription').setDescription('Choose a Description').setRequired(true)))
+    .addSubcommand(subcommand =>
+        subcommand
+            .setName('owner')
+            .setDescription(`Transfer Ownership of a Faction`)
+            .addUserOption(option => option.setName('newowner').setDescription('Select an Owner').setRequired(true)))
+    .addSubcommand(subcommand =>
+        subcommand
             .setName('invites')
             .setDescription('View your faction invites'))
     .addSubcommand(subcommand =>
@@ -95,11 +110,137 @@ module.exports = {
             }
         }
 
+        if(interaction.options.getSubcommand() === 'owner'){
+
+            var factionId = data.read(`./data/user/${interaction.user.id}.json`, 'faction')
+
+            if(factionId === undefined){
+
+                return interaction.reply('<:xmark:994105062353817682> *You are not in a faction!* <:xmark:994105062353817682>')
+
+            }
+
+            if(data.read(`./data/faction/${factionId}.json`, "owner") === interaction.user.id.toString()){
+
+
+                data.write(`./data/faction/${factionId}.json`, 'owner', interaction.options.getUser('newowner').id.toString())
+
+                var embed = new MessageEmbed()
+                    .setAuthor({name: "You transferred Ownership of your Faction!"})
+                    .setTitle(`『 ${data.read(`./data/faction/${factionId}.json`, 'name')} 』`)
+                    .setDescription(`» [-] *${interaction.user.username}*\n» [+] *${interaction.options.getUser('newowner').username}*`)
+                    .setColor('RANDOM')
+                    .setFooter({ text: splashtext, iconURL: client.user.avatarURL() })
+                    return interaction.reply({embeds: [embed]})
+
+            } else {
+
+                return interaction.reply('<:xmark:994105062353817682> *You do not own this faction!* <:xmark:994105062353817682>')
+
+            }
+
+        }
+        //rename
+        if(interaction.options.getSubcommand() === 'name'){
+
+            var factionId = data.read(`./data/user/${interaction.user.id}.json`, 'faction')
+
+            if(factionId === undefined){
+
+                return interaction.reply('<:xmark:994105062353817682> *You are not in a faction!* <:xmark:994105062353817682>')
+
+            }
+
+            if(data.read(`./data/faction/${factionId}.json`, "owner") === interaction.user.id.toString()){
+
+
+                
+
+                var embed = new MessageEmbed()
+                    .setAuthor({name: "You Updated the Name of your Faction!"})
+                    .setDescription(`» [-] *${data.read(`./data/faction/${factionId}.json`, 'name')}*\n» [+] *${interaction.options.getString('newname')}*`)
+                    .setColor('RANDOM')
+                    .setFooter({ text: splashtext, iconURL: client.user.avatarURL() })
+                    interaction.reply({embeds: [embed]})
+                    data.write(`./data/faction/${factionId}.json`, 'name', interaction.options.getString('newname'))
+                    return
+
+            } else {
+
+                return interaction.reply('<:xmark:994105062353817682> *You do not own this faction!* <:xmark:994105062353817682>')
+
+            }
+
+        }
+
         if(interaction.options.getSubcommand() === 'delete'){
 
             var factionId = data.read(`./data/user/${interaction.user.id}.json`, 'faction')
 
-            if(factionId === false || factionId === '0'){
+            if(factionId === undefined){
+
+                return interaction.reply('<:xmark:994105062353817682> *You are not in a faction!* <:xmark:994105062353817682>')
+
+            }
+
+            if(data.read(`./data/faction/${factionId}.json`, "owner") === interaction.user.id.toString()){
+
+                var dataArray = data.read(`./data/faction/${factionId}.json`, 'members').split(',')
+
+                dataArray.forEach(user => 
+
+                    data.delete(`./data/user/${user}.json`, 'faction')
+
+                )
+
+                data.delete(`./data/faction/${factionId}.json`)
+                return interaction.reply('<:checkmark:994105025292943390> *Faction Deleted!* <:checkmark:994105025292943390>')
+
+            } else {
+
+                return interaction.reply('<:xmark:994105062353817682> *You do not own this faction!* <:xmark:994105062353817682>')
+
+            }
+
+        }
+        //re-description
+        if(interaction.options.getSubcommand() === 'description'){
+
+            var factionId = data.read(`./data/user/${interaction.user.id}.json`, 'faction')
+
+            if(factionId === undefined){
+
+                return interaction.reply('<:xmark:994105062353817682> *You are not in a faction!* <:xmark:994105062353817682>')
+
+            }
+
+            if(data.read(`./data/faction/${factionId}.json`, "owner") === interaction.user.id.toString()){
+
+
+                
+
+                var embed = new MessageEmbed()
+                    .setAuthor({name: "You Updated the Description of your Faction!"})
+                    .setDescription(`» *${interaction.options.getString('newdescription')}*`)
+                    .setColor('RANDOM')
+                    .setFooter({ text: splashtext, iconURL: client.user.avatarURL() })
+                    interaction.reply({embeds: [embed]})
+                    data.write(`./data/faction/${factionId}.json`, 'name', interaction.options.getString('newdescription'))
+                    return
+
+            } else {
+
+                return interaction.reply('<:xmark:994105062353817682> *You do not own this faction!* <:xmark:994105062353817682>')
+
+            }
+
+        }
+
+        if(interaction.options.getSubcommand() === 'delete'){
+
+            var factionId = data.read(`./data/user/${interaction.user.id}.json`, 'faction')
+
+            if(factionId === undefined){
 
                 return interaction.reply('<:xmark:994105062353817682> *You are not in a faction!* <:xmark:994105062353817682>')
 
