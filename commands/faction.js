@@ -122,6 +122,14 @@ module.exports = {
 
             if(data.read(`./data/faction/${factionId}.json`, "owner") === interaction.user.id.toString()){
 
+                var dataArray = data.read(`./data/faction/${factionId}.json`, 'members')
+
+                if(!dataArray.includes(interaction.options.getUser('newowner').id.toString())){
+
+                    return interaction.reply("<:xmark:994105062353817682> *This user is not in your Faction!* <:xmark:994105062353817682>")
+
+                }
+
 
                 data.write(`./data/faction/${factionId}.json`, 'owner', interaction.options.getUser('newowner').id.toString())
 
@@ -153,6 +161,7 @@ module.exports = {
             }
 
             if(data.read(`./data/faction/${factionId}.json`, "owner") === interaction.user.id.toString()){
+
 
                 const files = fs.readdirSync(path.resolve('./data/faction'))
                     for (const file of files){
