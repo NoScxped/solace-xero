@@ -52,5 +52,14 @@
         "cooldown": "45000",
         "id": "trash",
         "int": 5
+    },
+    "streamer": {
+        "name": "Internet Streamer",
+        "pay_max": "20",
+        "pay_min": "10",
+        "description": "Stream to your fans",
+        "cooldown": "30000",
+        "id": "streamer",
+        "int": 6
     }
 }
