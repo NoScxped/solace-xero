@@ -1,0 +1,56 @@
+{
+    "it": {
+        "pay_max": "125",
+        "pay_min": "65",
+        "name": "IT Guy",
+        "description": "Do the job Apollo doesn't want to!",
+        "cooldown": "600000",
+        "id": "it",
+        "int": 1
+    },
+    "walmart": {
+        "name": "Walmart Employee",
+        "pay_max": "9999999",
+        "pay_min": "25",
+        "description": "Stock them shelves!",
+        "cooldown": "5",
+        "id": "walmart",
+        "int": 2
+    },
+    "janitor": {
+        "name": "Janitor",
+        "pay_max": "45",
+        "pay_min": "0",
+        "description": "Mop them floors!",
+        "cooldown": "60000",
+        "id": "janitor",
+        "int": 3
+    },
+    "crypto": {
+        "name": "Crypto Miner",
+        "pay_max": "50",
+        "pay_min": "40",
+        "description": "Mine shitcoins ⌬!",
+        "cooldown": "180000",
+        "id": "crypto",
+        "int": 4
+    },
+    "ikea": {
+        "name": "Ikea Shelf Builder",
+        "pay_max": "40",
+        "pay_min": "20",
+        "description": "Create ikea shelving units!",
+        "cooldown": "120000",
+        "id": "ikea",
+        "int": 5
+    },
+    "trash": {
+        "name": "Trash Collector",
+        "pay_max": "20",
+        "pay_min": "10",
+        "description": "Haul trash to the landfill",
+        "cooldown": "45000",
+        "id": "trash",
+        "int": 5
+    }
+}

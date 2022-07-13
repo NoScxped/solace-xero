@@ -1,5 +1,15 @@
 const { MessageEmbed } = require("discord.js")
 
+if(!leveling.has(message.author.id)){
+                leveling.add(message.author.id)
+                function cool(){
+
+                    leveling.delete(message.author.id)
+    
+                }
+                
+                leveling.add(message.author.id)
+                setTimeout(cool, 5000)
                     var points = parseInt(data.read(`./data/user/${message.author.id}.json`, `xp`)) + 1
                     points = points.toString()
                     var credits = parseInt(data.read(`./data/user/${message.author.id}.json`, `credits`))
@@ -41,5 +51,6 @@ const { MessageEmbed } = require("discord.js")
                         }
 
                     }
+                }
                 
             

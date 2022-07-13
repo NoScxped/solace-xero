@@ -1,0 +1,32 @@
+{
+    "faction": {
+        "name": "Faction",
+        "description": "Create a Faction with **/faction create**",
+        "id": "faction"
+    },
+    "leaderboard": {
+        "name": "Leaderboard",
+        "description": "View Leaderboards with **/leaderboard**",
+        "id": "leaderboard"
+    },
+    "help": {
+        "name": "Help",
+        "description": "Need Help? type **/help**",
+        "id": "help"
+    },
+    "job": {
+        "name": "Jobs",
+        "description": "Find a Job with **/jobs**",
+        "id": "jobs"
+    },
+    "challenges": {
+        "name": "Challenges",
+        "description": "See all Challenges with **/challenges**",
+        "id": "challenges"
+    },
+    "settings": {
+        "name": "Settings",
+        "description": "Disable these messages and configure other settings with **/settings**",
+        "id": "settings"
+    }
+}

@@ -1,0 +1,74 @@
+{
+    "counting_1": {
+        "name": "Counting Craze",
+        "description": "Count 10 or more times in Global Counting!",
+        "credits_reward": 100,
+        "required_item": "counted",
+        "required_amount": 5,
+        "id": "counting_1"
+    },
+    "counting_50": {
+        "name": "Counting Fever",
+        "description": "Count 50 or more times in Global Counting!",
+        "credits_reward": 500,
+        "required_item": "counted",
+        "required_amount": 50,
+        "id": "counting_2"
+    },
+    "tyson": {
+        "name": "Mike Tyson",
+        "description": "Obtain a Boxing Glove!",
+        "credits_reward": 30,
+        "required_item": "gloves",
+        "required_amount": 1,
+        "id": "tyson"
+    },
+    "ali": {
+        "name": "Muhammad Ali",
+        "description": "Obtain 5 Boxing Gloves!",
+        "credits_reward": 100,
+        "required_item": "gloves",
+        "required_amount": 5,
+        "id": "ali"
+    },
+    "faction": {
+        "name": "Faction Frenzy",
+        "description": "Join a Faction!",
+        "credits_reward": 300,
+        "required_item": "faction",
+        "required_amount": 0,
+        "id": "faction"
+    },
+    "og": {
+        "name": "Original Gangster",
+        "description": "Possess an OG Token!",
+        "credits_reward": 50,
+        "required_item": "token",
+        "required_amount": 1,
+        "id": "og"
+    },
+    "level_1": {
+        "name": "Low-Level",
+        "description": "Get to Level 1!",
+        "credits_reward": 25,
+        "required_item": "level",
+        "required_amount": 1,
+        "id": "level_1"
+    },
+    "level_5": {
+        "name": "Multi-Level",
+        "description": "Get to Level 5!",
+        "credits_reward": 50,
+        "required_item": "level",
+        "required_amount": 5,
+        "id": "level_5"
+    },
+    "level_15": {
+        "name": "High-Level",
+        "description": "Get to Level 15!",
+        "credits_reward": 1000,
+        "required_item": "level",
+        "required_amount": 15,
+        "id": "level_15"
+    }
+}
