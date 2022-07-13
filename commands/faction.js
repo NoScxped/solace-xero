@@ -144,6 +144,7 @@ module.exports = {
         if(interaction.options.getSubcommand() === 'name'){
 
             var factionId = data.read(`./data/user/${interaction.user.id}.json`, 'faction')
+            var factionName = interaction.options.getString(`newname`).toLowerCase()
 
             if(factionId === undefined){
 
@@ -153,7 +154,18 @@ module.exports = {
 
             if(data.read(`./data/faction/${factionId}.json`, "owner") === interaction.user.id.toString()){
 
+                const files = fs.readdirSync(path.resolve('./data/faction'))
+                    for (const file of files){
 
+                        var scanName = data.read(`./data/faction/${file}`, 'name')
+
+                        if(scanName.toLowerCase() === factionName){
+
+                            return interaction.reply('<:xmark:994105062353817682> *That name is taken!* <:xmark:994105062353817682>')
+
+                        }
+                        
+                    }
                 
 
                 var embed = new MessageEmbed()
