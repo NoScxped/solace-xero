@@ -16,7 +16,7 @@ module.exports = {
         resp.on('end', () => {
 
         var embed = new MessageEmbed()
-        .setTitle(`『 ${JSON.parse(joke).category} 』`)
+        .setTitle(`${JSON.parse(joke).category}`)
         .setDescription(`***${JSON.parse(joke).joke}***`)
         .setColor("RANDOM")
         .setFooter({text: "Thanks to https://sv443.net/jokeapi/v2/ for the jokes!"})

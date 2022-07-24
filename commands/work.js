@@ -28,7 +28,7 @@ module.exports = {
             workAgain = workAgain / 60
             var embed = new MessageEmbed()
             .setAuthor({name: 'You worked as a ' + job.name + '!'})
-            .setTitle(`『 ${interaction.user.username} 』`)
+            .setTitle(`${interaction.user.username}`)
             .setColor("RANDOM")
             .setThumbnail(interaction.user.avatarURL())
             .setFooter({ text: splashtext.toString(), iconURL: client.user.avatarURL() });

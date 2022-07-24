@@ -5,7 +5,7 @@ const path = require('path')
 module.exports = {
 	data: new SlashCommandBuilder()
     .setName('faction')
-	.setDescription('Xero Factions')
+	.setDescription('Solace Factions')
 	.addSubcommand(subcommand =>
 		subcommand
 			.setName('create')
@@ -567,14 +567,14 @@ module.exports = {
                         var acceptbar = new MessageActionRow()
                          .addComponents(
 
-                         new MessageButton()
+                        new MessageButton()
                             .setCustomId(`accept`)
-                            .setEmoji('<:checkmark:994105025292943390>')
+                            .setEmoji('<:checkmark:1000737491621523488>')
                             .setStyle(`SUCCESS`),
 
                         new MessageButton()
                             .setCustomId(`deny`)
-                            .setEmoji('<:xmark:994105062353817682>')
+                            .setEmoji('<:xmark:1000738231886811156>')
                             .setStyle(`DANGER`),
 
                         new MessageButton()

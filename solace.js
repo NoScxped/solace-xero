@@ -1,6 +1,5 @@
 const {Discord, Client, Collection, MessageEmbed, Intents} = require('discord.js')
 const data = require('apollo.data')
-const apollo = require("apollo.console")
 const client = new Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_MESSAGES],
     allowedMentions: {
@@ -9,15 +8,13 @@ const client = new Client({
     }
 })
 
-apollo.setPort(8000)
-apollo.setHostname(`localhost`)
-apollo.setName('Xero')
+
 var challenges = JSON.parse(data.read(`./data/global/challenges.json`))
 var worked = new Set()
 var fight = new Set()
 var fought = new Set()
 var leveling = new Set()
-const config = JSON.parse(data.read(`configuration.json`))
+const config = JSON.parse(data.read(`config.json`))
 const fs = require('fs')
 var splash = data.read(`./data/global/splashes.xero`).split(`^`)
 const path = require('path')
@@ -27,17 +24,17 @@ client.msgfeatures = new Collection()
 
 //commands
 const commands = fs.readdirSync(path.resolve('./commands')).filter(file => file.endsWith(`.js` || `.ts`))
-apollo.log('Starting Xero...')
+console.log('Starting Solace...')
 for (const file of commands){
     const command = require(`./commands/` + file)
     try {
     client.commands.set(command.data.name, command)
 }
     catch(err) {
-        apollo.log(err)
+        console.error(err)
     }
 }
-apollo.log(`Loaded commands.`)
+console.log(`Loaded commands.`)
 
 //message features (leveling, counting, etc)
 const msgfeatures = fs.readdirSync(path.resolve('./msgfeatures')).filter(file => file.endsWith(`.js` || `.ts`))
@@ -47,13 +44,13 @@ for (const file of msgfeatures){
     features.add(file)
 }
     catch(err) {
-        apollo.log(err)
+        console.error(err)
     }
 }
 
 
 client.on('ready', () => {  
-    apollo.log(`Logged in`)
+    console.log(`Logged in`)
     try {
         var link = null
         if(config.url){
@@ -61,7 +58,7 @@ client.on('ready', () => {
         }
       client.user.setPresence({ activities: [{ name: config.status_message, type: config.status_type, url: link }] });  
     } catch(err) {
-        apollo.log(err)
+        console.error(err)
     }
 })
 
@@ -96,7 +93,7 @@ client.on(`interactionCreate`, async interaction => {
             var splashtext = splash[Math.floor((Math.random()*splash.length))]
             await command.execute(interaction, data, client, Discord, splashtext, worked, fight, fought)
         } catch (error) {
-            apollo.log(error)
+            console.error(error)
             await interaction.reply({ content: 'There was an error executing this command!', ephemeral: true })
         }
     }

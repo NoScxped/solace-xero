@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageActionRow, MessageSelectMenu, MessageButton, Message, Discord, MessageEmbed } = require('discord.js');
+const { MessageActionRow, MessageSelectMenu, MessageButton, MessageEmbed } = require('discord.js');
 module.exports = {
 	data: new SlashCommandBuilder()
     .setName('challenges')
@@ -9,7 +9,7 @@ module.exports = {
     async execute(interaction, data, client, Discord, splashtext) {
         
         const challenges = JSON.parse(data.read('./data/global/challenges.json'))
-        const msg = await interaction.reply({ content: '<a:typing:994063591340773466> *Xero is thinking* <a:typing:994063591340773466>', fetchReply: true, embeds: [], components: []})
+        const msg = await interaction.reply({ content: '<a:typing:1000730579542736927> *Solace is thinking* <a:typing:1000730579542736927>', fetchReply: true, embeds: [], components: []})
 
         var embed = new MessageEmbed()
                 .setAuthor({name: `『 ${interaction.user.username}'s Challenges 』`})

@@ -5,7 +5,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('transfer')
 		.setDescription('Transfer an amount to someone else!')
-        .addStringOption(option=> option.setName(`credits`).setDescription(`How many credits are you paying?`).setRequired(true))
+        .addIntegerOption(option=> option.setName(`credits`).setDescription(`How many credits are you paying?`).setRequired(true))
         .addUserOption(option=> option.setName(`user`).setDescription(`Who are you paying?`).setRequired(true)),
 	async execute(interaction, data, client, Discord, splashtext, loadCommands, worked) {
         if(interaction.options.getUser('user').bot){
@@ -17,7 +17,7 @@ module.exports = {
         if(data.read(`./data/user/${interaction.user.id}.json`, `credits`)){
             if(data.read(`./data/user/${interaction.options.getUser('user').id}.json`, "credits")){
                 var creditsfrom = parseInt(data.read(`./data/user/${interaction.user.id}.json`, `credits`))
-                var transferfrom = Math.abs(parseInt(interaction.options.getString('credits')))
+                var transferfrom = Math.abs(parseInt(interaction.options.getInt('credits')))
                 var creditsto = parseInt(data.read(`./data/user/${interaction.options.getUser('user').id}.json`, `credits`))
                 var transferto = parseInt(data.read(`./data/user/${interaction.options.getUser('user').id}.json`, `credits`))
                 if(creditsfrom > parseInt(interaction.options.getString('credits'))){
@@ -27,7 +27,7 @@ module.exports = {
                     creditsfrom = creditsfrom - transferfrom
 
                     var embed = new MessageEmbed()
-                    .setTitle(`『 Credit Transfer 』`)
+                    .setTitle(`Credit Transfer`)
                     .setDescription(`» Would you like to transfer this amount to **${interaction.options.getUser('user').username}**?`)
                     .addField(`» Your credits`, `› ${dis}`, true)
                     .addField(`» Amount to transfer`, `› ${transferfrom}`, true)
@@ -69,7 +69,7 @@ module.exports = {
                             data.write(`./data/user/${interaction.options.getUser('user').id}.json`, "credits", transferto.toString())
 
                             var embed = new MessageEmbed()
-                            .setTitle(`『 ✔️ **Transaction Successful!** ✔️ 』`)
+                            .setTitle(`✔️ **Transaction Successful!** ✔️`)
                             .setDescription(`» **${interaction.user.username}** --> **${interaction.options.getUser('user').username}**`)
                             .addField(`» **${interaction.user.username}**'s credits`, `› ${creditsfrom}`, true)
                             .addField(`» Amount Transferred`, `› ${transferfrom}`, true)

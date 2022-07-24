@@ -17,7 +17,7 @@ module.exports = {
 
             } else {
 
-                const msg = await interaction.reply({ content: '<a:typing:994063591340773466> *Xero is thinking* <a:typing:994063591340773466>', fetchReply: true })
+                const msg = await interaction.reply({ content: '<a:typing:1000730579542736927> *Solace is thinking* <a:typing:1000730579542736927>', fetchReply: true })
 
                 var embed = new MessageEmbed()
                 .setTitle(`『 <:gamble_chips:993964578390151229> Gambling <:gamble_chips:993964578390151229> 』`)
@@ -31,11 +31,11 @@ module.exports = {
                 .addComponents(
                     new MessageButton()
                     .setCustomId(`accept`)
-                    .setEmoji('<:checkmark:994105025292943390>')
+                    .setEmoji('<:checkmark:1000737491621523488>')
                     .setStyle(`SUCCESS`),
                     new MessageButton()
                     .setCustomId('deny')
-                    .setEmoji('<:xmark:994105062353817682>')
+                    .setEmoji('<:xmark:1000738231886811156>')
                     .setStyle('DANGER')
                 )
 

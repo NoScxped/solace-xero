@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('help')
-		.setDescription('Get help with all things Xero'),
+		.setDescription('Get help with all things Solace'),
 	async execute(interaction, data, client, Discord, splashtext) {
         const fs = require('node:fs');
         const commands = [];

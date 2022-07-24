@@ -31,7 +31,7 @@ module.exports = {
         }
         onlinePlayers = output.players.online + "/" + output.players.max
         var embed = new MessageEmbed()
-        .setTitle("『 " + title +  " 』")
+        .setTitle(title)
         .setColor("RANDOM")
         .setDescription("» "  + description)
         .addField("» Ping", "› " + ping + "ms", true)

@@ -3,13 +3,13 @@ const { MessageActionRow, MessageSelectMenu, MessageButton, MessageEmbed } = req
 module.exports = {
 	data: new SlashCommandBuilder()
     .setName('shop')
-	.setDescription('View the Xero Shop')
+	.setDescription('View the Solace Shop')
     .toJSON(),
 
     async execute(interaction, data, client, Discord, splashtext) {
 
         const items = JSON.parse(data.read('./data/global/items.json'))
-        const msg = await interaction.reply({ content: '<a:typing:994063591340773466> *Xero is thinking* <a:typing:994063591340773466>', fetchReply: true, embeds: [], components: []})
+        const msg = await interaction.reply({ content: '<a:typing:1000730579542736927> *Solace is thinking* <a:typing:1000730579542736927>', fetchReply: true});
 
         var prc = 0
         var ident = ""
@@ -21,7 +21,7 @@ module.exports = {
                                    .setLabel(`Back`)
                                    .setStyle(`PRIMARY`))
         var embed = new MessageEmbed()
-                .setTitle(`『 Xero Store 』`)
+                .setTitle(`Solace Store`)
                 .setDescription(`» Select an item`)
                 .setColor(`RANDOM`)
                 .setFooter({ text: `You have 30 seconds to reply!`, iconURL: client.user.avatarURL() });
@@ -91,7 +91,7 @@ module.exports = {
                                 if(parseInt(data.read(`./data/user/${interaction.user.id}.json`, ident)) >= parseInt(max)){
 
                                     embed = new MessageEmbed()
-                                    .setTitle(`『 ❌ Purchase Failed! ❌ 』`)
+                                    .setTitle(`❌ Purchase Failed! ❌`)
                                     .setDescription(`You can only have *${max}* of this item!`)
                                     .setColor("RANDOM")
                                     .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
@@ -104,7 +104,7 @@ module.exports = {
                                 }
 
                                 embed = new MessageEmbed()
-                                .setTitle(`『 Purchase Successful! 』`)
+                                .setTitle(`Purchase Successful!`)
                                 .setDescription('You have successfully purchased this item!')
                                 .setColor("RANDOM")
                                 .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
@@ -142,7 +142,7 @@ module.exports = {
                             res = true
                             cont = false
                             embed = new MessageEmbed()
-                                .setTitle(`『 ❌ Purchase Failed! ❌ 』`)
+                                .setTitle(`❌ Purchase Failed! ❌`)
                                 .setDescription('You do not have enough money!')
                                 .setColor("RANDOM")
                                 .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
@@ -186,13 +186,14 @@ module.exports = {
 
                         var acceptbar = new MessageActionRow()
                          .addComponents(
-                         new MessageButton()
+                            new MessageButton()
                             .setCustomId(`accept`)
-                            .setEmoji('<:checkmark:994105025292943390>')
+                            .setEmoji('<:checkmark:1000737491621523488>')
                             .setStyle(`SUCCESS`),
+
                         new MessageButton()
                             .setCustomId(`deny`)
-                            .setEmoji('<:xmark:994105062353817682>')
+                            .setEmoji('<:xmark:1000738231886811156>')
                             .setStyle(`DANGER`)
                         )
                 

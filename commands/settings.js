@@ -14,11 +14,6 @@ module.exports = {
             .setName('levelup')
             .setDescription('Toggle Level-Up Messages')
             .addBooleanOption(option => option.setName('levelup').setDescription('Level Up Messages').setRequired(true)))
-    .addSubcommand(subcommand =>
-        subcommand
-            .setName('tips')
-            .setDescription('Toggle Tip Messages')
-            .addBooleanOption(option => option.setName('tips').setDescription('Tip Messages').setRequired(true)))
     .toJSON(),
 
     async execute(interaction, data, client, Discord, splashtext) {
@@ -30,14 +25,14 @@ module.exports = {
             if(interaction.options.getBoolean(`challenges`) === true){
 
                 data.write(`./data/guild/${interaction.guild.id}.json`, 'challengeMessages', 'true')
-                interaction.reply(`<:checkmark:994105025292943390> *Xero will now send Challenge messages in this server!* <:checkmark:994105025292943390>`)
+                interaction.reply(`<:checkmark:994105025292943390> *Solace will now send Challenge messages in this server!* <:checkmark:994105025292943390>`)
 
             }
 
             if (interaction.options.getBoolean(`challenges`) === false){
 
                 data.write(`./data/guild/${interaction.guild.id}.json`, 'challengeMessages', 'false')
-                interaction.reply(`<:checkmark:994105025292943390> *Xero will no longer send Challenge messages in this server!* <:checkmark:994105025292943390>`)
+                interaction.reply(`<:checkmark:994105025292943390> *Solace will no longer send Challenge messages in this server!* <:checkmark:994105025292943390>`)
 
             }
         }
@@ -47,32 +42,15 @@ module.exports = {
             if(interaction.options.getBoolean(`levelup`) === true){
 
                 data.write(`./data/guild/${interaction.guild.id}.json`, 'levelMessages', 'true')
-                interaction.reply(`<:checkmark:994105025292943390> *Xero will now send Level-Up messages in this server!* <:checkmark:994105025292943390>`)
+                interaction.reply(`<:checkmark:994105025292943390> *Solace will now send Level-Up messages in this server!* <:checkmark:994105025292943390>`)
 
             }
             if (interaction.options.getBoolean(`levelup`) === false){
 
                 data.write(`./data/guild/${interaction.guild.id}.json`, 'levelMessages', 'false')
-                interaction.reply(`<:checkmark:994105025292943390> *Xero will no longer send Level-Up messages in this server!* <:checkmark:994105025292943390>`)
+                interaction.reply(`<:checkmark:994105025292943390> *Solace will no longer send Level-Up messages in this server!* <:checkmark:994105025292943390>`)
 
             }
-        }
-
-        if(interaction.options.getSubcommand() === 'tips'){
-
-            if(interaction.options.getBoolean(`tips`) === true){
-
-                data.write(`./data/guild/${interaction.guild.id}.json`, 'tipMessages', 'true')
-                interaction.reply(`<:checkmark:994105025292943390> *Xero will now send Tips in this server!* <:checkmark:994105025292943390>`)
-
-            }
-            if (interaction.options.getBoolean(`tips`) === false){
-
-                data.write(`./data/guild/${interaction.guild.id}.json`, 'tipMessages', 'false')
-                interaction.reply(`<:checkmark:994105025292943390> *Xero will no longer send Tips in this server!* <:checkmark:994105025292943390>`)
-
-            }
-
         }
 
 

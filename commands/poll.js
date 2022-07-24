@@ -15,7 +15,7 @@ module.exports = {
         if(interaction.member.permissions.has([Permissions.FLAGS.ADMINISTRATOR]) || interaction.member.permissions.has([Permissions.FLAGS.MANAGE_CHANNELS])){
 
         var embed = new MessageEmbed()
-        .setTitle("『 " + interaction.options.getString('title') + " 』")
+        .setTitle(interaction.options.getString('title'))
         .setColor("RANDOM")
         .setDescription("» " + interaction.options.getString('description'))
         .setAuthor({ name: 'Created by ' + interaction.user.username, iconURL: interaction.user.avatarURL(), url: interaction.user.avatarURL() })

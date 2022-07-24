@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-        .setName('profile')
+        .setName('user')
 		.setDescription('View and change your profile!')
         .addSubcommand(subcommand =>
             subcommand
@@ -38,7 +38,7 @@ module.exports = {
             if(data.exists(`./data/user/${interaction.user.id}.json`)){
                 
                 var embed = new MessageEmbed()
-                    .setAuthor({ name: `『 ` + interaction.user.username + " 』", iconURL: interaction.user.avatarURL() })
+                    .setAuthor({ name: interaction.user.username, iconURL: interaction.user.avatarURL() })
                     .setColor(`RANDOM`)
                     .setThumbnail(interaction.user.avatarURL())
                     .addField(`» Credits`, "› " + data.read(`./data/user/${interaction.user.id}.json`, `credits`) + ' ⌬', true)

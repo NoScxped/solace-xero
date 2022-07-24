@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageActionRow, MessageButton, Message, Discord, MessageEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -54,8 +54,10 @@ module.exports = {
                     data.write(`./data/user/${interaction.user.id}.json`, 'bank', sum.toString())
                     data.write(`./data/user/${interaction.user.id}.json`, 'credits', sub.toString())
 
-                    embed.addField(`» Bank`, `› ${sum} ⌬`, true)
-                    embed.addField(`» Credits`, `› ${sub} ⌬`, true)
+                    embed.addFields([
+                        {name: `» Bank`, value: `› ${sum} ⌬`, inline: true},
+                        {name: `» Credits`, value:`› ${sub} ⌬`, inline: true}
+                    ])
 
                     return interaction.reply({embeds: [embed]})
 

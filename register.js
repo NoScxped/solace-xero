@@ -1,12 +1,7 @@
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-const config = require('./configuration.json');
+const config = require('./config.json');
 const fs = require('node:fs');
-const apollo = require(`apollo.console`)
-
-apollo.setPort(8000)
-apollo.setHostname(`localhost`)
-apollo.setName('Xero')
 
 const commands = [];
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -14,7 +9,7 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 // Place your client and guild ids here
 const clientId = config.client_id
 
-apollo.log('Registering Slash Commands...');
+console.log('Registering Slash Commands...');
 
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
@@ -33,8 +28,8 @@ const rest = new REST({ version: '9' }).setToken(config.token);
 			{ body: commands },
 		);
 
-		apollo.log('All Slash Commands Registered.');
+		console.log('All Slash Commands Registered.');
 	} catch (error) {
-		apollo.log(error);
+		console.error(error);
 	}
 })();

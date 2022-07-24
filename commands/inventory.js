@@ -3,13 +3,13 @@ const { MessageActionRow, MessageSelectMenu, MessageButton, MessageEmbed } = req
 module.exports = {
 	data: new SlashCommandBuilder()
     .setName('inventory')
-	.setDescription('View your Xero Inventory')
+	.setDescription('View your Solace Inventory')
     .toJSON(),
 
     async execute(interaction, data, client, Discord, splashtext) {
         
         const items = JSON.parse(data.read('./data/global/items.json'))
-        const msg = await interaction.reply({ content: '<a:typing:994063591340773466> *Xero is thinking* <a:typing:994063591340773466>', fetchReply: true, embeds: [], components: []})
+        const msg = await interaction.reply({ content: '<a:typing:1000730579542736927> *Solace is thinking* <a:typing:1000730579542736927>', fetchReply: true, embeds: [], components: []})
 
         var embed = new MessageEmbed()
                 .setAuthor({name: `『 ${interaction.user.username}'s Inventory 』`})

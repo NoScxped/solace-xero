@@ -44,7 +44,7 @@ module.exports = {
 
                         embed = new MessageEmbed()
                         .setAuthor({name: user.username + ' had boxing Gloves!'})
-                        .setTitle(`『 ${interaction.user.username} won! 』`)
+                        .setTitle(`${interaction.user.username} won!`)
                         .setDescription(`» You stole *` + loseCreds + `* ⌬ from **${interaction.options.getUser(`user`).username}**!`)
                         .addField(`» Gloves Left`, userGloves.toString())
                         .addField(`» Cooldown`, `› *15 Minutes*`)
