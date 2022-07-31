@@ -12,14 +12,15 @@ module.exports = {
     async execute(interaction, data, client, Discord, splashtext) {
         var url = interaction.options.getString('ip')
         var title = url
-        var description = "<:xmark:994105062353817682> *This server is offline.* <:xmark:994105062353817682>"
+        var description = "<:xmark:1000738231886811156> *This server is offline.* <:xmark:1000738231886811156>"
         var ping = "0"
         var onlinePlayers = "0/0"
         var output = ""
         try{
+            interaction.deferReply()
          output = await minecraftServerPing.ping(url);   
         } catch(err){
-            return interaction.reply('<:xmark:994105062353817682> *This server could not be found!*')
+            return interaction.followUp('<:xmark:1000738231886811156> *This server could not be found!*')
         }
         ping = output.ping
         description = output.description
@@ -31,11 +32,13 @@ module.exports = {
         }
         onlinePlayers = output.players.online + "/" + output.players.max
         var embed = new MessageEmbed()
-        .setTitle(title)
-        .setColor("RANDOM")
-        .setDescription("» "  + description)
-        .addField("» Ping", "› " + ping + "ms", true)
-        .addField("» Players", "› " + onlinePlayers, true)
+        .setTitle(`Minecraft - ` + title)
+        .setColor("a6dced")
+        .setDescription(description)
+        .addFields([
+            {name: "__Ping__", value: ping + "ms", inline: true},
+            {name: "__Players__", value: onlinePlayers, inline: true}
+        ])
         .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
         interaction.reply({embeds: [embed]})
     }

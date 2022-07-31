@@ -38,20 +38,41 @@ module.exports = {
             if(data.exists(`./data/user/${interaction.user.id}.json`)){
                 
                 var embed = new MessageEmbed()
-                    .setAuthor({ name: interaction.user.username, iconURL: interaction.user.avatarURL() })
-                    .setColor(`RANDOM`)
-                    .setThumbnail(interaction.user.avatarURL())
-                    .addField(`» Credits`, "› " + data.read(`./data/user/${interaction.user.id}.json`, `credits`) + ' ⌬', true)
-                    .addField(`» Level`, "› " + data.read(`./data/user/${interaction.user.id}.json`, `level`), true)
-                    .addField(`» XP`, "› " + data.read(`./data/user/${interaction.user.id}.json`, `xp`) + '/' + data.read(`./data/user/${interaction.user.id}.json`, `pointsNeeded`), true)
+                    .setTitle(interaction.user.username + "#" + interaction.user.discriminator)
+                    .setColor(`#a6dced`)
+                    .setImage(interaction.user.avatarURL())
+                    .addFields([
+                        {name: `__Credits__`,  value: data.read(`./data/user/${interaction.user.id}.json`, `credits`) + ' ⌬', inline: true},
+                        {name: `__Level__`, value: data.read(`./data/user/${interaction.user.id}.json`, `level`), inline: true},
+                        {name: `__XP__`, value: data.read(`./data/user/${interaction.user.id}.json`, `xp`) + '/' + data.read(`./data/user/${interaction.user.id}.json`, `pointsNeeded`), inline: true},
+                    ])
                     .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
+
                     if(data.read(`./data/user/${interaction.user.id}.json`, 'bio')){
-                        embed.setDescription("» " + data.read(`./data/user/${interaction.user.id}.json`, 'bio').toString())
+
+                        embed.setDescription(data.read(`./data/user/${interaction.user.id}.json`, 'bio').toString())
+
                     }
+
                     if(data.read(`./data/user/${interaction.user.id}.json`, 'bank')){
-                        embed.addField("» Bank", `${data.read(`./data/user/${interaction.user.id}.json`, 'bank')} ⌬`, true)
+
+                        embed.addFields([{name: "__Bank__", value: `${data.read(`./data/user/${interaction.user.id}.json`, 'bank')} ⌬`, inline: true}])
+
                     }
-    
+
+                    //xracer special
+                    if(interaction.user.id === '752335155049529355'){
+
+                        embed.setDescription(`<:dev:1000730820123824138> Developer of Solace Client!`)
+
+                        if(data.read(`./data/user/${interaction.user.id}.json`, 'bio')){
+
+                            embed.setTitle(data.read(`./data/user/${interaction.user.id}.json`, 'bio').toString())
+                            embed.setAuthor({name: interaction.user.username + "#" + interaction.user.discriminator})
+
+                        }
+                    }
+
                 interaction.reply({embeds: [embed]})
     
             }  else {
@@ -60,11 +81,11 @@ module.exports = {
         }
         if(interaction.options.getSubcommand() === 'set-bio'){
             data.write(`./data/user/${interaction.user.id}.json`, 'bio', interaction.options.getString('bio'))
-            interaction.reply('<:checkmark:994105025292943390> *Bio Updated!* <:checkmark:994105025292943390>')
+            interaction.reply('<:checkmark:1000737491621523488> *Bio Updated!* <:checkmark:1000737491621523488>')
         }
         if(interaction.options.getSubcommand() === 'remove-bio'){
             data.delete(`./data/user/${interaction.user.id}.json`, 'bio')
-            interaction.reply('<:checkmark:994105025292943390> *Bio Removed.* <:checkmark:994105025292943390>')
+            interaction.reply('<:checkmark:1000737491621523488> *Bio Removed.* <:checkmark:1000737491621523488>')
         }
 	}
 }

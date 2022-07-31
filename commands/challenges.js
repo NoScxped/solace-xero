@@ -4,16 +4,23 @@ module.exports = {
 	data: new SlashCommandBuilder()
     .setName('challenges')
 	.setDescription('View Challenges')
+    .addUserOption(option => option.setName('user').setDescription('Select a User'))
     .toJSON(),
 
     async execute(interaction, data, client, Discord, splashtext) {
+
+        var intializer = interaction.user.id
+
+        if(interaction.options.getUser(`user`)){
+            interaction.user = interaction.options.getUser(`user`)
+        }
         
         const challenges = JSON.parse(data.read('./data/global/challenges.json'))
         const msg = await interaction.reply({ content: '<a:typing:1000730579542736927> *Solace is thinking* <a:typing:1000730579542736927>', fetchReply: true, embeds: [], components: []})
 
         var embed = new MessageEmbed()
-                .setAuthor({name: `『 ${interaction.user.username}'s Challenges 』`})
-                .setDescription(`» Select a Challenge`)
+                .setAuthor({name: `${interaction.user.username}'s Challenges`, icon: interaction.user.avatarURL()})
+                .setDescription(`*Select a Challenge!*`)
                 .setColor(`RANDOM`)
                 .setFooter({ text: `You have 30 seconds to reply!`, iconURL: client.user.avatarURL() });
 
@@ -38,15 +45,15 @@ module.exports = {
                          .addComponents(
                         new MessageButton()
                             .setCustomId(`close`)
-                            .setEmoji('<:xmark:994105062353817682>')
+                            .setEmoji('<:xmark:1000738231886811156>')
                             .setLabel(`Close`)
                             .setStyle(`DANGER`)
                             )
             if(num === 0){
-                return msg.edit({content: `<:xmark:994105062353817682> *You (Somehow) haven't completed a challenge yet!* <:xmark:994105062353817682>`})
+                return msg.edit({content: `<:xmark:1000738231886811156> *This user (Somehow) has not completed a challenge yet!* <:xmark:1000738231886811156>`})
             }
            await msg.edit({content: '_ _', embeds: [embed], components: [row, closebar]})
-            var filter = i => i.user.id === interaction.user.id
+            var filter = i => i.user.id === intializer
             const collector = interaction.channel.createMessageComponentCollector({filter, idle: 30000})
                 var cont = true
                 var res = false
@@ -78,16 +85,17 @@ module.exports = {
 
                     if(challenges[i].id === str[0]){
                         var embed = new MessageEmbed()
-                        .setTitle(`『 ${challenges[i].name} 』`)
-                        .setDescription(`» ${challenges[i].description}`)
-                        .addField(`» Reward`, `› ${challenges[i].credits_reward}  ⌬`)
+                        .setAuthor({name: `${interaction.user.username}'s Challenges`, icon: interaction.user.avatarURL()})
+                        .setTitle(`${challenges[i].name}`)
+                        .setDescription(`*${challenges[i].description}**`)
+                        .addFields([{name: `__Reward__`, value: `${challenges[i].credits_reward}  ⌬`}])
                         .setColor(`RANDOM`)
                         .setFooter({ text: `You have 30 seconds to reply!`, iconURL: client.user.avatarURL() });
 
                         if(data.read(`./data/user/${interaction.user.id}.json`, 'challenges').includes(challenges[i].id)){
-                            embed.setAuthor({name: `You have completed this Challenge!`})
+                            embed.setAuthor({name: `${interaction.user.username} has completed this Challenge!`})
                         } else {
-                            embed.setAuthor({name: `You have NOT completed this Challenge!`})
+                            embed.setAuthor({name: `${interaction.user.username} has NOT completed this Challenge!`})
                         }
                 
                         await msg.edit({embeds: [embed], components: [row, closebar]})
@@ -102,7 +110,7 @@ module.exports = {
 
                 if(res === false){
 
-                return msg.edit({content: "<:xmark:994105062353817682> *This interaction has been closed!* <:xmark:994105062353817682>", embeds: [], components: []})
+                return msg.edit({content: "<:xmark:1000738231886811156> *This interaction has been closed!* <:xmark:1000738231886811156>", embeds: [], components: []})
 
                 }
             })

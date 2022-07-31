@@ -115,7 +115,7 @@ module.exports = {
 
           }).reverse()
 
-        var msg = ''
+        var msg = '\n*Using a Macro/Alts is prohibited!\nIf you are caught, your stats will be reset!*\n\n'
         var num = 0
 
         for(var i in str){
@@ -139,7 +139,7 @@ module.exports = {
               }
 
               num = num + 1
-              msg = msg + `${num}. » ${name} › *${str[i].credits}* **${ico}**\n\n`
+              msg = msg + `${num}. ${name} - *${str[i].credits}* **${ico}**\n\n`
 
             }
             
@@ -147,7 +147,7 @@ module.exports = {
 
         var embed = new MessageEmbed()
         .setTitle(`${leaderboardName} Leaderboard`)
-        .setColor("RANDOM")
+        .setColor("a6dced")
         .setDescription(msg)
         .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
         message.edit({content: '_ _', embeds:[embed]})

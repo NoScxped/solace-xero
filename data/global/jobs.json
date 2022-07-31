@@ -10,10 +10,10 @@
     },
     "walmart": {
         "name": "Walmart Employee",
-        "pay_max": "9999999",
+        "pay_max": "30",
         "pay_min": "25",
         "description": "Stock them shelves!",
-        "cooldown": "5",
+        "cooldown": "300000",
         "id": "walmart",
         "int": 2
     },

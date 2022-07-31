@@ -32,8 +32,8 @@ module.exports = {
         var embed = new MessageEmbed()
         .setAuthor({name: `${ign} shipped ${interaction.options.getUser(`user1`).username} and ${interaction.user.username}!`, iconURL: url})
         .setTitle(`💞 ${name} 💞`)
-        .setDescription(`» ${heart} ***${interaction.options.getUser(`user1`).username}** and **${interaction.user.username}** are **${perc}%** matched!* ${heart}`)
-        .setColor(`RANDOM`)
+        .setDescription(`${heart} ***${interaction.options.getUser(`user1`).username}** and **${interaction.user.username}** are **${perc}%** matched!* ${heart}`)
+        .setColor("a6dced")
         await interaction.reply({embeds: [embed]})
     }
 }

@@ -10,9 +10,9 @@ module.exports = {
         const jobs = JSON.parse(data.read('./data/global/jobs.json'))
         const msg = await interaction.reply({ content: '<a:typing:1000730579542736927> *Solace is thinking* <a:typing:1000730579542736927>', fetchReply: true, embeds: [], components: []})
         var embed = new MessageEmbed()
-                .setTitle(`『 Job List 』`)
-                .setDescription(`» Select a job`)
-                .setColor(`RANDOM`)
+                .setTitle(`Jobs`)
+                .setDescription(`*Select a job*`)
+                .setColor("a6dced")
                 .setFooter({ text: `You have 30 seconds to reply!`, iconURL: client.user.avatarURL() });
 
         const row = new MessageActionRow()
@@ -50,9 +50,9 @@ module.exports = {
                         res = true
 
                         embed = new MessageEmbed()
-                        .setTitle(`『 Job Accepted! 』`)
-                        .setDescription("» Use ***/work*** to work!")
-                        .setColor("RANDOM")
+                        .setTitle(`Job Accepted!`)
+                        .setDescription("*Use **/work** to work!*")
+                        .setColor("a6dced")
                         .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
                         data.write(`./data/user/${interaction.user.id}.json`, 'job', `${str[0]}`)
                         return msg.edit({embeds: [embed], components: []})
@@ -74,9 +74,11 @@ module.exports = {
                         .setAuthor({name: "You got a new job!"})
                         .setTitle(`『 ${jobs[i].name} 』`)
                         .setDescription(`» ${jobs[i].description}`)
-                        .addField(`» Pay`, `› ${jobs[i].pay_min} - ${jobs[i].pay_max} ⌬`)
-                        .addField(`» Cooldown`, `› ${cooldown} min`)
-                        .setColor(`RANDOM`)
+                        .addFields([
+                            {name: `__Pay__`, value: `› ${jobs[i].pay_min} - ${jobs[i].pay_max} ⌬`},
+                            {name: `__Cooldown__`, value: `› ${cooldown} min`}
+                        ])
+                        .setColor("a6dced")
                         .setFooter({ text: `You have 30 seconds to reply!`, iconURL: client.user.avatarURL() });
 
                         var acceptbar = new MessageActionRow()
@@ -102,7 +104,7 @@ module.exports = {
 
             collector.on(`end`, collected => {
                 if(res === false){
-                return msg.edit({content: `❌ **This interaction was cancelled** ❌`, embeds: [], components: []})
+                return msg.edit({content: `<:xmark:1000738231886811156> *This interaction has been closed!* <:xmark:1000738231886811156>`, embeds: [], components: []})
                 }
             })
         }

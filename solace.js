@@ -1,4 +1,4 @@
-const {Discord, Client, Collection, MessageEmbed, Intents} = require('discord.js')
+const {Discord, Client, Collection, MessageEmbed, Intents, Permissions} = require('discord.js')
 const data = require('apollo.data')
 const client = new Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_MESSAGES],
@@ -81,6 +81,12 @@ client.on('messageCreate', message => {
 //slash commands
 client.on(`interactionCreate`, async interaction => {
     if(interaction.isCommand()){
+        if(!interaction.guild.members.cache.get(client.user.id).permissions.has([Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.MANAGE_MESSAGES, Permissions.FLAGS.USE_EXTERNAL_EMOJIS, Permissions.FLAGS.ADD_REACTIONS])){
+
+            return interaction.reply(`<:xmark:1000738231886811156> *Solace requires the following permissions to function!* <:xmark:1000738231886811156>\n\n- *Use External Emoji*\n- *Add Reactions*\n- *Manage Messages*\n- *Send Messages*\n- *View Channels*`)
+
+        } else {
+
         const command = client.commands.get(interaction.commandName)
         if(!data.exists(`./data/user/${interaction.user.id}.json`)){
 
@@ -97,6 +103,7 @@ client.on(`interactionCreate`, async interaction => {
             await interaction.reply({ content: 'There was an error executing this command!', ephemeral: true })
         }
     }
+}
 })
 
 client.login(config.token)

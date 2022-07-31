@@ -22,7 +22,7 @@ module.exports = {
                                    .setStyle(`PRIMARY`))
         var embed = new MessageEmbed()
                 .setTitle(`Solace Store`)
-                .setDescription(`» Select an item`)
+                .setDescription(`*Select an item*`)
                 .setColor(`RANDOM`)
                 .setFooter({ text: `You have 30 seconds to reply!`, iconURL: client.user.avatarURL() });
 
@@ -91,9 +91,9 @@ module.exports = {
                                 if(parseInt(data.read(`./data/user/${interaction.user.id}.json`, ident)) >= parseInt(max)){
 
                                     embed = new MessageEmbed()
-                                    .setTitle(`❌ Purchase Failed! ❌`)
+                                    .setTitle(`<:xmark:1000738231886811156> Purchase Failed! <:xmark:1000738231886811156>`)
                                     .setDescription(`You can only have *${max}* of this item!`)
-                                    .setColor("RANDOM")
+                                    .setColor("a6dced")
                                     .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
                                     cont = false
                                     await msg.edit({embeds: [embed], components: [backbar]})
@@ -104,9 +104,9 @@ module.exports = {
                                 }
 
                                 embed = new MessageEmbed()
-                                .setTitle(`Purchase Successful!`)
+                                .setTitle(`<:checkmark:1000737491621523488> Purchase Succsessful! <:checkmark:1000737491621523488>`)
                                 .setDescription('You have successfully purchased this item!')
-                                .setColor("RANDOM")
+                                .setColor("a6dced")
                                 .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
 
                                 var add = parseInt(data.read(`./data/user/${interaction.user.id}.json`, ident)) + 1
@@ -127,9 +127,9 @@ module.exports = {
                                 data.write(`./data/user/${interaction.user.id}.json`, ident, `1`)
 
                                 embed = new MessageEmbed()
-                                .setTitle(`『 Purchase Successful! 』`)
+                                .setTitle(`<:checkmark:1000737491621523488> Purchase Succsessful! <:checkmark:1000737491621523488>`)
                                 .setDescription('You have successfully purchased this item!')
-                                .setColor("RANDOM")
+                                .setColor("a6dced")
                                 .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
                                 cont = false
                                 await msg.edit({embeds: [embed], components: [backbar]})
@@ -142,9 +142,9 @@ module.exports = {
                             res = true
                             cont = false
                             embed = new MessageEmbed()
-                                .setTitle(`❌ Purchase Failed! ❌`)
+                                .setTitle(`<:xmark:1000738231886811156> Purchase Failed! <:xmark:1000738231886811156>`)
                                 .setDescription('You do not have enough money!')
-                                .setColor("RANDOM")
+                                .setColor("a6dced")
                                 .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
 
                                 await msg.edit({embeds: [embed], components: []})
@@ -178,10 +178,11 @@ module.exports = {
                         prc = items[i].price
                         ident = items[i].id.toString()
                         var embed = new MessageEmbed()
-                        .setTitle(`『 ${items[i].name} 』`)
-                        .setDescription(`» ${items[i].description}`)
-                        .addField(`» Price`, `› ${items[i].price} ⌬`)
-                        .setColor(`RANDOM`)
+                        .setAuthor({name: "Solace Shop"})
+                        .setTitle(`${items[i].name}`)
+                        .setDescription(`*${items[i].description}*`)
+                        .addFields([{name: `__Price__`, value: `${items[i].price} ⌬`}])
+                        .setColor(`a6dced`)
                         .setFooter({ text: `You have 30 seconds to reply!`, iconURL: client.user.avatarURL() });
 
                         var acceptbar = new MessageActionRow()
@@ -209,7 +210,7 @@ module.exports = {
 
                 if(res === false){
 
-                    return msg.edit({content: "<:xmark:994105062353817682> *This interaction has been closed!* <:xmark:994105062353817682>", embeds: [], components: []})
+                    return msg.edit({content: "<:xmark:1000738231886811156> *This interaction has been closed!* <:xmark:1000738231886811156>", embeds: [], components: []})
                     
 
                 }

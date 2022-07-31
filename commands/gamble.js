@@ -20,10 +20,11 @@ module.exports = {
                 const msg = await interaction.reply({ content: '<a:typing:1000730579542736927> *Solace is thinking* <a:typing:1000730579542736927>', fetchReply: true })
 
                 var embed = new MessageEmbed()
-                .setTitle(`『 <:gamble_chips:993964578390151229> Gambling <:gamble_chips:993964578390151229> 』`)
-                .setDescription(`» Would you like to gamble this amount?`)
-                .addField(`» Amount to Gamble`, `› ${amount}`, true)
-                .addField(`» Current Credits`, `› ${credits}`, true)
+                .setTitle(`<:gamble_chips:1000730735344369704> Would you like to gamble this amount? <:gamble_chips:1000730735344369704>`)
+                .addFields([
+                    {name: `__Amount to Gamble__`, value: `${amount}`, inline: true},
+                    {name: `__Current Credits__`, value: `${credits}`, inline: true}
+                ])
                 .setColor(`RANDOM`)
                 .setFooter({ text: `You have 15 seconds to reply!`, iconURL: client.user.avatarURL() });
 
@@ -45,7 +46,7 @@ module.exports = {
                 var res = false
                 collector.on(`end`, collected => {
                     if(res === false){
-                    msg.edit({content: `❌ **This interaction has been cancelled!** ❌`, embeds: [], components: []})
+                    msg.edit({content: `<:xmark:1000738231886811156> *This interaction has been closed!* <:xmark:1000738231886811156>`, embeds: [], components: []})
                     }
                 })
                 collector.on(`collect`, async e => {
@@ -63,11 +64,13 @@ module.exports = {
 
                             credits = credits + amount
                             var win = new MessageEmbed()
-                            .setTitle(`『 <:gamble_chips:993964578390151229> Gambling <:gamble_chips:993964578390151229> 』`)
-                            .setDescription("<:checkmark:994105025292943390>  You Won! <:checkmark:994105025292943390> ")
-                            .addField('» Amount Gained', "› " + amount.toString())
-                            .addField('» Credits ⌬', "› " + credits.toString())
-                            .setColor("RANDOM")
+                            .setTitle(`<:gamble_chips:1000730735344369704> Gambling <:gamble_chips:1000730735344369704>`)
+                            .setDescription("<:checkmark:1000737491621523488> You Won! <:checkmark:1000737491621523488>")
+                            .addFields([
+                                {name: '__Amount Gained__', value: amount.toString()},
+                                {name: '__Credits ⌬__', value: credits.toString()}
+                            ])
+                            .setColor("a6dced")
                             .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
 
                             msg.edit({content: "_ _", embeds: [win], components: []})
@@ -77,11 +80,13 @@ module.exports = {
                             credits = credits - amount
 
                             var lose = new MessageEmbed()
-                            .setTitle("『 <:gamble_chips:993964578390151229> Gambling <:gamble_chips:993964578390151229> 』")
-                            .setDescription("<:xmark:994105062353817682> You Lost! <:xmark:994105062353817682>")
-                            .addField('» Amount Lost', "› " + amount.toString())
-                            .addField('» Credits ⌬', "› " + credits.toString())
-                            .setColor("RANDOM")
+                            .setTitle("<:gamble_chips:1000730735344369704> Gambling <:gamble_chips:1000730735344369704>")
+                            .setDescription("<:xmark:1000738231886811156> You Lost! <:xmark:1000738231886811156>")
+                            .addFields([
+                                {name: '__Amount Lost__', value: amount.toString()},
+                                {name: '__Credits ⌬__', value: credits.toString()}
+                            ])
+                            .setColor("a6dced")
                             .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
 
                             msg.edit({content: "_ _", embeds: [lose], components: []})

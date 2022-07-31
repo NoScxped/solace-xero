@@ -81,7 +81,7 @@ module.exports = {
 
                         if(scanName === factionName.toLowerCase()){
 
-                            return interaction.reply('<:xmark:994105062353817682> *That name is taken!* <:xmark:994105062353817682>')
+                            return interaction.reply('<:xmark:1000738231886811156> *That name is taken!* <:xmark:1000738231886811156>')
 
                         }
                         
@@ -89,12 +89,14 @@ module.exports = {
 
                 var embed = new MessageEmbed()
                 .setAuthor({name: `${interaction.user.username} created a Faction!`})
-                .setTitle(`『 ${factionName} 』`)
-                .setDescription("» " + interaction.options.getString(`factiondescription`))
-                .addField("Owner", interaction.user.username, true)
-                .addField('Level', '1', true)
+                .setTitle(`${factionName}`)
+                .setDescription("*" + interaction.options.getString(`factiondescription`) + "*")
+                .addFields([
+                    {name: "__Owner__", value: interaction.user.username, inline: true},
+                    {name: '__Level__', value: '1', inline: true}
+                ])
                 .setFooter({ text: 'ID: ' + factionId})
-                .setColor('RANDOM')
+                .setColor("a6dced")
 
                 data.write(`./data/faction/${factionId}.json`, 'name', factionName.toString())
                 data.write(`./data/faction/${factionId}.json`, 'credits', `0`)
@@ -106,7 +108,7 @@ module.exports = {
 
                 interaction.reply({embeds: [embed]})
             } else {
-                interaction.reply({content: "<:xmark:994105062353817682> *You are already in a faction!* <:xmark:994105062353817682>"})
+                interaction.reply({content: "<:xmark:1000738231886811156> *You are already in a faction!* <:xmark:1000738231886811156>"})
             }
         }
 
@@ -116,7 +118,7 @@ module.exports = {
 
             if(factionId === undefined){
 
-                return interaction.reply('<:xmark:994105062353817682> *You are not in a faction!* <:xmark:994105062353817682>')
+                return interaction.reply('<:xmark:1000738231886811156> *You are not in a faction!* <:xmark:1000738231886811156>')
 
             }
 
@@ -126,7 +128,7 @@ module.exports = {
 
                 if(!dataArray.includes(interaction.options.getUser('newowner').id.toString())){
 
-                    return interaction.reply("<:xmark:994105062353817682> *This user is not in your Faction!* <:xmark:994105062353817682>")
+                    return interaction.reply("<:xmark:1000738231886811156> *This user is not in your Faction!* <:xmark:1000738231886811156>")
 
                 }
 
@@ -135,15 +137,15 @@ module.exports = {
 
                 var embed = new MessageEmbed()
                     .setAuthor({name: "You transferred Ownership of your Faction!"})
-                    .setTitle(`『 ${data.read(`./data/faction/${factionId}.json`, 'name')} 』`)
-                    .setDescription(`» [-] *${interaction.user.username}*\n» [+] *${interaction.options.getUser('newowner').username}*`)
-                    .setColor('RANDOM')
+                    .setTitle(`${data.read(`./data/faction/${factionId}.json`, 'name')}`)
+                    .setDescription(`[-] *${interaction.user.username}*\n\n[+] *${interaction.options.getUser('newowner').username}*`)
+                    .setColor("a6dced")
                     .setFooter({ text: splashtext, iconURL: client.user.avatarURL() })
                     return interaction.reply({embeds: [embed]})
 
             } else {
 
-                return interaction.reply('<:xmark:994105062353817682> *You do not own this faction!* <:xmark:994105062353817682>')
+                return interaction.reply('<:xmark:1000738231886811156> *You do not own this faction!* <:xmark:1000738231886811156>')
 
             }
 
@@ -156,7 +158,7 @@ module.exports = {
 
             if(factionId === undefined){
 
-                return interaction.reply('<:xmark:994105062353817682> *You are not in a faction!* <:xmark:994105062353817682>')
+                return interaction.reply('<:xmark:1000738231886811156> *You are not in a faction!* <:xmark:1000738231886811156>')
 
             }
 
@@ -170,7 +172,7 @@ module.exports = {
 
                         if(scanName.toLowerCase() === factionName){
 
-                            return interaction.reply('<:xmark:994105062353817682> *That name is taken!* <:xmark:994105062353817682>')
+                            return interaction.reply('<:xmark:1000738231886811156> *That name is taken!* <:xmark:1000738231886811156>')
 
                         }
                         
@@ -179,8 +181,8 @@ module.exports = {
 
                 var embed = new MessageEmbed()
                     .setAuthor({name: "You Updated the Name of your Faction!"})
-                    .setDescription(`» [-] *${data.read(`./data/faction/${factionId}.json`, 'name')}*\n» [+] *${interaction.options.getString('newname')}*`)
-                    .setColor('RANDOM')
+                    .setDescription(`[-] *${data.read(`./data/faction/${factionId}.json`, 'name')}*\n\n[+] *${interaction.options.getString('newname')}*`)
+                    .setColor("a6dced")
                     .setFooter({ text: splashtext, iconURL: client.user.avatarURL() })
                     interaction.reply({embeds: [embed]})
                     data.write(`./data/faction/${factionId}.json`, 'name', interaction.options.getString('newname'))
@@ -188,7 +190,7 @@ module.exports = {
 
             } else {
 
-                return interaction.reply('<:xmark:994105062353817682> *You do not own this faction!* <:xmark:994105062353817682>')
+                return interaction.reply('<:xmark:1000738231886811156> *You do not own this faction!* <:xmark:1000738231886811156>')
 
             }
 
@@ -200,7 +202,7 @@ module.exports = {
 
             if(factionId === undefined){
 
-                return interaction.reply('<:xmark:994105062353817682> *You are not in a faction!* <:xmark:994105062353817682>')
+                return interaction.reply('<:xmark:1000738231886811156> *You are not in a faction!* <:xmark:1000738231886811156>')
 
             }
 
@@ -215,11 +217,11 @@ module.exports = {
                 )
 
                 data.delete(`./data/faction/${factionId}.json`)
-                return interaction.reply('<:checkmark:994105025292943390> *Faction Deleted!* <:checkmark:994105025292943390>')
+                return interaction.reply('<:checkmark:1000737491621523488> *Faction Deleted!* <:checkmark:1000737491621523488>')
 
             } else {
 
-                return interaction.reply('<:xmark:994105062353817682> *You do not own this faction!* <:xmark:994105062353817682>')
+                return interaction.reply('<:xmark:1000738231886811156> *You do not own this faction!* <:xmark:1000738231886811156>')
 
             }
 
@@ -231,7 +233,7 @@ module.exports = {
 
             if(factionId === undefined){
 
-                return interaction.reply('<:xmark:994105062353817682> *You are not in a faction!* <:xmark:994105062353817682>')
+                return interaction.reply('<:xmark:1000738231886811156> *You are not in a faction!* <:xmark:1000738231886811156>')
 
             }
 
@@ -242,8 +244,8 @@ module.exports = {
 
                 var embed = new MessageEmbed()
                     .setAuthor({name: "You Updated the Description of your Faction!"})
-                    .setDescription(`» *${interaction.options.getString('newdescription')}*`)
-                    .setColor('RANDOM')
+                    .setDescription(`*${interaction.options.getString('newdescription')}*`)
+                    .setColor("a6dced")
                     .setFooter({ text: splashtext, iconURL: client.user.avatarURL() })
                     interaction.reply({embeds: [embed]})
                     data.write(`./data/faction/${factionId}.json`, 'name', interaction.options.getString('newdescription'))
@@ -251,38 +253,7 @@ module.exports = {
 
             } else {
 
-                return interaction.reply('<:xmark:994105062353817682> *You do not own this faction!* <:xmark:994105062353817682>')
-
-            }
-
-        }
-
-        if(interaction.options.getSubcommand() === 'delete'){
-
-            var factionId = data.read(`./data/user/${interaction.user.id}.json`, 'faction')
-
-            if(factionId === undefined){
-
-                return interaction.reply('<:xmark:994105062353817682> *You are not in a faction!* <:xmark:994105062353817682>')
-
-            }
-
-            if(data.read(`./data/faction/${factionId}.json`, "owner") === interaction.user.id.toString()){
-
-                var dataArray = data.read(`./data/faction/${factionId}.json`, 'members').split(',')
-
-                dataArray.forEach(user => 
-
-                    data.delete(`./data/user/${user}.json`, 'faction')
-
-                )
-
-                data.delete(`./data/faction/${factionId}.json`)
-                return interaction.reply('<:checkmark:994105025292943390> *Faction Deleted!* <:checkmark:994105025292943390>')
-
-            } else {
-
-                return interaction.reply('<:xmark:994105062353817682> *You do not own this faction!* <:xmark:994105062353817682>')
+                return interaction.reply('<:xmark:1000738231886811156> *You do not own this faction!* <:xmark:1000738231886811156>')
 
             }
 
@@ -296,7 +267,7 @@ module.exports = {
     
                 if(interaction.user.bot){
     
-                    interaction.reply(`<:xmark:994105062353817682> *You cannot get information on a bot!* <:xmark:994105062353817682>`)
+                    interaction.reply(`<:xmark:1000738231886811156> *You cannot get information on a bot!* <:xmark:1000738231886811156>`)
                     return
                     
                 }
@@ -322,20 +293,22 @@ module.exports = {
                 }
 
                 var embed = new MessageEmbed()
-                .setAuthor({name: '『 ' + factionName.toString() + ' 』'})
-                .setDescription("» " + description)
-                .addField(`Members`, factionMembers.length.toString() + '/30', true)
-                .addField(`Owner`, `<@!` + factionOwner + ">", true)
-                .addField(`Level`, factionLevel, true)
-                .addField(`Faction Credits **⌬**`, credits + ' ⌬', true)
-                .addField(`Total User Credits **⌬**`, userCredits + ' ⌬', true)
-                .setColor('RANDOM')
+                .setAuthor({name: factionName.toString()})
+                .setDescription("*" + description + "*")
+                .addFields([
+                    {name: `__Members__`, value: factionMembers.length.toString() + '/30', inline: true},
+                    {name: `__Owner__`, value: `<@!` + factionOwner + ">", inline: true},
+                    {name: `__Level__`, value: factionLevel, inline: true},
+                    {name: `__Faction Credits **⌬**__`, value: credits + ' ⌬', inline: true},
+                    {name: `__Total User Credits **⌬**__`, value: userCredits + ' ⌬', inline: true}
+                ])
+                .setColor("a6dced")
                 .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
                 await interaction.reply({embeds: [embed]})
 
             } else {
 
-                interaction.reply('<:xmark:994105062353817682> *This user is not in a faction!* <:xmark:994105062353817682>')
+                interaction.reply('<:xmark:1000738231886811156> *This user is not in a faction!* <:xmark:1000738231886811156>')
 
             }
         }
@@ -355,12 +328,12 @@ module.exports = {
             var factionId = data.read(`./data/user/${interaction.user.id}.json`, 'faction')
 
             if(!data.read(`./data/user/${interaction.user.id}.json`, 'faction')){
-                return interaction.reply('<:xmark:994105062353817682> *You are not in a Faction* <:xmark:994105062353817682>')
+                return interaction.reply('<:xmark:1000738231886811156> *You are not in a Faction* <:xmark:1000738231886811156>')
             }
 
             if(interaction.options.getUser('user').id === interaction.user.id){
 
-                return interaction.reply('<:xmark:994105062353817682> *Your cannot invite yourself!* <:xmark:994105062353817682>')
+                return interaction.reply('<:xmark:1000738231886811156> *Your cannot invite yourself!* <:xmark:1000738231886811156>')
 
             }
         var admin = data.read(`./data/faction/${factionId}.json`, `admin`)
@@ -377,7 +350,7 @@ module.exports = {
 
             if(invites){
                 if(invites.toString().includes(factionId.toString())){
-                return interaction.reply({content: "<:xmark:994105062353817682> *You have already invited this user!* <:xmark:994105062353817682>"})
+                return interaction.reply({content: "<:xmark:1000738231886811156> *You have already invited this user!* <:xmark:1000738231886811156>"})
 
                 }
             }
@@ -385,9 +358,9 @@ module.exports = {
             
             var embed = new MessageEmbed()
             .setAuthor({name: 'You invited a user to the Faction!'})
-            .setTitle(`『 ${data.read(`./data/faction/${factionId}.json`, 'name')} 』`)
-            .setDescription('» ***' + interaction.user.username + '*** *invited* ***' + interaction.options.getUser('user').username + '***')
-            .setColor(`RANDOM`)
+            .setTitle(`${data.read(`./data/faction/${factionId}.json`, 'name')}`)
+            .setDescription('***' + interaction.user.username + '*** *invited* ***' + interaction.options.getUser('user').username + '***')
+            .setColor("a6dced")
 
             var invId = data.read(`./data/user/${interaction.user.id}.json`, 'faction')
 
@@ -402,7 +375,7 @@ module.exports = {
 
                     if(invites.split(',').length > 24){
 
-                        return interaction.reply(`<:xmark:994105062353817682> *This user has the maximum **25** pending invites!* <:xmark:994105062353817682>`)
+                        return interaction.reply(`<:xmark:1000738231886811156> *This user has the maximum **25** pending invites!* <:xmark:1000738231886811156>`)
 
                     }
                 
@@ -416,7 +389,7 @@ module.exports = {
             }
         } else {
 
-            return interaction.reply(`<:xmark:994105062353817682> *You do not have the Faction Permissions to do this!* <:xmark:994105062353817682>`)
+            return interaction.reply(`<:xmark:1000738231886811156> *You do not have the Faction Permissions to do this!* <:xmark:1000738231886811156>`)
 
         }
     }
@@ -427,17 +400,17 @@ module.exports = {
 
             if(!invites){
 
-                await interaction.reply({ content: '<:xmark:994105062353817682> *You do not have any invites :(* <:xmark:994105062353817682>'})
+                await interaction.reply({ content: '<:xmark:1000738231886811156> *You do not have any invites :(* <:xmark:1000738231886811156>'})
                 return
 
             }
             invites = invites.split(',')
-            const msg = await interaction.reply({ content: '<a:typing:994063591340773466> *Xero is thinking* <a:typing:994063591340773466>', fetchReply: true, embeds: [], components: []})
+            const msg = await interaction.reply({ content: '<a:typing:1000730579542736927> *Solace is thinking* <a:typing:1000730579542736927>', fetchReply: true, embeds: [], components: []})
         
             var embed = new MessageEmbed()
                 .setAuthor({name: "Here are your Faction Invites!"})
-                .setDescription(`» Select a Faction`)
-                .setColor(`RANDOM`)
+                .setDescription(`*Select a Faction*`)
+                .setColor("a6dced")
                 .setFooter({ text: `You have 30 seconds to reply!`, iconURL: client.user.avatarURL() });
 
             const row = new MessageActionRow()
@@ -486,14 +459,14 @@ module.exports = {
 
                     if(data.read(`./data/user/${interaction.user.id}.json`, 'faction')){
                         //faction join attempt, already in faction
-                        await msg.edit({content: "<:xmark:994105062353817682> *You are already in a Faction!* <:xmark:994105062353817682>", embeds: [], components: []})
+                        await msg.edit({content: "<:xmark:1000738231886811156> *You are already in a Faction!* <:xmark:1000738231886811156>", embeds: [], components: []})
                         res = true
                         collector.stop()
                         return
                     }
                     //join a faction
                 var mbrs = data.read(`./data/faction/${str[0]}.json`, `members`).split(',')
-                if(mbrs.length >= 30){return interaction.reply(`<:xmark:994105062353817682> *Factions are currently capped at 30 members!* <:xmark:994105062353817682>`)}
+                if(mbrs.length >= 30){return interaction.reply(`<:xmark:1000738231886811156> *Factions are currently capped at 30 members!* <:xmark:1000738231886811156>`)}
                 invites = invites.filter(e => e !== str[0]);
                 if(invites.length === 0){
                     data.delete(`./data/user/${interaction.user.id}.json`, 'invites')
@@ -508,9 +481,9 @@ module.exports = {
 
                 embed = new MessageEmbed()
                     .setAuthor({name: "You have joined a Faction!"})
-                    .setTitle(`『 ${data.read(`./data/faction/${str[0]}.json`, 'name')} 』`)
-                    .setDescription('» [+] *' + interaction.user.username + '*')
-                    .setColor("RANDOM")
+                    .setTitle(`${data.read(`./data/faction/${str[0]}.json`, 'name')}`)
+                    .setDescription('[+] *' + interaction.user.username + '*')
+                    .setColor("a6dced")
                     .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
 
                     await msg.edit({embeds: [embed], components: []})
@@ -558,10 +531,10 @@ module.exports = {
 
                         var embed = new MessageEmbed()
                         .setAuthor({name: "Would you like to join this Faction?"})
-                        .setTitle(`『 ${faction.name} 』`)
-                        .setDescription(`» ${faction.description}`)
-                        .addField(`» Members`, `› ${faction.members.split(',').length}`)
-                        .setColor(`RANDOM`)
+                        .setTitle(`${faction.name}`)
+                        .setDescription(`*${faction.description}*`)
+                        .addFields([{name: `__Members__`, value: `${faction.members.split(',').length}`}])
+                        .setColor("a6dced")
                         .setFooter({ text: `You have 30 seconds to reply!`, iconURL: client.user.avatarURL() });
 
                         var acceptbar = new MessageActionRow()
@@ -601,7 +574,7 @@ module.exports = {
 
                 if(res === false){
 
-                return msg.edit({content: "<:xmark:994105062353817682> *This interaction was cancelled* <:xmark:994105062353817682>", embeds: [], components: []})
+                return msg.edit({content: "<:xmark:1000738231886811156> *This interaction was cancelled* <:xmark:1000738231886811156>", embeds: [], components: []})
 
                 }
             })
@@ -611,7 +584,7 @@ module.exports = {
         var factionId = data.read(`./data/user/${interaction.user.id}.json`, `faction`)
         if(interaction.options.getUser('kickeduser').id === interaction.user.id){
 
-            return interaction.reply('<:xmark:994105062353817682> *Your cannot kick yourself!* <:xmark:994105062353817682>')
+            return interaction.reply('<:xmark:1000738231886811156> *Your cannot kick yourself!* <:xmark:1000738231886811156>')
 
         }
 
@@ -624,11 +597,23 @@ module.exports = {
                 admin = `1`
 
             }
-            if(interaction.options.getUser(`kickedser`).id === data.read(`./data/faction/${factionId}.json`, 'owner')){return interaction.reply({content: "<:xmark:994105062353817682> *You cannot kick the Owner!* <:xmark:994105062353817682>"})}
+            if(interaction.options.getUser(`kickeduser`).id === data.read(`./data/faction/${factionId}.json`, 'owner')){return interaction.reply({content: "<:xmark:1000738231886811156> *You cannot kick the Owner!* <:xmark:1000738231886811156>"})}
 
         if(admin.includes(interaction.user.id) || data.read(`./data/faction/${factionId}.json`, 'owner') === interaction.user.id.toString()){
 
             var members = data.read(`./data/faction/${factionId}.json`, 'members').split(',')
+            var admins = data.read(`./data/faction/${factionId}.json`, 'admin').split(',')
+
+        if(admins.includes(interaction.options.getUser(`kickeduser`).id.toString())){
+            admins = admins.filter(e => e !== interaction.options.getUser(`kickeduser`).id)
+            console.log(admins.length)
+            if(admins.length === 0){
+                data.delete(`./data/faction/${factionId}.json`, 'admin')
+            } else {
+                data.write(`./data/faction/${factionId}.json`, 'admin', admins.toString())
+            }
+                
+        }
 
             if(members.includes(interaction.options.getUser(`kickeduser`).id.toString())){
 
@@ -639,15 +624,15 @@ module.exports = {
 
                 var embed = new MessageEmbed()
                 .setAuthor({name: `You expelled a user from the Faction!`})
-                .setTitle(`『 ${data.read(`./data/faction/${factionId}.json`, 'name')} 』`)
-                .setDescription(`» [x] *${interaction.options.getUser(`kickeduser`).username}*`)
-                .setColor('RANDOM')
+                .setTitle(`${data.read(`./data/faction/${factionId}.json`, 'name')}`)
+                .setDescription(`[x] *${interaction.options.getUser(`kickeduser`).username}*`)
+                .setColor("a6dced")
 
                 await interaction.reply({embeds: [embed]})
 
             } else {
 
-                return interaction.reply(`<:xmark:994105062353817682> *This user is not in the Faction!* <:xmark:994105062353817682>`)
+                return interaction.reply(`<:xmark:1000738231886811156> *This user is not in the Faction!* <:xmark:1000738231886811156>`)
 
             }
 
@@ -661,9 +646,20 @@ module.exports = {
     }
     if(interaction.options.getSubcommand() === 'leave'){
         var factionId = data.read(`./data/user/${interaction.user.id}.json`, 'faction')
-        if(!factionId){return interaction.reply(`<:xmark:994105062353817682> *You are not in a Faction!* <:xmark:994105062353817682>`)}
-        if(data.read(`./data/faction/${factionId}.json`, 'owner') === interaction.user.id.toString()){return interaction.reply(`<:xmark:994105062353817682> *You cannot leave a Faction you own!* <:xmark:994105062353817682>`)}
+        if(!factionId){return interaction.reply(`<:xmark:1000738231886811156> *You are not in a Faction!* <:xmark:1000738231886811156>`)}
+        if(data.read(`./data/faction/${factionId}.json`, 'owner') === interaction.user.id.toString()){return interaction.reply(`<:xmark:1000738231886811156> *You cannot leave a Faction you own!* <:xmark:1000738231886811156>`)}
         var members = data.read(`./data/faction/${factionId}.json`, 'members').split(',')
+        var admins = data.read(`./data/faction/${factionId}.json`, 'admin').split(',')
+
+        if(admins.includes(interaction.user.id.toString())){
+            admins = admins.filter(e => e !== interaction.user.id);
+            if(admins.length === 0){
+                data.delete(`./data/faction/${factionId}.json`, 'admin')
+            } else {
+                data.write(`./data/faction/${factionId}.json`, 'admin', admins.toString())
+            }
+                
+        }
 
             if(members.includes(interaction.user.id.toString())){
 
@@ -672,9 +668,9 @@ module.exports = {
                 data.delete(`./data/user/${interaction.user.id}.json`, `faction`)
                 var embed = new MessageEmbed()
                 .setAuthor({name: `You have left the Faction!`})
-                .setTitle(`『 ${data.read(`./data/faction/${factionId}.json`, 'name')} 』`)
-                .setDescription(`» [-] *${interaction.user.username}*`)
-                .setColor('RANDOM')
+                .setTitle(`${data.read(`./data/faction/${factionId}.json`, 'name')}`)
+                .setDescription(`[-] *${interaction.user.username}*`)
+                .setColor("a6dced")
                 await interaction.reply({embeds: [embed]})
             }
     }
@@ -683,11 +679,11 @@ module.exports = {
         var factionId = data.read(`./data/user/${interaction.user.id}.json`, 'faction')
         var adminFactionId = data.read(`./data/user/${interaction.options.getUser('admin').id}.json`, 'faction')
 
-        if(!adminFactionId){return interaction.reply(`<:xmark:994105062353817682> *This user is not in a Faction!* <:xmark:994105062353817682>`)}
+        if(!adminFactionId){return interaction.reply(`<:xmark:1000738231886811156> *This user is not in a Faction!* <:xmark:1000738231886811156>`)}
 
-        if(!factionId){return interaction.reply(`<:xmark:994105062353817682> *You are not in a Faction!* <:xmark:994105062353817682>`)}
+        if(!factionId){return interaction.reply(`<:xmark:1000738231886811156> *You are not in a Faction!* <:xmark:1000738231886811156>`)}
 
-        if(data.read(`./data/faction/${factionId}.json`, 'owner') != interaction.user.id){ return interaction.reply('<:xmark:994105062353817682> *You do not own this Faction!* <:xmark:994105062353817682>')}
+        if(data.read(`./data/faction/${factionId}.json`, 'owner') != interaction.user.id){ return interaction.reply('<:xmark:1000738231886811156> *You do not own this Faction!* <:xmark:1000738231886811156>')}
 
         if(factionId === adminFactionId){
         var arr = data.read(`./data/faction/${factionId}.json`, 'admin')
@@ -699,7 +695,7 @@ module.exports = {
         if(!arr){
 
             data.write(`./data/faction/${factionId}.json`, 'admin', interaction.options.getUser(`admin`).id.toString())
-            return interaction.reply({content: `<:checkmark:994105025292943390> *${interaction.options.getUser(`admin`).username} is now a Faction Admin!  You have ${adminLimit - 1} Admin Slots Left!* <:checkmark:994105025292943390>`})
+            return interaction.reply({content: `<:checkmark:1000737491621523488> *${interaction.options.getUser(`admin`).username} is now a Faction Admin!  You have ${adminLimit - 1} Admin Slots Left!* <:checkmark:1000737491621523488>`})
 
         } else {
 
@@ -709,14 +705,14 @@ module.exports = {
                 arr = arr.filter(e => e !== interaction.options.getUser('admin').id.toString())
                 
                 if(arr.length === 0){ data.delete(`./data/faction/${factionId}.json`, 'admin')} else {data.write(`./data/faction/${factionId}.json`, 'admin', arr.toString())}
-                return interaction.reply({content: `<:checkmark:994105025292943390> *${interaction.options.getUser(`admin`).username} is no longer a Faction Admin!* <:checkmark:994105025292943390>`})
+                return interaction.reply({content: `<:checkmark:1000737491621523488> *${interaction.options.getUser(`admin`).username} is no longer a Faction Admin!* <:checkmark:1000737491621523488>`})
 
             } else {
                 
-                if(arr.length > adminLimit){return interaction.reply(`<:xmark:994105062353817682> *This Faction has reached its Admin Limit of ${adminLimit}. Invite more people!* <:xmark:994105062353817682>`)}
+                if(arr.length > adminLimit){return interaction.reply(`<:xmark:1000738231886811156> *This Faction has reached its Admin Limit of ${adminLimit}. Invite more people!* <:xmark:1000738231886811156>`)}
                 arr.push(interaction.options.getUser('admin').id)
                 data.write(`./data/faction/${factionId}.json`, 'admin', arr.toString())
-                return interaction.reply({content: `<:checkmark:994105025292943390> *${interaction.options.getUser(`admin`).username} is now a Faction Admin! You have ${adminLimit - admins.length} Admin Slots Left!* <:checkmark:994105025292943390>`})
+                return interaction.reply({content: `<:checkmark:1000737491621523488> *${interaction.options.getUser(`admin`).username} is now a Faction Admin! You have ${adminLimit - admins.length} Admin Slots Left!* <:checkmark:1000737491621523488>`})
 
             }
         }
@@ -737,8 +733,8 @@ module.exports = {
         var adminCnt = admins.length
         }
 
-        var memberlist = `» Members › **${members.length}/30**\n\n`
-        var adminlist = `» Admins › **${adminCnt}/${Math.ceil(members.length * 0.15)}**\n\n`
+        var memberlist = `__**Members**__: **${members.length}/30**\n\n`
+        var adminlist = `__**Admins**__: **${adminCnt}/${Math.ceil(members.length * 0.15)}**\n\n`
 
         if(members.length > 1){
         for(var i in members){
@@ -748,7 +744,7 @@ module.exports = {
             }
         } else {
             if(members[i] != owner){
-            memberlist = memberlist + `› <@!${members[i]}>\n`
+            memberlist = memberlist + `- <@!${members[i]}>\n`
             }
         }
         }
@@ -758,18 +754,18 @@ module.exports = {
         if(admins){
         for(var i in admins){
 
-            adminlist = adminlist + `› <@!${admins[i]}>\n`
+            adminlist = adminlist + `- <@!${admins[i]}>\n`
         }
     } else {
         adminlist = ''
     }
 
         var embed = new MessageEmbed()
-        .setAuthor({name: `『 ${data.read(`./data/faction/${factionId}.json`, 'name')} 』`})
-        .setTitle(`Total Members: ` + members.length )
-        .setDescription(`» Owner\n\n› <@!${owner}>\n\n${adminlist}\n${memberlist}
+        .setAuthor({name: `Total Members: ` + members.length})
+        .setTitle(`${data.read(`./data/faction/${factionId}.json`, 'name')}`)
+        .setDescription(`__**Owner**__\n\n - <@!${owner}>\n\n${adminlist}\n${memberlist}
         `)
-        .setColor(`RANDOM`)
+        .setColor("a6dced")
         await interaction.reply({embeds: [embed]})
     }
     

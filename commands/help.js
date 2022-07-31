@@ -17,10 +17,10 @@ module.exports = {
             send = send + `**» ${command.name.charAt(0).toUpperCase() + command.name.slice(1)}** - *${command.description}*\n`
         })
         var embed = new MessageEmbed()
-        .setTitle("『 Help 』")
-        .setColor("RANDOM")
+        .setTitle("Solace Help")
+        .setColor("a6dced")
         .setDescription(send)
-        .addField(`Usage`, 'Slash commands ( **/** ) work *|* The old prefix ( **+** ) DOES NOT work anymore!')
+        .addFields([{name: `__Usage__`, value: 'Slash commands ( **/** ) work *|* The old prefix ( **+** ) DOES NOT work anymore!'}])
         .setFooter({ text: splashtext.toString(), iconURL: client.user.avatarURL() });
         
         interaction.reply({embeds: [embed]})

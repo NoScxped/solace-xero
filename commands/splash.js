@@ -6,7 +6,7 @@ module.exports = {
 		.setDescription('Get a random splash text'),
 	async execute(interaction, data, client, Discord, splashtext) {
         var embed = new MessageEmbed()
-        .setColor("RANDOM")
+        .setColor("a6dced")
         .setFooter({ text: splashtext.toString(), iconURL: client.user.avatarURL() });
         
         interaction.reply({embeds: [embed]})

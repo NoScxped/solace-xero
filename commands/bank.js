@@ -24,20 +24,20 @@ module.exports = {
 
             if(bankCredits > userCredits){
 
-                    return interaction.reply(`<:xmark:994105062353817682> *You do not have enough Credits for this!* <:xmark:994105062353817682>`)
+                    return interaction.reply(`<:xmark:1000738231886811156> *You do not have enough Credits for this!* <:xmark:1000738231886811156>`)
 
                 }
 
                 if(userCredits - bankCredits < 0){
 
-                    return interaction.reply(`<:xmark:994105062353817682> *That amount would put you into the negatives!* <:xmark:994105062353817682>`)
+                    return interaction.reply(`<:xmark:1000738231886811156> *That amount would put you into the negatives!* <:xmark:1000738231886811156>`)
 
                 }
 
 
                 var embed = new MessageEmbed()
                 .setAuthor({name: `Deposit Success!`})
-                .setColor(`RANDOM`)
+                .setColor("a6dced")
                 .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
 
             if(currentBank){
@@ -47,7 +47,7 @@ module.exports = {
 
                 if(sum > 10000){
 
-                    return interaction.reply(`<:xmark:994105062353817682> *This amount breaks the capacity!* <:xmark:994105062353817682>`)
+                    return interaction.reply(`<:xmark:1000738231886811156> *This amount breaks the capacity!* <:xmark:1000738231886811156>`)
 
                 } else {
 
@@ -55,8 +55,8 @@ module.exports = {
                     data.write(`./data/user/${interaction.user.id}.json`, 'credits', sub.toString())
 
                     embed.addFields([
-                        {name: `» Bank`, value: `› ${sum} ⌬`, inline: true},
-                        {name: `» Credits`, value:`› ${sub} ⌬`, inline: true}
+                        {name: `__Bank__`, value: `› ${sum} ⌬`, inline: true},
+                        {name: `__Credits__`, value:`› ${sub} ⌬`, inline: true}
                     ])
 
                     return interaction.reply({embeds: [embed]})
@@ -67,7 +67,7 @@ module.exports = {
 
                 if(bankCredits > 10000){
 
-                    return interaction.reply(`<:xmark:994105062353817682> *This amount breaks the capacity!* <:xmark:994105062353817682>`)
+                    return interaction.reply(`<:xmark:1000738231886811156> *This amount breaks the capacity!* <:xmark:1000738231886811156>`)
 
                 } else {
 
@@ -76,8 +76,10 @@ module.exports = {
                     data.write(`./data/user/${interaction.user.id}.json`, 'bank', bankCredits.toString())
                     data.write(`./data/user/${interaction.user.id}.json`, 'credits', sub.toString())
 
-                    embed.addField(`» Bank`, `› ${bankCredits} ⌬`, true)
-                    embed.addField(`» Credits`, `› ${sub} ⌬`, true)
+                    embed.addFields([
+                        {name: `__Bank__`, value: `${bankCredits} ⌬`, inline: true},
+                        {name: `__Credits__`, value: `${sub} ⌬`, inline: true}
+                    ])
 
                     return interaction.reply({embeds: [embed]})
 
@@ -88,11 +90,11 @@ module.exports = {
         if(interaction.options.getSubcommand() === 'withdraw'){
 
             if(!currentBank){
-                return interaction.reply(`<:xmark:994105062353817682> *You don't have anything in the Bank!* <:xmark:994105062353817682>`)
+                return interaction.reply(`<:xmark:1000738231886811156> *You don't have anything in the Bank!* <:xmark:1000738231886811156>`)
             }
 
          if(bankCredits > currentBank)
-            return interaction.reply(`<:xmark:994105062353817682> *That is more money than you currently have in the Bank!* <:xmark:994105062353817682>`)
+            return interaction.reply(`<:xmark:1000738231886811156> *That is more money than you currently have in the Bank!* <:xmark:1000738231886811156>`)
         }
 
         withdraw = currentBank - bankCredits

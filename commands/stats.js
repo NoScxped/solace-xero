@@ -26,14 +26,15 @@ module.exports = {
         }
 
         var embed = new MessageEmbed()
-        .setTitle('Solace Stats')
-        .addField('Servers', client.guilds.cache.size.toString(), true)
-        .setThumbnail(client.user.avatarURL())
-        .addField('Users in Storage', getAllFiles('./data/user/').length.toString())
-        .addField('Servers in Storage', getAllFiles('./data/guild/').length.toString())
-        .addField('Factions in Storage', getAllFiles('./data/faction/').length.toString())
-        .setColor("RANDOM")
-        .setFooter({ text: `Solace Xero v` + info.version, iconURL: client.user.avatarURL() });
+        .setAuthor({name: 'Solace-Xero',icon: `https://discord.gg/THZqsK3HTM`, iconURL: `https://cdn.discordapp.com/attachments/752366102683582646/1000916536598474793/logo.png`})
+        .addFields([
+            {name: '__Total Servers__', value: client.guilds.cache.size.toString()},
+            {name: '__Users in Storage__', value: getAllFiles('./data/user/').length.toString()},
+            {name: '__Servers in Storage__', value: getAllFiles('./data/guild/').length.toString()},
+            {name: '__Factions in Storage__', value: getAllFiles('./data/faction/').length.toString()}
+        ])
+        .setColor(`a6dced`)
+        .setFooter({ text: `Solace Xero v` + info.version, iconURL: `https://cdn.discordapp.com/attachments/752366102683582646/1000916536598474793/logo.png` });
         await interaction.reply({embeds: [embed]})
         
         

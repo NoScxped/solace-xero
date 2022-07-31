@@ -16,8 +16,8 @@ module.exports = {
 
         var embed = new MessageEmbed()
         .setTitle(interaction.options.getString('title'))
-        .setColor("RANDOM")
-        .setDescription("» " + interaction.options.getString('description'))
+        .setColor("a6dced")
+        .setDescription("*" + interaction.options.getString('description') + "*")
         .setAuthor({ name: 'Created by ' + interaction.user.username, iconURL: interaction.user.avatarURL(), url: interaction.user.avatarURL() })
         .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
 

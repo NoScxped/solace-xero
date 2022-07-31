@@ -8,12 +8,14 @@ module.exports = {
 
     async execute(interaction, data, client, Discord, splashtext) {
        var embed = new MessageEmbed()
-        .setAuthor({name: "『 Solace Discord Bot 』"})
+        .setAuthor({name: "Solace Discord Bot"})
         .setDescription(`[*Join the Discord Server*](https://discord.gg/THZqsK3HTM) or [*Read the documentation*](http://xerocord.ml)`)
-        .addField(`» Economy`, `› Jobs, Gambling, and more!`, true)
-        .addField(`» Level-Up`, `› Earn XP to level up!`, true)
-        .addField(`» Counting`, `› Count globally with other servers!`, true)
-        .addField(`» Misc`, `› Have fun with Solace's miscellaneous commands!`, true)
+        .addFields([
+            {name: `__Economy__`, value: `*Jobs, Gambling, and more!*`, inline: true},
+            {name: `__Level-Up__`, value: `*Earn XP to level up!*`, inline: true},
+            {name: `__Counting__`, value: `*Count with your friends!*`, inline: true},
+            {name: `__Misc__`, value: `*Have fun with Solace's miscellaneous commands!*`, inline: true}
+        ])
         .setColor('RANDOM')
         const row = new MessageActionRow()
 		.addComponents(

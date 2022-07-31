@@ -7,10 +7,10 @@ for(var i in challenges){
 
             var embed = new MessageEmbed()
                 .setAuthor({name: `${message.author.username} completed a challenge!`})
-                .setTitle(`『 ${challenges[i].name} 』`)
-                .setDescription(`» ${challenges[i].description}`)
-                .addField(`Reward`, `${challenges[i].credits_reward} ⌬`)
-                .setColor(`RANDOM`)
+                .setTitle(`${challenges[i].name}`)
+                .setDescription(`*${challenges[i].description}*`)
+                .addFields([{name: `Reward`, value: `${challenges[i].credits_reward} ⌬`}])
+                .setColor("a6dced")
                 .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
 
                 

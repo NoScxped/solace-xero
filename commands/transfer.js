@@ -9,18 +9,18 @@ module.exports = {
         .addUserOption(option=> option.setName(`user`).setDescription(`Who are you paying?`).setRequired(true)),
 	async execute(interaction, data, client, Discord, splashtext, loadCommands, worked) {
         if(interaction.options.getUser('user').bot){
-            return interaction.reply('❌ **You cannot donate to bots!** ❌')
+            return interaction.reply('<:xmark:1000738231886811156> *You cannot donate to bots!* <:xmark:1000738231886811156>')
         }
         if(interaction.options.getUser('user').id === interaction.user.id){
-            return interaction.reply('❌ **You cannot donate to yourself!** ❌')
+            return interaction.reply('<:xmark:1000738231886811156> *You cannot donate to yourself!* <:xmark:1000738231886811156>')
         }
         if(data.read(`./data/user/${interaction.user.id}.json`, `credits`)){
             if(data.read(`./data/user/${interaction.options.getUser('user').id}.json`, "credits")){
                 var creditsfrom = parseInt(data.read(`./data/user/${interaction.user.id}.json`, `credits`))
-                var transferfrom = Math.abs(parseInt(interaction.options.getInt('credits')))
+                var transferfrom = Math.abs(parseInt(interaction.options.getInteger('credits')))
                 var creditsto = parseInt(data.read(`./data/user/${interaction.options.getUser('user').id}.json`, `credits`))
                 var transferto = parseInt(data.read(`./data/user/${interaction.options.getUser('user').id}.json`, `credits`))
-                if(creditsfrom > parseInt(interaction.options.getString('credits'))){
+                if(creditsfrom > parseInt(interaction.options.getInteger('credits'))){
 
                     transferto = transferfrom + transferto
                     var dis = creditsfrom
@@ -28,23 +28,25 @@ module.exports = {
 
                     var embed = new MessageEmbed()
                     .setTitle(`Credit Transfer`)
-                    .setDescription(`» Would you like to transfer this amount to **${interaction.options.getUser('user').username}**?`)
-                    .addField(`» Your credits`, `› ${dis}`, true)
-                    .addField(`» Amount to transfer`, `› ${transferfrom}`, true)
-                    .addField(`» **${interaction.options.getUser('user').username}**'s Credits`, `› ${creditsto}`)
-                    .addField(`» **${interaction.options.getUser('user').username}**'s New Total`, `› ${transferto}`, true)
-                    .setColor(`RANDOM`)
+                    .setDescription(`*Would you like to transfer this amount to **${interaction.options.getUser('user').username}***?`)
+                    .addFields([
+                        {name: `__Your credits__`, value: `${dis}`, inline: true},
+                        {name: `__Amount to transfer__`, value: `${transferfrom}`, inline: true},
+                        {name: `__**${interaction.options.getUser('user').username}**'s Credits__`, value: `${creditsto}`},
+                        {name: `__**${interaction.options.getUser('user').username}**'s New Total__`, value: `${transferto}`, inline: true}
+                    ])
+                    .setColor(`a6dced`)
                     .setFooter({ text: `You have 15 seconds to reply!`, iconURL: client.user.avatarURL() });
 
                     var row = new MessageActionRow()
                     .addComponents(
                     new MessageButton()
                     .setCustomId(`accept`)
-                    .setEmoji("<:checkmark:994105025292943390>")
+                    .setEmoji("<:checkmark:1000737491621523488>")
                     .setStyle(`SUCCESS`),
                     new MessageButton()
                     .setCustomId('deny')
-                    .setEmoji('<:xmark:994105062353817682>')
+                    .setEmoji('<:xmark:1000738231886811156>')
                     .setStyle('DANGER')
                 )
 
@@ -55,7 +57,7 @@ module.exports = {
                     var res = false
                     collector.on(`end`, collected => {
                         if(res === false){
-                        msg.edit({content: `❌ **This interaction has been cancelled!** ❌`, embeds: [], components: []})
+                        msg.edit({content: `<:xmark:1000738231886811156> *This interaction has been closed!* <:xmark:1000738231886811156>`, embeds: [], components: []})
                         }
                     })
                     collector.on(`collect`, async e => {
@@ -69,12 +71,14 @@ module.exports = {
                             data.write(`./data/user/${interaction.options.getUser('user').id}.json`, "credits", transferto.toString())
 
                             var embed = new MessageEmbed()
-                            .setTitle(`✔️ **Transaction Successful!** ✔️`)
-                            .setDescription(`» **${interaction.user.username}** --> **${interaction.options.getUser('user').username}**`)
-                            .addField(`» **${interaction.user.username}**'s credits`, `› ${creditsfrom}`, true)
-                            .addField(`» Amount Transferred`, `› ${transferfrom}`, true)
-                            .addField(`» **${interaction.options.getUser('user').username}**'s Credits`, `› ${transferto}`, true)
-                            .setColor(`RANDOM`)
+                            .setTitle(`<:checkmark:1000737491621523488> Transaction Successful! <:checkmark:1000737491621523488>`)
+                            .setDescription(`***${interaction.user.username}** --> **${interaction.options.getUser('user').username}***`)
+                            .addFields([
+                                {name: `__**${interaction.user.username}**'s credits__`, value: `${creditsfrom}`, inline: true},
+                                {name: `__Amount Transferred__`, value: `${transferfrom}`, inline: true},
+                                {name: `__**${interaction.options.getUser('user').username}**'s Credits__`, value: `${transferto}`, inline: true}
+                            ])
+                            .setColor(`a6dced`)
                             .setFooter({ text: `You have 15 seconds to reply!`, iconURL: client.user.avatarURL() });
 
                             msg.edit({embeds: [embed], components: []})
@@ -90,7 +94,7 @@ module.exports = {
 
 
                 } else {
-                    return interaction.reply("❌ **You do not have enough credits!** ❌")
+                    return interaction.reply("<:xmark:1000738231886811156> *You do not have enough credits** <:xmark:1000738231886811156>")
                 }
             }
             }

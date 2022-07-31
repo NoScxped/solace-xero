@@ -4,17 +4,24 @@ module.exports = {
 	data: new SlashCommandBuilder()
     .setName('inventory')
 	.setDescription('View your Solace Inventory')
+    .addUserOption(option => option.setName('user').setDescription('Select a User'))
     .toJSON(),
 
     async execute(interaction, data, client, Discord, splashtext) {
+
+        var intializer = interaction.user.id
+
+        if(interaction.options.getUser(`user`)){
+            interaction.user = interaction.options.getUser(`user`)
+        }
         
         const items = JSON.parse(data.read('./data/global/items.json'))
         const msg = await interaction.reply({ content: '<a:typing:1000730579542736927> *Solace is thinking* <a:typing:1000730579542736927>', fetchReply: true, embeds: [], components: []})
 
         var embed = new MessageEmbed()
-                .setAuthor({name: `『 ${interaction.user.username}'s Inventory 』`})
-                .setDescription(`» Select an item`)
-                .setColor(`RANDOM`)
+                .setAuthor({name: `${interaction.user.username}'s Inventory`})
+                .setDescription(`*Select an item*`)
+                .setColor("a6dced")
                 .setFooter({ text: `You have 30 seconds to reply!`, iconURL: client.user.avatarURL() });
 
         const row = new MessageActionRow()
@@ -38,10 +45,10 @@ module.exports = {
             
             }
             if(num === 0){
-                return msg.edit({content: `<:xmark:994105062353817682> *You inventory is empty!* <:xmark:994105062353817682>`})
+                return msg.edit({content: `<:xmark:1000738231886811156> *This inventory is empty!* <:xmark:1000738231886811156>`})
             }
            await msg.edit({content: '_ _', embeds: [embed], components: [row]})
-            var filter = i => i.user.id === interaction.user.id
+            var filter = i => i.user.id === intializer
             const collector = interaction.channel.createMessageComponentCollector({filter, idle: 30000})
                 var cont = true
                 var res = false
@@ -71,10 +78,10 @@ module.exports = {
                         data.write(`./data/user/${interaction.user.id}.json`, `credits`, credits.toString())
 
                         embed = new MessageEmbed()
-                            .setAuthor({name: `Refund Success!`})
-                            .setTitle(`『 ${interaction.user.username} 』`)
-                            .addField(`» Credits`, '*' + credits + '* ⌬', true)
-                            .setColor(`RANDOM`)
+                            .setAuthor({name: `${interaction.user.username}'s Inventory`})
+                            .setTitle(`Refund Success!`)
+                            .addFields([{name: `__Credits__`, value: '*' + credits + '* ⌬', inline: true}])
+                            .setColor("a6dced")
                             if(data.read(`./data/user/${interaction.user.id}.json`, `bio`)){
                                 embed.setDescription(`» ` + data.read(`./data/user/${interaction.user.id}.json`, `bio`))
                             }
@@ -96,28 +103,43 @@ module.exports = {
                     if(cont === true){
 
                     if(items[i].id === str[0]){
+
                         max = parseInt(items[i].max)
                         prc = parseInt(items[i].price)
                         ident = items[i].id.toString()
+
                         var embed = new MessageEmbed()
                         .setTitle(`『 ${items[i].name} 』`)
                         .setDescription(`» ${items[i].description}`)
-                        .addField(`» Quantity`, `› ${data.read(`./data/user/${interaction.user.id}.json`, items[i].id.toString())}`)
-                        .addField(`» Refund Amount`, `› *${Math.ceil(prc * .75)}* ⌬`)
-                        .setColor(`RANDOM`)
-                        .setFooter({ text: `You have 30 seconds to reply!`, iconURL: client.user.avatarURL() });
+                        .addFields([{name: `__Quantity__`, value:`${data.read(`./data/user/${interaction.user.id}.json`, items[i].id.toString())}`}])
+
+                        if(intializer === interaction.user.id){
+
+                            embed.addFields([{name: `__Refund Price__`, value: `${Math.ceil(prc * .75)} ⌬`}])
+
+                        }
+                        
+                        embed.setColor(`RANDOM`)
+                        embed.setFooter({ text: `You have 30 seconds to reply!`, iconURL: client.user.avatarURL() });
 
                         var refundbar = new MessageActionRow()
-                         .addComponents(
-                         new MessageButton()
-                            .setCustomId(`refund`)
-                            .setEmoji('<:refund:994966593568251914>')
-                            .setLabel(`Refund`)
-                            .setStyle(`SUCCESS`)
-                            ,
+                         
+
+                            if(interaction.user.id === intializer){
+
+                            refundbar.addComponents(
+                        new MessageButton()
+                                .setCustomId(`refund`)
+                                .setEmoji('<:checked:1000730910133596240>')
+                                .setLabel(`Refund`)
+                                .setStyle(`PRIMARY`)
+                                )
+                            }
+
+                            refundbar.addComponents(
                         new MessageButton()
                             .setCustomId(`close`)
-                            .setEmoji('<:xmark:994105062353817682>')
+                            .setEmoji('<:xmark:1000738231886811156>')
                             .setLabel(`Close`)
                             .setStyle(`DANGER`)
                             )
@@ -134,7 +156,7 @@ module.exports = {
 
                 if(res === false){
 
-                return msg.edit({content: "<:xmark:994105062353817682> *This interaction has been closed!* <:xmark:994105062353817682>", embeds: [], components: []})
+                return msg.edit({content: "<:xmark:1000738231886811156> *This interaction has been closed!* <:xmark:1000738231886811156>", embeds: [], components: []})
 
                 }
             })

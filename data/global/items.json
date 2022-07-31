@@ -1,11 +1,4 @@
-{   
-    "gloves": {
-        "name": "Boxing Gloves",
-        "description": "Fight your enemies and steal their Credits!",
-        "price": "500",
-        "id": "gloves",
-        "inShop": true
-    },
+{
     "booster": {
         "name": "Credits Booster",
         "description": "temp value",

@@ -7,7 +7,7 @@ module.exports = {
 	async execute(interaction, data, client, Discord, splashtext) {
         var embed = new MessageEmbed()
         .setTitle('Bubbles!')
-        .setColor("RANDOM")
+        .setColor("a6dced")
         .setDescription('||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||\n||o||||o||||o||||o||||o||||e||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||\n||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||n||||o||||o||||o||||o||||o||||o||||o||\n||o||||o||||o||||o||||o||||o||||a||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||\n||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||\n||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||\n||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||\n||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||\n||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||\n||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||||o||')
         .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
     await interaction.reply({embeds:[embed]})

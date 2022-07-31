@@ -8,7 +8,7 @@ module.exports = {
 	async execute(interaction, data, client, Discord, splashtext, worked) {
         if(data.read(`./data/user/${interaction.user.id}.json`, `job`)){
             if(worked.has(interaction.user.id)){
-                return interaction.reply(`<:xmark:994105062353817682> *You cannot work right now!* <:xmark:994105062353817682>`)
+                return interaction.reply(`<:xmark:1000738231886811156> *You cannot work right now!* <:xmark:1000738231886811156>`)
             } else {
 
             const fs = require(`fs`)
@@ -27,12 +27,31 @@ module.exports = {
             var workAgain = parseInt(job.cooldown) / 1000
             workAgain = workAgain / 60
             var embed = new MessageEmbed()
-            .setAuthor({name: 'You worked as a ' + job.name + '!'})
-            .setTitle(`${interaction.user.username}`)
-            .setColor("RANDOM")
-            .setThumbnail(interaction.user.avatarURL())
+            .setAuthor({name: `You worked as a`})
+            .setTitle(`*${job.name}!*`)
+            .setColor(`#a6dced`)
+            .setImage(interaction.user.avatarURL())
             .setFooter({ text: splashtext.toString(), iconURL: client.user.avatarURL() });
                 //faction tax
+                embed.addFields([
+                    {name: `__Pay__`, value:  pay.toString() + " ⌬", inline: true},
+                    {name: `__Cooldown__`, value: `${workAgain} min`, inline: true}
+                ])
+
+            if(data.read(`./data/user/${interaction.user.id}.json`, 'booster')){
+
+                var boost = pay * .25
+
+                credits = credits + Math.ceil(boost)
+
+                embed.addFields([{
+                    name: '__Credits Boost__',
+                    value: boost.toString()
+                }])
+            
+            }
+
+                
             if(data.read(`./data/user/${interaction.user.id}.json`, `faction`)){
 
                 var factionId = data.read(`./data/user/${interaction.user.id}.json`, `faction`)
@@ -43,16 +62,7 @@ module.exports = {
 
                 data.write(`./data/faction/${factionId}.json`, 'credits', factionCredits.toString())
 
-                embed.addField(`» Faction Tax`, "› " + tax + ' ⌬', true)
-
-            }
-
-            embed.addField(`» Pay`, "› " + pay.toString() + " ⌬")
-            embed.addField(`» Cooldown`, `› ${workAgain} minutes`)
-
-            if(data.read(`./data/user/${interaction.user.id}.json`, 'bio')){
-
-                embed.setDescription("» " + data.read(`./data/user/${interaction.user.id}.json`, 'bio').toString())
+                embed.addFields([{name: `__Faction Tax__`, value: tax + ' ⌬', inline: true}])
 
             }
 
