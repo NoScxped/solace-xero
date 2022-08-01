@@ -10,6 +10,7 @@ module.exports = {
     .toJSON(),
 
     async execute(interaction, data, client, Discord, splashtext) {
+        const message = await interaction.reply({content: '<a:typing:1000730579542736927> *Solace is thinking* <a:typing:1000730579542736927>', fetchReply: true})
         var url = interaction.options.getString('ip')
         var title = url
         var description = "<:xmark:1000738231886811156> *This server is offline.* <:xmark:1000738231886811156>"
@@ -17,10 +18,9 @@ module.exports = {
         var onlinePlayers = "0/0"
         var output = ""
         try{
-            interaction.deferReply()
          output = await minecraftServerPing.ping(url);   
         } catch(err){
-            return interaction.followUp('<:xmark:1000738231886811156> *This server could not be found!*')
+            return message.edit('<:xmark:1000738231886811156> *This server could not be found!* <:xmark:1000738231886811156>')
         }
         ping = output.ping
         description = output.description
@@ -40,7 +40,7 @@ module.exports = {
             {name: "__Players__", value: onlinePlayers, inline: true}
         ])
         .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
-        interaction.reply({embeds: [embed]})
+        message.edit({content: "_ _", embeds: [embed]})
     }
 }
 

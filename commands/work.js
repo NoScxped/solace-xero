@@ -32,11 +32,6 @@ module.exports = {
             .setColor(`#a6dced`)
             .setImage(interaction.user.avatarURL())
             .setFooter({ text: splashtext.toString(), iconURL: client.user.avatarURL() });
-                //faction tax
-                embed.addFields([
-                    {name: `__Pay__`, value:  pay.toString() + " ⌬", inline: true},
-                    {name: `__Cooldown__`, value: `${workAgain} min`, inline: true}
-                ])
 
             if(data.read(`./data/user/${interaction.user.id}.json`, 'booster')){
 
@@ -65,6 +60,11 @@ module.exports = {
                 embed.addFields([{name: `__Faction Tax__`, value: tax + ' ⌬', inline: true}])
 
             }
+            //faction tax
+            embed.addFields([
+                {name: `__Pay__`, value:  pay.toString() + " ⌬", inline: true},
+                {name: `__Cooldown__`, value: `${workAgain} min`, inline: true}
+            ])
 
             function cool(){
 
@@ -79,7 +79,7 @@ module.exports = {
 
         }
         } else {
-            interaction.reply({content: "<:xmark:994105062353817682> *You dont have a job! Use **/jobs** to find one!* <:xmark:994105062353817682>", ephemermal: true})
+            interaction.reply({content: "<:xmark:1000738231886811156> *You dont have a job! Use **/jobs** to find one!* <:xmark:1000738231886811156>", ephemermal: true})
         }
     }
 }

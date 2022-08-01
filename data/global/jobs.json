@@ -55,8 +55,8 @@
     },
     "streamer": {
         "name": "Internet Streamer",
-        "pay_max": "20",
-        "pay_min": "10",
+        "pay_max": "10",
+        "pay_min": "5",
         "description": "Stream to your fans",
         "cooldown": "30000",
         "id": "streamer",

@@ -21,6 +21,7 @@ const path = require('path')
 module.exports = client;
 client.commands = new Collection();
 client.msgfeatures = new Collection()
+var cmds = []
 
 //commands
 const commands = fs.readdirSync(path.resolve('./commands')).filter(file => file.endsWith(`.js` || `.ts`))
@@ -29,6 +30,7 @@ for (const file of commands){
     const command = require(`./commands/` + file)
     try {
     client.commands.set(command.data.name, command)
+    cmds.push(command.data)
 }
     catch(err) {
         console.error(err)
@@ -97,7 +99,7 @@ client.on(`interactionCreate`, async interaction => {
         }
         try {
             var splashtext = splash[Math.floor((Math.random()*splash.length))]
-            await command.execute(interaction, data, client, Discord, splashtext, worked, fight, fought)
+            await command.execute(interaction, data, client, Discord, splashtext, worked, cmds)
         } catch (error) {
             console.error(error)
             await interaction.reply({ content: 'There was an error executing this command!', ephemeral: true })

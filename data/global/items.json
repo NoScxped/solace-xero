@@ -1,18 +1,19 @@
 {
     "booster": {
         "name": "Credits Booster",
-        "description": "temp value",
+        "description": "Boost your work income by 25%",
         "price": "1500",
         "id": "booster",
         "inShop": true,
         "max": 1
     },
     "token": {
-        "name": "Token",
-        "description": "temp value",
+        "name": "OG Token",
+        "description": "Buy this to complete a challenge!",
         "price": "1",
         "id": "token",
-        "inShop": true
+        "inShop": true,
+        "max": 1
     }
     
 }
