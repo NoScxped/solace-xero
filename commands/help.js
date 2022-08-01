@@ -8,8 +8,6 @@ module.exports = {
 
         const msg = await interaction.reply({ content: '<a:typing:1000730579542736927> *Solace is thinking* <a:typing:1000730579542736927>', fetchReply: true});
 
-        console.log(commands)
-
         var embed = new MessageEmbed()
         .setAuthor({ name: 'Solace-Xero', iconURL: interaction.user.avatarURL(), url: interaction.user.avatarURL() })
         .setTitle(`Help`)
@@ -86,7 +84,7 @@ module.exports = {
         
                         command.options.forEach(option => {
                            
-                            if(option.type === 1){
+                            if(option.type === 1 || !option.type){
         
                                 cmdname = cmdname.concat(` ${option.name.charAt(0).toUpperCase() + option.name.slice(1)}`)
         
