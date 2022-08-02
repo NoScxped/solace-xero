@@ -79,7 +79,7 @@ module.exports = {
 
         }
         } else {
-            interaction.reply({content: "<:xmark:1000738231886811156> *You dont have a job! Use **/jobs** to find one!* <:xmark:1000738231886811156>", ephemermal: true})
+            return interaction.reply({content: "<:xmark:1000738231886811156> *You dont have a job! Use **/jobs** to find one!* <:xmark:1000738231886811156>", ephemermal: true})
         }
     }
 }

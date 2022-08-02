@@ -81,8 +81,6 @@ module.exports = {
             
         })
 
-        
-        console.log(rowarr)
         msg.edit({content: '_ _', embeds: [embed], components: rowarr})
 
         var filter = i => i.user.id === interaction.user.id

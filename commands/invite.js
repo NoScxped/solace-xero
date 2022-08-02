@@ -22,7 +22,7 @@ module.exports = {
 			new MessageButton()
 				.setLabel(`Invite Solace to your Server!`)
 				.setStyle('LINK')
-                .setURL("https://discord.com/oauth2/authorize?client_id=756552050397020350&scope=bot&permissions=2147484680")
+                .setURL("https://discord.com/api/oauth2/authorize?client_id=756552050397020350&permissions=2147757120&scope=bot%20applications.commands")
                 
 		)
         await interaction.reply({components: [row], embeds: [embed]})

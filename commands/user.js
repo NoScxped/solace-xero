@@ -30,7 +30,7 @@ module.exports = {
     
                 if(interaction.user.bot){
     
-                    interaction.reply(`You cannot get information on a bot!`)
+                    interaction.reply(`<:xmark:1000738231886811156> *You cannot get information on a bot!* <:xmark:1000738231886811156>`)
                     return
                     
                 }
@@ -76,7 +76,7 @@ module.exports = {
                 interaction.reply({embeds: [embed]})
     
             }  else {
-                interaction.reply('There is no information for this user!')
+                interaction.reply('<:xmark:1000738231886811156> *There is no information for this user!* <:xmark:1000738231886811156>')
             }
         }
         if(interaction.options.getSubcommand() === 'set-bio'){
