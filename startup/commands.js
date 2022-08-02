@@ -20,6 +20,5 @@ commands.forEach(command => {
     }
 })
 console.log(`Commands Exported.`)
-console.log(cmds)
-var str = `[${cmds}]`
-fs.writeFileSync(`./docs/commands.json`, str)
+var str = `var obj = [${cmds}]`
+fs.writeFileSync(`./exports/commands.js`, str)
