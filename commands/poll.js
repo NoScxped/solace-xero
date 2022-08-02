@@ -35,8 +35,8 @@ module.exports = {
                 const sent = client.channels.cache.get(channel.id.toString()).send({embeds: [embed]})
             .then(function (message) {
 
-                message.react("<:checkmark:994105025292943390>")
-                message.react("<:xmark:994105062353817682>")
+                message.react("<:checkmark:1000737491621523488>")
+                message.react("<:xmark:1000738231886811156>")
 
                 interaction.reply({content: "Poll Created!", ephemeral: true})
     

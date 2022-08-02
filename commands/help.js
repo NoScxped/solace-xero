@@ -20,40 +20,77 @@ module.exports = {
         const row = new MessageActionRow()
 			.addComponents(
 				new MessageSelectMenu()
-					.setCustomId('page' + index.toString())
-					.setPlaceholder('Select a Command || Page ' + index.toString()));
+					.setCustomId('page1')
+					.setPlaceholder('Select a Command | Page 1'));
+
+            var row2 = new MessageActionRow()
+			.addComponents(
+				new MessageSelectMenu()
+					.setCustomId('page2')
+					.setPlaceholder('Select a Command | Page 2'));
+
+        var rowarr = []
+        
         const close = new MessageActionRow()
                     .addComponents(
                     new MessageButton()
                        .setCustomId(`close`)
                        .setLabel(`Close`)
                        .setEmoji(`<:xmark:1000738231886811156>`)
-                       .setStyle(`DANGER`))
+                       .setStyle(`DANGER`),
+                    new MessageButton()
+                       .setCustomId(`freeze`)
+                       .setLabel(`Freeze`)
+                       .setEmoji(`🧊`)
+                       .setStyle(`PRIMARY`))
 
-        var rowarr = []
+        rowarr.push(row, row2, close)
+
+        var commandsTotal = 0
 
         commands.forEach(command => {
 
-            row.components[0].addOptions([{
+            commandsTotal = commandsTotal + 1
+
+            if(commandsTotal >= commands.length / 2 ){
+
+                index = index + 1
+                
+                    row2.components[0].addOptions([{
+
+                        label: `${"/" + command.name.charAt(0).toUpperCase() + command.name.slice(1)}`,
+                        description: `${command.description}`,
+                        value: `${command.name}`,
+        
+                        }]);
+
+            } else {
+
+              row.components[0].addOptions([{
 
                 label: `${"/" + command.name.charAt(0).toUpperCase() + command.name.slice(1)}`,
                 description: `${command.description}`,
                 value: `${command.name}`,
 
-                }]);
+                }]);  
+            }
+                
+            
+            
+            
             
         })
 
-        rowarr.push(row, close)
         
-        msg.edit({embeds: [embed], components: rowarr})
+        console.log(rowarr)
+        msg.edit({content: '_ _', embeds: [embed], components: rowarr})
 
         var filter = i => i.user.id === interaction.user.id
 
             const collector = interaction.channel.createMessageComponentCollector({filter, idle: 30000})
             var cont = true
             var str = ""
-
+            var res = false
             collector.on(`collect`, async i => {
 
                 i.deferUpdate()
@@ -66,6 +103,12 @@ module.exports = {
 
                 if(i.customId === 'close'){
                     cont = false
+                    collector.stop()
+                }
+                if(i.customId === 'freeze'){
+                    res = true
+                    cont = false
+                    msg.edit({content: '🧊 *This interaction has been frozen!* 🧊', components: []})
                     collector.stop()
                 }
 
@@ -124,8 +167,8 @@ module.exports = {
         })
 
             collector.on(`end`, collected => {
-
-                    return msg.edit({content: "<:xmark:1000738231886811156> *This interaction has been closed!* <:xmark:1000738231886811156>", embeds: [], components: []})
+                if(res === false){return msg.edit({content: "<:xmark:1000738231886811156> *This interaction has been closed!* <:xmark:1000738231886811156>", embeds: [], components: []})} else {return}
+                    
                 
                     
             })

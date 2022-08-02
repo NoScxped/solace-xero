@@ -71,7 +71,7 @@ module.exports = {
 
 
         } else {
-            return interaction.reply(`<:xmark:994105062353817682> *You do not have permission to make this change!* <:xmark:994105062353817682>`)
+            return interaction.reply(`<:xmark:1000738231886811156> *You do not have permission to make this change!* <:xmark:1000738231886811156>`)
         }
     }
 }
