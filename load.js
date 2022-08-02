@@ -2,17 +2,7 @@
 obj.forEach(command => {
 
     var cmdname = "/" + command.name.charAt(0).toUpperCase() + command.name.slice(1)
-
-    var title = document.createElement(`h2`)
-    var description = document.createElement(`p`)
-    description.innerHTML = command.description
-    title.innerHTML = command.name
-
-    var holder = document.createElement(`ul`)
-
-    document.body.appendChild(holder)
-    holder.appendChild(title)
-    holder.appendChild(description)
+    
     
     if(command.options.length > 0){
 
@@ -45,4 +35,19 @@ obj.forEach(command => {
 })
 
     }
+    var title = document.createElement(`h3`)
+    var description = document.createElement(`p`)
+    description.innerHTML = command.description
+    title.innerHTML = cmdname
+    var hr = document.createElement('hr')
+    hr.className = 'stop'
+    
+
+    var holder = document.createElement(`ul`)
+    
+
+    document.body.appendChild(holder)
+    holder.appendChild(title)
+    holder.appendChild(hr)
+    holder.appendChild(description)
 })

@@ -444,10 +444,14 @@ module.exports = {
 
             var str = ""
             collector.on(`collect`, async i => {
+
+                try {
+                    i.deferUpdate()
+                } catch{
+                     
+                }
                 var invites = data.read(`./data/user/${interaction.user.id}.json`, 'invites').split(',')
                 var faction = null
-
-                await i.deferUpdate()
 
                 if(i.values){
                   str = Array.from(i.values)  
@@ -557,10 +561,7 @@ module.exports = {
 
                         )
 
-                        
-                        
-                
-                        await msg.edit({embeds: [embed], components: [row, acceptbar]})
+                        msg.edit({embeds: [embed], components: [row, acceptbar]})
                     
                 
                 

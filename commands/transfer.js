@@ -20,7 +20,7 @@ module.exports = {
                 var transferfrom = Math.abs(parseInt(interaction.options.getInteger('credits')))
                 var creditsto = parseInt(data.read(`./data/user/${interaction.options.getUser('user').id}.json`, `credits`))
                 var transferto = parseInt(data.read(`./data/user/${interaction.options.getUser('user').id}.json`, `credits`))
-                if(creditsfrom > parseInt(interaction.options.getInteger('credits'))){
+                if(creditsfrom >= transferfrom){
 
                     transferto = transferfrom + transferto
                     var dis = creditsfrom
@@ -94,7 +94,7 @@ module.exports = {
 
 
                 } else {
-                    return interaction.reply("<:xmark:1000738231886811156> *You do not have enough credits** <:xmark:1000738231886811156>")
+                    return interaction.reply("<:xmark:1000738231886811156> *You do not have enough credits* <:xmark:1000738231886811156>")
                 }
             }
             }

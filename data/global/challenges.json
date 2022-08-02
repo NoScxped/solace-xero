@@ -4,7 +4,7 @@
         "description": "Count 10 or more times!",
         "credits_reward": 100,
         "required_item": "counted",
-        "required_amount": 5,
+        "required_amount": 10,
         "id": "counting_1"
     },
     "counting_50": {

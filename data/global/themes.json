@@ -1,0 +1,34 @@
+{
+    "default": {
+        "title": "{title}",
+        "description": "{description}",
+        "color": "#a6dced",
+        "fieldname": "__{name}__",
+        "fieldvalue": "{value}",
+        "imageType": "thumbnail"
+    },
+    "classic": {
+        "title": "『 {title} 』",
+        "description": "» *{description}*",
+        "color": "RANDOM",
+        "fieldname": "» {name}",
+        "fieldvalue": "› {value}",
+        "imageType": "image"
+    },
+    "compact": {
+        "title": "{title}",
+        "description": "{description}",
+        "color": "36393e",
+        "fieldname": "{name}",
+        "fieldvalue": "{value}",
+        "imageType": "author"
+    },
+    "galaxy": {
+        "title": "✦ {title} ✦",
+        "description": ":･ﾟ *{description}* ﾟ･:",
+        "color": "31087B",
+        "fieldname": "⁺₊⁺₊ {name}",
+        "fieldvalue": "⁺₊ {value}",
+        "imageType": "thumbnail"
+    }
+}

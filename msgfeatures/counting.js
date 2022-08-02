@@ -44,7 +44,7 @@ if(data.read(`./data/guild/${message.guild.id}.json`, `countingChannel`)){
                                 .setTitle("Spree Broken!")
                                 .setColor(`#a6dced`)
                                 .setDescription(`***${message.author.username}** broke the spree!*`)
-                                .addField(`__Next Number__`, '**1**')
+                                .addFields([{name:`__Next Number__`, value:'**1**'}])
                                 message.reply({embeds: [embed]})
     
                             } else {

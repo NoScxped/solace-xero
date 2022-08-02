@@ -8,7 +8,7 @@ module.exports = {
 		.setDescription('View Solace Statistics'),
 	async execute(interaction, data, client, Discord, splashtext) {
         const path = require("path")
-
+        const sent = await interaction.reply({ content: '<a:typing:1000730579542736927> *Solace is thinking* <a:typing:1000730579542736927>', fetchReply: true});
         const getAllFiles = function(dirPath, fileArray) {
         files = fs.readdirSync(dirPath)
 
@@ -33,9 +33,10 @@ module.exports = {
             {name: '__Servers in Storage__', value: getAllFiles('./data/guild/').length.toString()},
             {name: '__Factions in Storage__', value: getAllFiles('./data/faction/').length.toString()}
         ])
+        .setDescription(`*Ping:* ***${sent.createdTimestamp - interaction.createdTimestamp}ms***`)
         .setColor(`a6dced`)
-        .setFooter({ text: `Solace Xero v` + info.version, iconURL: `https://cdn.discordapp.com/attachments/752366102683582646/1000916536598474793/logo.png` });
-        await interaction.reply({embeds: [embed]})
+        .setFooter({ text: `Solace Xero v` + info.version, iconURL: client.user.avatarURL() });
+        await sent.edit({content: "_ _",embeds: [embed]})
         
         
     }

@@ -83,6 +83,7 @@ client.on('messageCreate', message => {
 //slash commands
 client.on(`interactionCreate`, async interaction => {
     if(interaction.isCommand()){
+        if(interaction.guild){
         if(!interaction.guild.members.cache.get(client.user.id).permissions.has([Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.MANAGE_MESSAGES, Permissions.FLAGS.USE_EXTERNAL_EMOJIS, Permissions.FLAGS.ADD_REACTIONS])){
 
             return interaction.reply(`<:xmark:1000738231886811156> *Solace requires the following permissions to function!* <:xmark:1000738231886811156>\n\n- *Use External Emoji*\n- *Add Reactions*\n- *Manage Messages*\n- *Send Messages*\n- *View Channels*`)
@@ -95,7 +96,7 @@ client.on(`interactionCreate`, async interaction => {
             data.write(`./data/user/${interaction.user.id}.json`, `xp`, `0`)
             data.write(`./data/user/${interaction.user.id}.json`, 'pointsNeeded', `35`)
             data.write(`./data/user/${interaction.user.id}.json`, 'level', `0`)
-            data.write(`./data/user/${interaction.user.id}.json`, 'credits', `100`)
+            data.write(`./data/user/${interaction.user.id}.json`, 'credits', `5`)
         }
         try {
             var splashtext = splash[Math.floor((Math.random()*splash.length))]
@@ -105,6 +106,7 @@ client.on(`interactionCreate`, async interaction => {
             await interaction.reply({ content: 'There was an error executing this command!', ephemeral: true })
         }
     }
+}
 }
 })
 

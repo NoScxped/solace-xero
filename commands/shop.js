@@ -70,7 +70,11 @@ module.exports = {
 
             collector.on(`collect`, async i => {
 
-                i.deferUpdate()
+                try {
+                    i.deferUpdate()
+                } catch{
+                     
+                }
 
                 if(i.values){
 
@@ -197,8 +201,8 @@ module.exports = {
                             .setEmoji('<:xmark:1000738231886811156>')
                             .setStyle(`DANGER`)
                         )
-                
-                        await msg.edit({embeds: [embed], components: [row, acceptbar]})
+                        msg.edit({embeds: [embed], components: [row, acceptbar]})
+                        
                     
                 
                 }

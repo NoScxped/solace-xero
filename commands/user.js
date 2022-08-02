@@ -18,11 +18,27 @@ module.exports = {
             subcommand
                 .setName('view')
                 .setDescription('View your own profile... or someone elses!')
-                .addUserOption(option => option.setName('user').setDescription(`View a user's profile`))),
+                .addUserOption(option => option.setName('user').setDescription(`View a user's profile`)))
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName('theme')
+                .setDescription('Change your Profile Theme!')
+                .addStringOption(option=> 
+                    option.setName(`theme`)
+                    .setDescription(`Change your theme!`)
+                    .setRequired(true)
+                    .addChoices(
+                              { name: 'Default', value: 'default' },
+                              { name: '『 Classic 』', value: 'classic' },
+                              { name: 'Cᴏᴍᴘᴀᴄᴛ', value: 'compact' },
+                              { name: '⁺₊⁺₊ Galaxy ₊⁺₊⁺', value: 'galaxy' }
+                          ))),
         
 	async execute(interaction, data, client, Discord, splashtext) {
 
 		if(interaction.options.getSubcommand() === 'view'){
+
+            
 
             if(interaction.options.getUser(`user`)){
 
@@ -35,42 +51,57 @@ module.exports = {
                     
                 }
             }
+
+            var themes = require('../data/global/themes.json');
+            var theme = data.read(`./data/user/${interaction.user.id}.json`, 'theme');
+
+            if(theme === undefined){theme = 'default'}
+
             if(data.exists(`./data/user/${interaction.user.id}.json`)){
                 
                 var embed = new MessageEmbed()
-                    .setTitle(interaction.user.username + "#" + interaction.user.discriminator)
-                    .setColor(`#a6dced`)
-                    .setImage(interaction.user.avatarURL())
+
+                    .setAuthor({name: themes[theme].title.toString().replace(/{title}/g, interaction.user.username + "#" + interaction.user.discriminator)})
+
+                    .setColor(themes[theme].color)
+
                     .addFields([
-                        {name: `__Credits__`,  value: data.read(`./data/user/${interaction.user.id}.json`, `credits`) + ' ⌬', inline: true},
-                        {name: `__Level__`, value: data.read(`./data/user/${interaction.user.id}.json`, `level`), inline: true},
-                        {name: `__XP__`, value: data.read(`./data/user/${interaction.user.id}.json`, `xp`) + '/' + data.read(`./data/user/${interaction.user.id}.json`, `pointsNeeded`), inline: true},
+
+                        {name: themes[theme].fieldname.toString().replace(/{name}/g, 'Credits'),  value: themes[theme].fieldvalue.toString().replace(/{value}/g, data.read(`./data/user/${interaction.user.id}.json`, `credits`) + ' ⌬'), inline: true},
+
+                        {name: themes[theme].fieldname.toString().replace(/{name}/g, 'Level'), value: themes[theme].fieldvalue.toString().replace(/{value}/g, data.read(`./data/user/${interaction.user.id}.json`, `level`)), inline: true},
+
+                        {name: themes[theme].fieldname.toString().replace(/{name}/g, 'XP'), value: themes[theme].fieldvalue.toString().replace(/{value}/g, data.read(`./data/user/${interaction.user.id}.json`, `xp`) + '/' + data.read(`./data/user/${interaction.user.id}.json`, `pointsNeeded`)), inline: true},
+
                     ])
+
                     .setFooter({ text: splashtext, iconURL: client.user.avatarURL() });
 
                     if(data.read(`./data/user/${interaction.user.id}.json`, 'bio')){
 
-                        embed.setDescription(data.read(`./data/user/${interaction.user.id}.json`, 'bio').toString())
+                        embed.setDescription(themes[theme].description.toString().replace(/{description}/g, data.read(`./data/user/${interaction.user.id}.json`, 'bio').toString()))
 
                     }
 
                     if(data.read(`./data/user/${interaction.user.id}.json`, 'bank')){
 
-                        embed.addFields([{name: "__Bank__", value: `${data.read(`./data/user/${interaction.user.id}.json`, 'bank')} ⌬`, inline: true}])
+                        embed.addFields([{name: themes[theme].fieldname.toString().replace(/{name}/g, `Bank`), value: themes[theme].fieldvalue.toString().replace(/{value}/g, `${data.read(`./data/user/${interaction.user.id}.json`, 'bank')} ⌬`), inline: true}])
 
                     }
 
-                    //xracer special
-                    if(interaction.user.id === '752335155049529355'){
+                    if(themes[theme].imageType === 'thumbnail'){
 
-                        embed.setDescription(`<:dev:1000730820123824138> Developer of Solace Client!`)
+                        embed.setThumbnail(interaction.user.avatarURL())
 
-                        if(data.read(`./data/user/${interaction.user.id}.json`, 'bio')){
+                    } else if(themes[theme].imageType === 'image') {
 
-                            embed.setTitle(data.read(`./data/user/${interaction.user.id}.json`, 'bio').toString())
-                            embed.setAuthor({name: interaction.user.username + "#" + interaction.user.discriminator})
+                        embed.setImage(interaction.user.avatarURL())
 
-                        }
+                    } else if(themes[theme].imageType === 'author'){
+
+                        embed.setAuthor({name: themes[theme].title.toString().replace(/{title}/g, interaction.user.username + "#" + interaction.user.discriminator), iconURL: interaction.user.avatarURL()})
+                        embed.setFooter({text: ' ', iconURL: ' '})
+
                     }
 
                 interaction.reply({embeds: [embed]})
@@ -86,6 +117,14 @@ module.exports = {
         if(interaction.options.getSubcommand() === 'remove-bio'){
             data.delete(`./data/user/${interaction.user.id}.json`, 'bio')
             interaction.reply('<:checkmark:1000737491621523488> *Bio Removed.* <:checkmark:1000737491621523488>')
+        }
+
+        if(interaction.options.getSubcommand() === 'theme'){
+
+            data.write(`./data/user/${interaction.user.id}.json`, `theme`, interaction.options.getString('theme').toLowerCase())
+
+            return interaction.reply(`<:checkmark:1000737491621523488> *Theme updated to **${interaction.options.getString('theme')}**!* <:checkmark:1000737491621523488>`)
+
         }
 	}
 }

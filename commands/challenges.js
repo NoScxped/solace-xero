@@ -61,7 +61,11 @@ module.exports = {
             var str = ""
             collector.on(`collect`, async i => {
 
-                await i.deferUpdate()
+                try {
+                    i.deferUpdate()
+                } catch{
+                     
+                }
 
                 if(i.values){
 

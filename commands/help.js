@@ -91,7 +91,11 @@ module.exports = {
             var res = false
             collector.on(`collect`, async i => {
 
-                i.deferUpdate()
+                try {
+                    i.deferUpdate()
+                } catch{
+                     
+                }
 
                 if(i.values){
 
@@ -153,7 +157,7 @@ module.exports = {
         
                     }
                     embed.setTitle(cmdname)
-                    if(cont === true){msg.edit({content: '_ _', embeds: [embed], components: rowarr})}
+                    if(cont === true){ msg.edit({content: '_ _', embeds: [embed], components: rowarr})}
                     
                 }
                 })
